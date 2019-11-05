@@ -8,14 +8,38 @@
 
 import UIKit
 
-class AddHostQueueViewController: UIViewController {
+class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
 
     @IBOutlet weak var Access: UISegmentedControl!
+    @IBOutlet weak var Picker: UIPickerView!
+    var pickerData: [String] = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        //let font = UIFont.systemFont(ofSize: 20)
+        let attr = NSDictionary(object: UIFont(name: "Avenir Next", size: 17.0)!, forKey: NSAttributedString.Key.font as NSCopying)
+        Access.setTitleTextAttributes(attr as? [NSAttributedString.Key : Any] , for: .normal)
         
+        //picker
+        self.Picker.delegate = self
+        self.Picker.dataSource = self
+        pickerData = ["Playlist 1", "Playlist 2", "Playlist 3", "Playlist 4", "Playlist 5", "Playlist 6"]
+        
+        
+    }
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
     }
     
     
