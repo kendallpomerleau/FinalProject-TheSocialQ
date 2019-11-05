@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +13,100 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="133" translatesAutoresizingMaskIntoConstraints="NO" id="ckS-sC-UGR">
+                                <rect key="frame" x="-10" y="0.0" width="434" height="889"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dancingdude" translatesAutoresizingMaskIntoConstraints="NO" id="3qp-hV-ohF">
+                                        <rect key="frame" x="0.0" y="0.0" width="434" height="511"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="511" id="VxC-fN-suW"/>
+                                            <constraint firstAttribute="width" constant="434" id="cQF-HV-EEQ"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lZV-rV-VxM">
+                                        <rect key="frame" x="47" y="644" width="340" height="245"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sYs-HG-oyZ">
+                                                <rect key="frame" x="20" y="50" width="300" height="35"/>
+                                                <color key="backgroundColor" red="0.11372549019607843" green="0.72549019607843135" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                <state key="normal" title="Host a Queue">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-QV-TPd">
+                                                <rect key="frame" x="20" y="144" width="300" height="35"/>
+                                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                <state key="normal" title="Join a Queue">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.098039215686274508" green="0.078431372549019607" blue="0.078431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="sYs-HG-oyZ" firstAttribute="top" secondItem="lZV-rV-VxM" secondAttribute="top" constant="50" id="IIn-os-jEa"/>
+                                            <constraint firstItem="mqc-QV-TPd" firstAttribute="top" secondItem="sYs-HG-oyZ" secondAttribute="bottom" constant="59" id="LKe-vj-Apz"/>
+                                            <constraint firstItem="sYs-HG-oyZ" firstAttribute="leading" secondItem="lZV-rV-VxM" secondAttribute="leading" constant="20" id="W0e-Y6-97C"/>
+                                            <constraint firstAttribute="trailing" secondItem="mqc-QV-TPd" secondAttribute="trailing" constant="20" id="WmP-Ry-EbC"/>
+                                            <constraint firstItem="mqc-QV-TPd" firstAttribute="height" secondItem="sYs-HG-oyZ" secondAttribute="height" id="Yeh-Rr-gnt"/>
+                                            <constraint firstAttribute="bottom" secondItem="mqc-QV-TPd" secondAttribute="bottom" constant="66" id="hCO-bC-a6M"/>
+                                            <constraint firstAttribute="trailing" secondItem="sYs-HG-oyZ" secondAttribute="trailing" constant="20" id="uhy-Fi-1Ws"/>
+                                            <constraint firstItem="mqc-QV-TPd" firstAttribute="leading" secondItem="lZV-rV-VxM" secondAttribute="leading" constant="20" id="yOt-uw-cxj"/>
+                                            <constraint firstAttribute="width" constant="340" id="zZf-qc-2JE"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <variation key="heightClass=compact" axis="horizontal"/>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SocialQ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45g-5o-NU4">
+                                <rect key="frame" x="20" y="90" width="196.5" height="63.5"/>
+                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="48"/>
+                                <color key="textColor" red="0.11372549019607843" green="0.72549019607843135" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="shadowOffset" width="-1" height="1"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting You to the Queue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9R6-kH-Tih">
+                                <rect key="frame" x="20" y="150.5" width="187.5" height="18.5"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.098039215686274508" green="0.078431372549019607" blue="0.078431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="lZV-rV-VxM" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="27" id="0pg-rQ-bQr"/>
+                            <constraint firstItem="9R6-kH-Tih" firstAttribute="top" secondItem="45g-5o-NU4" secondAttribute="bottom" constant="-3" id="5eA-wf-ZIp"/>
+                            <constraint firstItem="3qp-hV-ohF" firstAttribute="top" secondItem="9R6-kH-Tih" secondAttribute="bottom" constant="-169" id="7fu-O7-xc2"/>
+                            <constraint firstItem="ckS-sC-UGR" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="IiF-uD-YEn"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="45g-5o-NU4" secondAttribute="trailing" constant="197.5" id="NjI-9c-gs8"/>
+                            <constraint firstItem="9R6-kH-Tih" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="SVi-dr-LFP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9R6-kH-Tih" secondAttribute="trailing" constant="206.5" id="doB-Rw-ZD9"/>
+                            <constraint firstItem="45g-5o-NU4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="46" id="iVu-yd-tHg"/>
+                            <constraint firstItem="ckS-sC-UGR" firstAttribute="top" secondItem="45g-5o-NU4" secondAttribute="bottom" constant="-153.5" id="vWG-t2-AgZ"/>
+                            <constraint firstItem="ckS-sC-UGR" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="10" id="www-TR-bR9"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="ckS-sC-UGR" secondAttribute="leading" constant="10" id="y4A-cm-21H"/>
+                            <constraint firstItem="45g-5o-NU4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="zcQ-KU-ofB"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="hostQueueBtn" destination="sYs-HG-oyZ" id="WUI-2J-kbh"/>
+                        <outlet property="joinQueueBtn" destination="mqc-QV-TPd" id="Ye5-yP-TT2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="47.826086956521742" y="20.758928571428569"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="dancingdude" width="299" height="360"/>
+    </resources>
 </document>
