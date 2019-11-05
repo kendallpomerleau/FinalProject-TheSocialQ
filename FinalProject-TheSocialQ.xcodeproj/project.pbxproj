@@ -16,6 +16,7 @@
 		9C7296A523711B7C003B5B93 /* SearchQueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7296A423711B7C003B5B93 /* SearchQueueController.swift */; };
 		9C7296A723711DFB003B5B93 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7296A623711DFB003B5B93 /* Song.swift */; };
 		B2465DF02371F81800ED88DD /* AddHostQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2465DEF2371F81800ED88DD /* AddHostQueueViewController.swift */; };
+		B2EC5CC223722E6B0022A868 /* HostQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EC5CC123722E6B0022A868 /* HostQueueViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		9C7296A423711B7C003B5B93 /* SearchQueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueueController.swift; sourceTree = "<group>"; };
 		9C7296A623711DFB003B5B93 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		B2465DEF2371F81800ED88DD /* AddHostQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHostQueueViewController.swift; sourceTree = "<group>"; };
+		B2EC5CC123722E6B0022A868 /* HostQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostQueueViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				9C7296A623711DFB003B5B93 /* Song.swift */,
 				9C4B657B2371355000B8C123 /* HostConnectionController.swift */,
 				B2465DEF2371F81800ED88DD /* AddHostQueueViewController.swift */,
+				B2EC5CC123722E6B0022A868 /* HostQueueViewController.swift */,
 			);
 			path = "FinalProject-TheSocialQ";
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 				9C7296A523711B7C003B5B93 /* SearchQueueController.swift in Sources */,
 				B2465DF02371F81800ED88DD /* AddHostQueueViewController.swift in Sources */,
 				9C7296752370E6DA003B5B93 /* AppDelegate.swift in Sources */,
+				B2EC5CC223722E6B0022A868 /* HostQueueViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
