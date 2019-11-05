@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C4B657C2371355000B8C123 /* HostConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4B657B2371355000B8C123 /* HostConnectionController.swift */; };
 		9C7296752370E6DA003B5B93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7296742370E6DA003B5B93 /* AppDelegate.swift */; };
 		9C7296772370E6DA003B5B93 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7296762370E6DA003B5B93 /* ViewController.swift */; };
 		9C72967A2370E6DA003B5B93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C7296782370E6DA003B5B93 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C4B657B2371355000B8C123 /* HostConnectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostConnectionController.swift; sourceTree = "<group>"; };
 		9C7296712370E6DA003B5B93 /* FinalProject-TheSocialQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FinalProject-TheSocialQ.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C7296742370E6DA003B5B93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C7296762370E6DA003B5B93 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				9C7296802370E6DB003B5B93 /* Info.plist */,
 				9C7296A423711B7C003B5B93 /* SearchQueueController.swift */,
 				9C7296A623711DFB003B5B93 /* Song.swift */,
+				9C4B657B2371355000B8C123 /* HostConnectionController.swift */,
 			);
 			path = "FinalProject-TheSocialQ";
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 			files = (
 				9C7296A723711DFB003B5B93 /* Song.swift in Sources */,
 				9C7296772370E6DA003B5B93 /* ViewController.swift in Sources */,
+				9C4B657C2371355000B8C123 /* HostConnectionController.swift in Sources */,
 				9C7296A523711B7C003B5B93 /* SearchQueueController.swift in Sources */,
 				9C7296752370E6DA003B5B93 /* AppDelegate.swift in Sources */,
 			);
