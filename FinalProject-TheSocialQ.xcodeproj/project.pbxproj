@@ -12,6 +12,8 @@
 		9C72967A2370E6DA003B5B93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C7296782370E6DA003B5B93 /* Main.storyboard */; };
 		9C72967C2370E6DB003B5B93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C72967B2370E6DB003B5B93 /* Assets.xcassets */; };
 		9C72967F2370E6DB003B5B93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C72967D2370E6DB003B5B93 /* LaunchScreen.storyboard */; };
+		9C7296A523711B7C003B5B93 /* SearchQueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7296A423711B7C003B5B93 /* SearchQueueController.swift */; };
+		9C7296A723711DFB003B5B93 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7296A623711DFB003B5B93 /* Song.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		9C72967B2370E6DB003B5B93 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C72967E2370E6DB003B5B93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C7296802370E6DB003B5B93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C7296A423711B7C003B5B93 /* SearchQueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueueController.swift; sourceTree = "<group>"; };
+		9C7296A623711DFB003B5B93 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				9C72967B2370E6DB003B5B93 /* Assets.xcassets */,
 				9C72967D2370E6DB003B5B93 /* LaunchScreen.storyboard */,
 				9C7296802370E6DB003B5B93 /* Info.plist */,
+				9C7296A423711B7C003B5B93 /* SearchQueueController.swift */,
+				9C7296A623711DFB003B5B93 /* Song.swift */,
 			);
 			path = "FinalProject-TheSocialQ";
 			sourceTree = "<group>";
@@ -135,7 +141,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C7296A723711DFB003B5B93 /* Song.swift in Sources */,
 				9C7296772370E6DA003B5B93 /* ViewController.swift in Sources */,
+				9C7296A523711B7C003B5B93 /* SearchQueueController.swift in Sources */,
 				9C7296752370E6DA003B5B93 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
