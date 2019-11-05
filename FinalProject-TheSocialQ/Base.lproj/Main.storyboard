@@ -190,6 +190,9 @@
                                 <state key="normal" title="Login">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <segue destination="Y6C-0A-PeT" kind="show" id="Xmd-Ms-DvA"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.10701538705583757" green="0.10701538705583757" blue="0.10701538705583757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -203,6 +206,103 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhd-zp-5kA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1956.521739130435" y="467.41071428571428"/>
+        </scene>
+        <!--Add Host Queue View Controller-->
+        <scene sceneID="9f0-8s-Xw3">
+            <objects>
+                <viewController id="Y6C-0A-PeT" customClass="AddHostQueueViewController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="A21-5G-PK2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Host a Queue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDp-mR-of8">
+                                <rect key="frame" x="20" y="77" width="244" height="51"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="37"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="QUEUE NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F60-Fh-Pg6">
+                                <rect key="frame" x="20" y="165" width="117" height="24"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Type here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hD9-EJ-4oq">
+                                <rect key="frame" x="20" y="197" width="374" height="54"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="PLAYLIST KEY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p31-qI-dta">
+                                <rect key="frame" x="20" y="664" width="115" height="24"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Type here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DB9-Un-lyw">
+                                <rect key="frame" x="20" y="696" width="374" height="54"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QUEUE ACCESSIBILITY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gby-YT-KAe">
+                                <rect key="frame" x="20" y="291" width="188" height="24"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vfW-8G-616">
+                                <rect key="frame" x="20" y="329" width="374" height="51"/>
+                                <color key="backgroundColor" red="0.34159916639328003" green="0.7144814133644104" blue="0.37640661001205444" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Gtw-08-0gJ"/>
+                                    <constraint firstAttribute="height" constant="50" id="JhY-Yg-hJN"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Suggestions Only"/>
+                                    <segment title="Direct Add"/>
+                                </segments>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdd-dG-eeK">
+                                <rect key="frame" x="20" y="785" width="374" height="35"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                <state key="normal" title="Add">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.13225729695431476" green="0.13225729695431476" blue="0.13225729695431476" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="trailing" secondItem="xdd-dG-eeK" secondAttribute="trailing" id="9Uj-KL-tIm"/>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="leading" secondItem="hD9-EJ-4oq" secondAttribute="leading" id="DIV-JY-ges"/>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="leading" secondItem="DB9-Un-lyw" secondAttribute="leading" id="H3Z-yP-7Bm"/>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="leading" secondItem="Gby-YT-KAe" secondAttribute="leading" id="KgY-Uu-Vqr"/>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="leading" secondItem="F60-Fh-Pg6" secondAttribute="leading" id="OUV-JT-PJd"/>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="trailing" secondItem="hD9-EJ-4oq" secondAttribute="trailing" id="QNE-Hh-Xfd"/>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="trailing" secondItem="DB9-Un-lyw" secondAttribute="trailing" id="Rzz-Dh-clb"/>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="leading" secondItem="SDp-mR-of8" secondAttribute="leading" id="aj4-aI-P1y"/>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="top" secondItem="A21-5G-PK2" secondAttribute="top" constant="329" id="cuo-vn-iaJ"/>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="top" secondItem="Gby-YT-KAe" secondAttribute="bottom" constant="14" id="f5n-aI-C9N"/>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="leading" secondItem="A21-5G-PK2" secondAttribute="leadingMargin" id="jPA-cJ-3c5"/>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="leading" secondItem="p31-qI-dta" secondAttribute="leading" id="pai-bC-9Vf"/>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="leading" secondItem="xdd-dG-eeK" secondAttribute="leading" id="xgw-hL-a34"/>
+                            <constraint firstItem="vfW-8G-616" firstAttribute="trailing" secondItem="A21-5G-PK2" secondAttribute="trailingMargin" id="xi7-rf-b0c"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="TZg-dW-19C"/>
+                    </view>
+                    <connections>
+                        <outlet property="Access" destination="vfW-8G-616" id="O63-kb-STX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bHC-uV-sMq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2842.0289855072465" y="469.41964285714283"/>
         </scene>
         <!--Search Queue Controller-->
         <scene sceneID="Eh3-Ib-zqP">
