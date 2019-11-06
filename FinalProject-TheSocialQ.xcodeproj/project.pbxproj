@@ -15,6 +15,9 @@
 		9C72967F2370E6DB003B5B93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C72967D2370E6DB003B5B93 /* LaunchScreen.storyboard */; };
 		9C7296A523711B7C003B5B93 /* SearchQueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7296A423711B7C003B5B93 /* SearchQueueController.swift */; };
 		9C7296A723711DFB003B5B93 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7296A623711DFB003B5B93 /* Song.swift */; };
+		9CD9542923728E2A0005C3F9 /* SearchSongController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9542823728E2A0005C3F9 /* SearchSongController.swift */; };
+		9CD9542B23728F620005C3F9 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9542A23728F620005C3F9 /* Queue.swift */; };
+		9CD9542D237297B30005C3F9 /* GuestQueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9542C237297B30005C3F9 /* GuestQueueController.swift */; };
 		B2465DF02371F81800ED88DD /* AddHostQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2465DEF2371F81800ED88DD /* AddHostQueueViewController.swift */; };
 		B2EC5CC223722E6B0022A868 /* HostQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EC5CC123722E6B0022A868 /* HostQueueViewController.swift */; };
 /* End PBXBuildFile section */
@@ -30,6 +33,9 @@
 		9C7296802370E6DB003B5B93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C7296A423711B7C003B5B93 /* SearchQueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueueController.swift; sourceTree = "<group>"; };
 		9C7296A623711DFB003B5B93 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		9CD9542823728E2A0005C3F9 /* SearchSongController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSongController.swift; sourceTree = "<group>"; };
+		9CD9542A23728F620005C3F9 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		9CD9542C237297B30005C3F9 /* GuestQueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestQueueController.swift; sourceTree = "<group>"; };
 		B2465DEF2371F81800ED88DD /* AddHostQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHostQueueViewController.swift; sourceTree = "<group>"; };
 		B2EC5CC123722E6B0022A868 /* HostQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostQueueViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +73,9 @@
 				9C7296742370E6DA003B5B93 /* AppDelegate.swift */,
 				9C7296762370E6DA003B5B93 /* ViewController.swift */,
 				9C7296782370E6DA003B5B93 /* Main.storyboard */,
+				9CD9542C237297B30005C3F9 /* GuestQueueController.swift */,
+				9CD9542A23728F620005C3F9 /* Queue.swift */,
+				9CD9542823728E2A0005C3F9 /* SearchSongController.swift */,
 				9C72967B2370E6DB003B5B93 /* Assets.xcassets */,
 				9C72967D2370E6DB003B5B93 /* LaunchScreen.storyboard */,
 				9C7296802370E6DB003B5B93 /* Info.plist */,
@@ -156,6 +165,9 @@
 				9C7296A523711B7C003B5B93 /* SearchQueueController.swift in Sources */,
 				B2465DF02371F81800ED88DD /* AddHostQueueViewController.swift in Sources */,
 				9C7296752370E6DA003B5B93 /* AppDelegate.swift in Sources */,
+				9CD9542923728E2A0005C3F9 /* SearchSongController.swift in Sources */,
+				9CD9542B23728F620005C3F9 /* Queue.swift in Sources */,
+				9CD9542D237297B30005C3F9 /* GuestQueueController.swift in Sources */,
 				B2EC5CC223722E6B0022A868 /* HostQueueViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

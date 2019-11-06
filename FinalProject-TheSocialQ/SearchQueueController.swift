@@ -15,35 +15,86 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var joinBtn: UIButton!
     
     
-    var songResults:[Song] = []
-
+    var queueResults:[Queue] = []
+    var currentSelection:Queue = Queue(title:"")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         joinBtn.layer.cornerRadius = 10
         joinBtn.clipsToBounds = true
         
-        // initial songs JUST FOR TESTING
-        let circles = Song(id: 1, title: "Circles")
-        let cyanide = Song(id: 2, title: "Cyanide")
-        songResults.append(circles)
-        songResults.append(cyanide)
+        // initial queues JUST FOR TESTING
+        let q1 = Queue(title: "Kendall's Party")
+        let q2 = Queue(title: "Sarah's House")
+        
+        queueResults.append(q1)
+        queueResults.append(q2)
         
         tableView.dataSource = self
+        tableView.delegate = self
         // Do any additional setup after loading the view.
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (songResults.count)
+        return (queueResults.count)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-        let currentSong = songResults[indexPath.row]
-        myCell.textLabel?.text = currentSong.title
+        let currentQueue = queueResults[indexPath.row]
+        myCell.textLabel?.text = currentQueue.title
         myCell.textLabel?.textColor = .white
         
         return myCell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("selecting")
+        currentSelection = queueResults[indexPath.row]
+    }
+    
+    @IBAction func promptKey(_ sender: UIButton) {
+        // 1
+        let optionMenu = UIAlertController(title: "What's the Key?", message: nil, preferredStyle: .alert)
+        
+        optionMenu.view.tintColor = .black
+        
+        optionMenu.addTextField(configurationHandler: { (textField) in
+            textField.placeholder = "Type Key from Host"
+        })
+        
+        // set font of title in alert
+//        let attributeString = NSMutableAttributedString(string: "What's the Key?")
+//        attributeString.addAttributes([NSAttributedString.Key.font : UIFont.fontNames(forFamilyName: "Avenir")],                                          range: NSMakeRange(0, "What's the Key?".utf8.count))
+
+        // ADD HANDLER TO THIS TO DEAL WITH GOING TO NEXT VIEW CONTROLLER
+        let accessAction = UIAlertAction(title: "Access Queue", style: .default, handler: {action in self.performSegue(withIdentifier: "viewCurrentQueue", sender: self)})
+        // 3
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        // 4
+        optionMenu.addAction(cancelAction)
+        optionMenu.addAction(accessAction)
+        
+        // 5
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "viewCurrentQueue" {
+            let destination = segue.destination as? GuestQueueController
+            
+            // GET QUEUE FROM DATABASE BASED ON NAME SELECTED
+            // FOR NOW, JUST DEFINE A QUEUE
+        
+            destination?.currentQueue = currentSelection
+
+        }
+     }
+    
+
 }
