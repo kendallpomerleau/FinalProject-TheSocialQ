@@ -27,6 +27,14 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         let q1 = Queue(title: "Kendall's Party")
         let q2 = Queue(title: "Sarah's House")
         
+        let circles = Song(id: 1, title: "Circles", artist:"Post Malone", coverPath: "https://i.scdn.co/image/94105e271865c28853bfb7b44b38353a2fea45d6")
+        let cyanide = Song(id: 2, title: "Cyanide", artist:"Daniel Caesar", coverPath: "https://i.scdn.co/image/ab67616d0000b2737607aa9ae7904e1b12907c93")
+        q1.songs.append(circles)
+        q1.songs.append(cyanide)
+        
+        q2.songs.append(circles)
+        q2.songs.append(cyanide)
+        
         queueResults.append(q1)
         queueResults.append(q2)
         

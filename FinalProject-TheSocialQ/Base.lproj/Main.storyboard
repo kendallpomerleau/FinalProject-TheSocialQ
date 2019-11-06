@@ -542,6 +542,7 @@
                     </view>
                     <connections>
                         <outlet property="queueTitle" destination="RtZ-lR-PYi" id="2dH-Kl-gka"/>
+                        <outlet property="tableView" destination="2yy-rQ-eFJ" id="5jf-Ux-zz6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tgl-VZ-pIM" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -11,17 +11,22 @@ import Foundation
 class Queue{
     
     let title:String
+    var songs:[Song] = []
     
     init(title: String){
         self.title = title
     }
     
-    func addToQueue(){
-        
+    func addToQueue(song:Song){
+        songs.append(song)
     }
     
-    func removeFromQueue(){
-        
+    func removeFromQueue(song:Song){
+        while songs.contains(song) {
+            if let songToRemove = songs.firstIndex(of: song) {
+                songs.remove(at: songToRemove)
+            }
+        }
     }
     
 }
