@@ -15,7 +15,7 @@ class HostQueueViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.playSongView.layer.cornerRadius = 9
+        self.playSongView.layer.cornerRadius = 10
         
     }
     
