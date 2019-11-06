@@ -16,9 +16,12 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var queueTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addBtn.layer.cornerRadius = 10
+        addBtn.clipsToBounds = true
         queueTitle.text = currentQueue.title
 
         tableView.dataSource = self
