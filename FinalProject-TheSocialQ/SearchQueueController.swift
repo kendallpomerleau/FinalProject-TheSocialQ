@@ -20,6 +20,9 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tabBarController = UITabBarController()
+        
         joinBtn.layer.cornerRadius = 10
         joinBtn.clipsToBounds = true
         
@@ -81,14 +84,11 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
 
         // ADD HANDLER TO THIS TO DEAL WITH GOING TO NEXT VIEW CONTROLLER
         let accessAction = UIAlertAction(title: "Access Queue", style: .default, handler: {action in self.performSegue(withIdentifier: "viewCurrentQueue", sender: self)})
-        // 3
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
-        // 4
         optionMenu.addAction(cancelAction)
         optionMenu.addAction(accessAction)
         
-        // 5
         self.present(optionMenu, animated: true, completion: nil)
     }
     
@@ -98,15 +98,15 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "viewCurrentQueue" {
-            let destination = segue.destination as? GuestQueueController
-            
-            // GET QUEUE FROM DATABASE BASED ON NAME SELECTED
-            // FOR NOW, JUST DEFINE A QUEUE
-        
-            destination?.currentQueue = currentSelection
-
+            let destination = segue.destination as? UITabBarController
+            print("running segue")
+            for controller in (destination?.viewControllers)! {
+                if (controller.isKind(of: GuestQueueController.self) == true) {
+                    (controller as! GuestQueueController).currentQueue = currentSelection
+                    break
+                }
+            }
         }
      }
     
-
 }

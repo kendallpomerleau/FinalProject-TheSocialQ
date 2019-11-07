@@ -33,7 +33,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
     }
     
     func cacheImages() {
-        print("caching")
+        print("caching in guestqueuecontroller")
         imageCache = []
         for song in currentQueue.songs {
             if song.coverPath != nil {

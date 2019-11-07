@@ -479,14 +479,14 @@
                     <connections>
                         <outlet property="joinBtn" destination="Ehh-iA-8Rn" id="uQu-4S-cI5"/>
                         <outlet property="tableView" destination="zOR-zZ-k6M" id="JZE-JL-SQX"/>
-                        <segue destination="Qdu-6b-h2n" kind="show" identifier="viewCurrentQueue" id="QGn-pH-jBB"/>
+                        <segue destination="HTe-rU-DF6" kind="show" identifier="viewCurrentQueue" id="QGn-pH-jBB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7vX-jc-nHe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2814" y="-212"/>
+            <point key="canvasLocation" x="1957" y="-212"/>
         </scene>
-        <!--Guest Queue Controller-->
+        <!--View Queue-->
         <scene sceneID="e8X-ZG-TBS">
             <objects>
                 <viewController id="Qdu-6b-h2n" customClass="GuestQueueController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
@@ -510,7 +510,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2yy-rQ-eFJ">
-                                <rect key="frame" x="20" y="257" width="374" height="508"/>
+                                <rect key="frame" x="20" y="257" width="374" height="441"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -531,7 +531,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4pZ-bl-FwH">
-                                <rect key="frame" x="57" y="811" width="300" height="35"/>
+                                <rect key="frame" x="57" y="741" width="300" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
@@ -553,6 +553,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ykL-ry-Xd8"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="View Queue" image="music" id="07w-VU-o0H"/>
                     <connections>
                         <outlet property="addBtn" destination="4pZ-bl-FwH" id="x3Y-fo-T9U"/>
                         <outlet property="queueTitle" destination="RtZ-lR-PYi" id="2dH-Kl-gka"/>
@@ -561,16 +562,52 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tgl-VZ-pIM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3590" y="-212"/>
+            <point key="canvasLocation" x="3642" y="-212"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="jZc-a6-RQj">
+            <objects>
+                <viewController id="VTr-Rf-fKz" customClass="SearchSongController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ea6-6B-btf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <viewLayoutGuide key="safeArea" id="3ey-qJ-07n"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Search" image="search" id="rnN-80-m6d"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vmL-60-dlp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4548" y="-212"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="ecr-Br-Hol">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Waq-Va-fVb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="HTe-rU-DF6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="c3a-La-Ddh">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Qdu-6b-h2n" kind="relationship" relationship="viewControllers" id="uvG-nc-wLZ"/>
+                        <segue destination="VTr-Rf-fKz" kind="relationship" relationship="viewControllers" id="gYu-bX-Gte"/>
+                    </connections>
+                </tabBarController>
+            </objects>
+            <point key="canvasLocation" x="2842" y="-212"/>
         </scene>
     </scenes>
     <resources>
         <image name="black" width="63" height="29"/>
         <image name="dancingdude" width="299" height="360"/>
         <image name="fast forward" width="128" height="128"/>
+        <image name="music" width="32" height="32"/>
         <image name="party" width="499" height="305"/>
         <image name="play" width="128" height="128"/>
         <image name="rewind" width="128" height="128"/>
+        <image name="search" width="32" height="32"/>
     </resources>
     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
