@@ -50,16 +50,45 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return currentQueue.songs.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+        
+        cell.layer.cornerRadius = 10
+        cell.clipsToBounds = true
+        
+        cell.textLabel!.text = currentQueue.songs[indexPath.section].title
+        cell.detailTextLabel?.text = currentQueue.songs[indexPath.section].artist
+        cell.imageView?.image = UIImage()
+        
+        var cellImg : UIImageView = UIImageView(frame: CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: 60, height: 60))
+        cellImg.image = imageCache[indexPath.section]
+        cellImg.layer.cornerRadius=10
+        cellImg.clipsToBounds = true
+        cell.addSubview(cellImg)
 
-        cell.textLabel!.text = currentQueue.songs[indexPath.row].title
-        cell.detailTextLabel?.text = currentQueue.songs[indexPath.row].artist
-        cell.imageView?.image = imageCache[indexPath.row]
+        cell.backgroundColor = .darkGray
+        cell.textLabel?.textColor = UIColor(displayP3Red: 30/255, green: 215/255, blue: 96/255, alpha: 1)
+        cell.textLabel?.font = UIFont(name: "Avenir Next", size: 18)
+        
+        cell.detailTextLabel?.textColor = .white
+        cell.detailTextLabel?.font = UIFont(name: "Avenir Next", size: 13)
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.darkGray
+        cell.selectedBackgroundView = backgroundView
+
+        
+        cell.layer.borderColor = UIColor(red: 25/255, green: 20/255, blue: 20/255, alpha: 1).cgColor
+        cell.layer.borderWidth = 5
+        
         return cell
     }
     

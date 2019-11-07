@@ -53,6 +53,10 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         myCell.textLabel?.text = currentQueue.title
         myCell.textLabel?.textColor = .white
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.darkGray
+        myCell.selectedBackgroundView = backgroundView
+        
         return myCell
     }
     
