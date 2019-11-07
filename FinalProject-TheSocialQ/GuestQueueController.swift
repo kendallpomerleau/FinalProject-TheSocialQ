@@ -26,6 +26,8 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
 
         tableView.dataSource = self
         
+        tableView.rowHeight = 90
+        
         cacheImages()
         // Do any additional setup after loading the view.
     }
@@ -58,28 +60,40 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         return 1
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         
         cell.layer.cornerRadius = 10
         cell.clipsToBounds = true
         
-        cell.textLabel!.text = currentQueue.songs[indexPath.section].title
-        cell.detailTextLabel?.text = currentQueue.songs[indexPath.section].artist
-        cell.imageView?.image = UIImage()
-        
-        var cellImg : UIImageView = UIImageView(frame: CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: 60, height: 60))
+        let cellImg = UIImageView(frame: CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: 90, height: 90))
         cellImg.image = imageCache[indexPath.section]
         cellImg.layer.cornerRadius=10
         cellImg.clipsToBounds = true
-        cell.addSubview(cellImg)
 
         cell.backgroundColor = .darkGray
-        cell.textLabel?.textColor = UIColor(displayP3Red: 30/255, green: 215/255, blue: 96/255, alpha: 1)
-        cell.textLabel?.font = UIFont(name: "Avenir Next", size: 18)
         
-        cell.detailTextLabel?.textColor = .white
-        cell.detailTextLabel?.font = UIFont(name: "Avenir Next", size: 13)
+        let cellTitle = UILabel(frame: CGRect(x: cell.frame.origin.x + cellImg.frame.width + 10, y: cell.frame.origin.y + 10, width: cell.frame.width - cellImg.frame.width, height: tableView.rowHeight/2.0))
+        cellTitle.font = UIFont(name: "Avenir Next", size: 18)
+        cellTitle.textColor = UIColor(displayP3Red: 30/255, green: 215/255, blue: 96/255, alpha: 1)
+        
+        let cellDescription = UILabel(frame: CGRect(x: cell.frame.origin.x + cellImg.frame.width + 10 , y: cell.frame.origin.y + cellTitle.frame.height, width: cell.frame.width - cellImg.frame.width, height: tableView.rowHeight/2.0))
+        cellDescription.font = UIFont(name: "Avenir Next", size: 13)
+        cellDescription.textColor = .white
+        
+        cellTitle.text = currentQueue.songs[indexPath.section].title
+        cellDescription.text = currentQueue.songs[indexPath.section].artist
+        
+        
+        let dotdotBtn = UIButton(frame: CGRect(x: cell.frame.maxX, y: cell.frame.origin.y+tableView.rowHeight/2.0, width: 20, height: 10))
+
+        dotdotBtn.setBackgroundImage(UIImage(named: "ellipses"), for: .normal)
+        
+        cell.addSubview(cellImg)
+        cell.addSubview(cellTitle)
+        cell.addSubview(cellDescription)
+        cell.addSubview(dotdotBtn)
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.darkGray
