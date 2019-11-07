@@ -593,14 +593,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Search for Songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sP-uc-yRR">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for Songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sP-uc-yRR">
                                 <rect key="frame" x="20" y="67" width="284" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="35"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <searchBar contentMode="redraw" ambiguous="YES" text="" placeholder="Search" backgroundImage="black" translatesAutoresizingMaskIntoConstraints="NO" id="GJw-f7-mxW">
+                            <searchBar contentMode="redraw" text="" placeholder="Search" backgroundImage="black" translatesAutoresizingMaskIntoConstraints="NO" id="GJw-f7-mxW">
                                 <rect key="frame" x="20" y="128" width="374" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -608,9 +607,8 @@
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cKG-pl-7la">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cKG-pl-7la">
                                 <rect key="frame" x="20" y="201" width="374" height="494"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -631,6 +629,18 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="6sP-uc-yRR" firstAttribute="leading" secondItem="3ey-qJ-07n" secondAttribute="leading" constant="20" id="561-u8-osI"/>
+                            <constraint firstItem="GJw-f7-mxW" firstAttribute="top" secondItem="6sP-uc-yRR" secondAttribute="bottom" constant="13" id="ADD-Do-Ppb"/>
+                            <constraint firstItem="cKG-pl-7la" firstAttribute="top" secondItem="GJw-f7-mxW" secondAttribute="bottom" constant="29" id="DVC-Qh-XIK"/>
+                            <constraint firstItem="3ey-qJ-07n" firstAttribute="trailing" secondItem="GJw-f7-mxW" secondAttribute="trailing" constant="20" id="H9R-xp-sJa"/>
+                            <constraint firstItem="3ey-qJ-07n" firstAttribute="trailing" secondItem="cKG-pl-7la" secondAttribute="trailing" constant="20" id="MYG-AD-5Pm"/>
+                            <constraint firstItem="3ey-qJ-07n" firstAttribute="bottom" secondItem="cKG-pl-7la" secondAttribute="bottom" constant="118" id="Trs-VO-GEV"/>
+                            <constraint firstItem="cKG-pl-7la" firstAttribute="leading" secondItem="3ey-qJ-07n" secondAttribute="leading" constant="20" id="Xaq-8U-oUW"/>
+                            <constraint firstItem="3ey-qJ-07n" firstAttribute="trailing" secondItem="6sP-uc-yRR" secondAttribute="trailing" constant="110" id="g38-Bs-ccL"/>
+                            <constraint firstItem="6sP-uc-yRR" firstAttribute="top" secondItem="3ey-qJ-07n" secondAttribute="top" constant="23" id="r9X-Ym-9bI"/>
+                            <constraint firstItem="GJw-f7-mxW" firstAttribute="leading" secondItem="3ey-qJ-07n" secondAttribute="leading" constant="20" id="yAw-pW-syf"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="3ey-qJ-07n"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" image="search" id="rnN-80-m6d">

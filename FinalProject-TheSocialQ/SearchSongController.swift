@@ -17,6 +17,17 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // load default songs (popular from API)
+        // JUST FOR TESTING
+        let circles = Song(id: 1, title: "Circles", artist:"Post Malone", coverPath: "https://i.scdn.co/image/94105e271865c28853bfb7b44b38353a2fea45d6")
+        let cyanide = Song(id: 2, title: "Cyanide", artist:"Daniel Caesar", coverPath: "https://i.scdn.co/image/ab67616d0000b2737607aa9ae7904e1b12907c93")
+        songResults.append(circles)
+        songResults.append(cyanide)
+        
+        tableView.dataSource = self
+        tableView.rowHeight = 90
+
         // Do any additional setup after loading the view.
         
         cacheImages()
@@ -45,6 +56,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         return songResults.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
@@ -53,7 +65,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         cell.clipsToBounds = true
         
         let cellImg = UIImageView(frame: CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: 90, height: 90))
-        cellImg.image = imageCache[indexPath.section]
+        cellImg.image = imageCache[indexPath.row]
         cellImg.layer.cornerRadius=10
         cellImg.clipsToBounds = true
         
@@ -67,18 +79,20 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         cellDescription.font = UIFont(name: "Avenir Next", size: 13)
         cellDescription.textColor = .white
         
-        cellTitle.text = songResults[indexPath.section].title
-        cellDescription.text = songResults[indexPath.section].artist
+        cellTitle.text = songResults[indexPath.row].title
+        cellDescription.text = songResults[indexPath.row].artist
         
         
-        let dotdotBtn = UIButton(frame: CGRect(x: cell.frame.maxX, y: cell.frame.origin.y+tableView.rowHeight/2.0, width: 20, height: 10))
+        let plusBtn = UIButton(frame: CGRect(x: cell.frame.maxX, y: cell.frame.origin.y+tableView.rowHeight/2.0-10, width: 20, height: 20))
+        plusBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+
         
-        dotdotBtn.setBackgroundImage(UIImage(named: "ellipses"), for: .normal)
+        plusBtn.setBackgroundImage(UIImage(named: "plus"), for: .normal)
         
         cell.addSubview(cellImg)
         cell.addSubview(cellTitle)
         cell.addSubview(cellDescription)
-        cell.addSubview(dotdotBtn)
+        cell.addSubview(plusBtn)
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.darkGray
@@ -91,6 +105,14 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         return cell
     }
     
+    @objc func buttonClicked(sender : UIButton){
+        let alert = UIAlertController(title: "Clicked", message: "You have clicked on the button", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

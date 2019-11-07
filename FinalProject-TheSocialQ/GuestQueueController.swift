@@ -26,7 +26,6 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         queueTitle.text = currentQueue.title
 
         tableView.dataSource = self
-        
         tableView.rowHeight = 90
         
         cacheImages()
@@ -63,6 +62,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("showing cell")
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         
         cell.layer.cornerRadius = 10
@@ -91,6 +91,8 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
 
         dotdotBtn.setBackgroundImage(UIImage(named: "ellipses"), for: .normal)
         
+                dotdotBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        
         cell.addSubview(cellImg)
         cell.addSubview(cellTitle)
         cell.addSubview(cellDescription)
@@ -107,6 +109,16 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    
+    @objc func buttonClicked(sender : UIButton){
+        let alert = UIAlertController(title: "Clicked", message: "You have clicked on the button", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation
