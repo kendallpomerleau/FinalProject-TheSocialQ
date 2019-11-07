@@ -14,14 +14,11 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var joinBtn: UIButton!
     
-    
     var queueResults:[Queue] = []
     var currentSelection:Queue = Queue(title:"")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let tabBarController = UITabBarController()
         
         joinBtn.layer.cornerRadius = 10
         joinBtn.clipsToBounds = true
@@ -103,6 +100,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
             for controller in (destination?.viewControllers)! {
                 if (controller.isKind(of: GuestQueueController.self) == true) {
                     (controller as! GuestQueueController).currentQueue = currentSelection
+                    (controller as! GuestQueueController).tabBarItem.imageInsets = UIEdgeInsets(top: 2, left: 0, bottom: -2, right: 0)
                     break
                 }
             }

@@ -20,6 +20,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         addBtn.layer.cornerRadius = 10
         addBtn.clipsToBounds = true
         queueTitle.text = currentQueue.title

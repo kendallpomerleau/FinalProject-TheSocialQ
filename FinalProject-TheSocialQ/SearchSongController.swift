@@ -10,6 +10,7 @@ import UIKit
 
 class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDelegate {
     
+    @IBOutlet weak var tableView: UITableView!
     
     var songResults:[Song] = []
     var imageCache:[UIImage] = []
@@ -48,9 +49,44 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         
-        cell.textLabel!.text = songResults[indexPath.row].title
-        cell.detailTextLabel?.text = songResults[indexPath.row].artist
-        cell.imageView?.image = imageCache[indexPath.row]
+        cell.layer.cornerRadius = 10
+        cell.clipsToBounds = true
+        
+        let cellImg = UIImageView(frame: CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: 90, height: 90))
+        cellImg.image = imageCache[indexPath.section]
+        cellImg.layer.cornerRadius=10
+        cellImg.clipsToBounds = true
+        
+        cell.backgroundColor = .darkGray
+        
+        let cellTitle = UILabel(frame: CGRect(x: cell.frame.origin.x + cellImg.frame.width + 10, y: cell.frame.origin.y + 10, width: cell.frame.width - cellImg.frame.width, height: tableView.rowHeight/2.0))
+        cellTitle.font = UIFont(name: "Avenir Next", size: 18)
+        cellTitle.textColor = UIColor(displayP3Red: 30/255, green: 215/255, blue: 96/255, alpha: 1)
+        
+        let cellDescription = UILabel(frame: CGRect(x: cell.frame.origin.x + cellImg.frame.width + 10 , y: cell.frame.origin.y + cellTitle.frame.height, width: cell.frame.width - cellImg.frame.width, height: tableView.rowHeight/2.0))
+        cellDescription.font = UIFont(name: "Avenir Next", size: 13)
+        cellDescription.textColor = .white
+        
+        cellTitle.text = songResults[indexPath.section].title
+        cellDescription.text = songResults[indexPath.section].artist
+        
+        
+        let dotdotBtn = UIButton(frame: CGRect(x: cell.frame.maxX, y: cell.frame.origin.y+tableView.rowHeight/2.0, width: 20, height: 10))
+        
+        dotdotBtn.setBackgroundImage(UIImage(named: "ellipses"), for: .normal)
+        
+        cell.addSubview(cellImg)
+        cell.addSubview(cellTitle)
+        cell.addSubview(cellDescription)
+        cell.addSubview(dotdotBtn)
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.darkGray
+        cell.selectedBackgroundView = backgroundView
+        
+        
+        cell.layer.borderColor = UIColor(red: 25/255, green: 20/255, blue: 20/255, alpha: 1).cgColor
+        cell.layer.borderWidth = 5
         
         return cell
     }
