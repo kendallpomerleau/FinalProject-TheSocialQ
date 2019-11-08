@@ -106,7 +106,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     }
     
     @objc func buttonClicked(sender : UIButton){
-        let alert = UIAlertController(title: "Clicked", message: "You have clicked on the button", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Clicked", message: "You have clicked on the add", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         alert.addAction(cancelAction)

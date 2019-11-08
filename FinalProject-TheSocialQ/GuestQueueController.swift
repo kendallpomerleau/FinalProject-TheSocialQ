@@ -10,7 +10,7 @@ import UIKit
 
 class GuestQueueController: UIViewController, UITableViewDataSource {
 
-    var currentQueue:Queue = Queue(title: "")
+    var currentQueue:Queue = Queue(title: "", key: "", add: false)
     var imageCache:[UIImage] = []
 
 
@@ -30,6 +30,11 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         
         cacheImages()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func cacheImages() {
@@ -109,6 +114,11 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    @IBAction func backToSearch(_ sender: UIBarButtonItem) {
+        
+        performSegue(withIdentifier: "backToSearch", sender: self)
+
+    }
     
     @objc func buttonClicked(sender : UIButton){
         let alert = UIAlertController(title: "Clicked", message: "You have clicked on the button", preferredStyle: .alert)

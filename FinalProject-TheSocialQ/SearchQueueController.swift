@@ -15,7 +15,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var joinBtn: UIButton!
     
     var queueResults:[Queue] = []
-    var currentSelection:Queue = Queue(title:"")
+    var currentSelection:Queue = Queue(title:"", key: "", add: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +24,8 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         joinBtn.clipsToBounds = true
         
         // initial queues JUST FOR TESTING
-        let q1 = Queue(title: "Kendall's Party")
-        let q2 = Queue(title: "Sarah's House")
+        let q1 = Queue(title: "Kendall's Party", key: "12345", add: true)
+        let q2 = Queue(title: "Sarah's House", key: "12345", add: true)
         
         let circles = Song(id: 1, title: "Circles", artist:"Post Malone", coverPath: "https://i.scdn.co/image/94105e271865c28853bfb7b44b38353a2fea45d6")
         let cyanide = Song(id: 2, title: "Cyanide", artist:"Daniel Caesar", coverPath: "https://i.scdn.co/image/ab67616d0000b2737607aa9ae7904e1b12907c93")
@@ -41,7 +41,9 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         tableView.dataSource = self
         tableView.delegate = self
         // Do any additional setup after loading the view.
+        
     }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (queueResults.count)
@@ -75,19 +77,51 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
             textField.placeholder = "Type Key from Host"
         })
         
+        optionMenu.view.layer.cornerRadius = 25
+        
         // set font of title in alert
-//        let attributeString = NSMutableAttributedString(string: "What's the Key?")
-//        attributeString.addAttributes([NSAttributedString.Key.font : UIFont.fontNames(forFamilyName: "Avenir")],                                          range: NSMakeRange(0, "What's the Key?".utf8.count))
+        var myMutableString = NSMutableAttributedString()
+        myMutableString = NSMutableAttributedString(string: "What's the Key?", attributes: [NSAttributedString.Key.font:UIFont(name: "Avenir Next", size: 19.0)!])
+        myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location:0,length:15))
+        optionMenu.setValue(myMutableString, forKey: "attributedTitle")
 
         // ADD HANDLER TO THIS TO DEAL WITH GOING TO NEXT VIEW CONTROLLER
-        let accessAction = UIAlertAction(title: "Access Queue", style: .default, handler: {action in self.performSegue(withIdentifier: "viewCurrentQueue", sender: self)})
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        if currentSelection.title != "" {
+            let accessAction = UIAlertAction(title: "Join", style: .default, handler: {action in
+                
+                let textField = optionMenu.textFields![0] // Force unwrapping because we know it exists.
+
+                if textField.text == self.currentSelection.key {
+                    self.performSegue(withIdentifier: "viewCurrentQueue", sender: self)
+                }
+                else {
+                    let failMenu = UIAlertController(title: "Incorrect Key", message: "Enter the correct key to join the queue", preferredStyle: .alert)
+                    var failMutable = NSMutableAttributedString()
+                    failMutable = NSMutableAttributedString(string: "Incorrect Key", attributes: [NSAttributedString.Key.font:UIFont(name: "Avenir Next", size: 19.0)!])
+                    failMutable.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location:0,length:13))
+                    failMenu.setValue(failMutable, forKey: "attributedTitle")
+                    
+                    var failMutableMsg = NSMutableAttributedString()
+                    failMutableMsg = NSMutableAttributedString(string: "\nEnter the correct key to join the queue.", attributes: [NSAttributedString.Key.font:UIFont(name: "Avenir Next", size: 14.0)!])
+                    failMutableMsg.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location:0,length:40))
+                    failMenu.setValue(failMutableMsg, forKey: "attributedMessage")
+                    
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+                    
+                    failMenu.addAction(cancelAction)
+                    self.present(failMenu, animated: true, completion: nil)
+                }
+            })
         
-        optionMenu.addAction(cancelAction)
-        optionMenu.addAction(accessAction)
-        
-        self.present(optionMenu, animated: true, completion: nil)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            
+            optionMenu.addAction(cancelAction)
+            optionMenu.addAction(accessAction)
+            
+            self.present(optionMenu, animated: true, completion: nil)
+        }
     }
+
     
     
      // MARK: - Navigation
@@ -96,7 +130,6 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "viewCurrentQueue" {
             let destination = segue.destination as? UITabBarController
-            print("running segue")
             for controller in (destination?.viewControllers)! {
                 if (controller.isKind(of: GuestQueueController.self) == true) {
                     (controller as! GuestQueueController).currentQueue = currentSelection
@@ -108,3 +141,4 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
      }
     
 }
+
