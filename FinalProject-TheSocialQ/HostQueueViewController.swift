@@ -105,7 +105,7 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
             
             dotdotBtn.setBackgroundImage(UIImage(named: "ellipses"), for: .normal)
             
-            dotdotBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+//            dotdotBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
             
             cell.addSubview(cellImg)
             cell.addSubview(cellTitle)
