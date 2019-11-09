@@ -18,6 +18,7 @@
 		9CD9542923728E2A0005C3F9 /* SearchSongController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9542823728E2A0005C3F9 /* SearchSongController.swift */; };
 		9CD9542B23728F620005C3F9 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9542A23728F620005C3F9 /* Queue.swift */; };
 		9CD9542D237297B30005C3F9 /* GuestQueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9542C237297B30005C3F9 /* GuestQueueController.swift */; };
+		B20F224F23775C050084CC91 /* ios-sdk-1.0.2 in Resources */ = {isa = PBXBuildFile; fileRef = B20F224E23775C050084CC91 /* ios-sdk-1.0.2 */; };
 		B2465DF02371F81800ED88DD /* AddHostQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2465DEF2371F81800ED88DD /* AddHostQueueViewController.swift */; };
 		B2EC5CC223722E6B0022A868 /* HostQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EC5CC123722E6B0022A868 /* HostQueueViewController.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,8 @@
 		9CD9542823728E2A0005C3F9 /* SearchSongController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSongController.swift; sourceTree = "<group>"; };
 		9CD9542A23728F620005C3F9 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		9CD9542C237297B30005C3F9 /* GuestQueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestQueueController.swift; sourceTree = "<group>"; };
+		B20F224E23775C050084CC91 /* ios-sdk-1.0.2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "ios-sdk-1.0.2"; sourceTree = "<group>"; };
+		B20F225023775EEF0084CC91 /* SpotifyBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpotifyBridgingHeader.h; sourceTree = "<group>"; };
 		B2465DEF2371F81800ED88DD /* AddHostQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHostQueueViewController.swift; sourceTree = "<group>"; };
 		B2EC5CC123722E6B0022A868 /* HostQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostQueueViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,6 +87,8 @@
 				9C4B657B2371355000B8C123 /* HostConnectionController.swift */,
 				B2465DEF2371F81800ED88DD /* AddHostQueueViewController.swift */,
 				B2EC5CC123722E6B0022A868 /* HostQueueViewController.swift */,
+				B20F224E23775C050084CC91 /* ios-sdk-1.0.2 */,
+				B20F225023775EEF0084CC91 /* SpotifyBridgingHeader.h */,
 			);
 			path = "FinalProject-TheSocialQ";
 			sourceTree = "<group>";
@@ -149,6 +154,7 @@
 				9C72967F2370E6DB003B5B93 /* LaunchScreen.storyboard in Resources */,
 				9C72967C2370E6DB003B5B93 /* Assets.xcassets in Resources */,
 				9C72967A2370E6DA003B5B93 /* Main.storyboard in Resources */,
+				B20F224F23775C050084CC91 /* ios-sdk-1.0.2 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,8 +327,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "KendallPomerleau.FinalProject-TheSocialQ";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = SpotifyBridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -339,8 +347,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "KendallPomerleau.FinalProject-TheSocialQ";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = SpotifyBridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

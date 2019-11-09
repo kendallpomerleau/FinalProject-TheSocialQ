@@ -18,6 +18,7 @@ class HostQueueViewController: UIViewController {
         self.playSongView.layer.cornerRadius = 10
         
     }
+
     
 
     /*
