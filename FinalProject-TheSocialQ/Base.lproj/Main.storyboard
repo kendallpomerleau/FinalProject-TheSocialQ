@@ -530,7 +530,9 @@
                         <viewLayoutGuide key="safeArea" id="IGR-4h-3P8"/>
                     </view>
                     <connections>
+                        <outlet property="AddBtn" destination="fjI-6m-MHP" id="Uqp-xQ-Xc9"/>
                         <outlet property="playSongView" destination="Za0-UC-YCN" id="nI5-br-6F9"/>
+                        <outlet property="tableView" destination="iA8-sL-76M" id="zQE-dt-1J4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jQs-KN-Qwj" userLabel="First Responder" sceneMemberID="firstResponder"/>
