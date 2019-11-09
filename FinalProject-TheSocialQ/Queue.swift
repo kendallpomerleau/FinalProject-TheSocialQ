@@ -11,10 +11,15 @@ import Foundation
 class Queue{
     
     let title:String
+    let key:String
+
     var songs:[Song] = []
+    var add:Bool
     
-    init(title: String){
+    init(title: String, key: String, add: Bool){
         self.title = title
+        self.key = key
+        self.add = add
     }
     
     func addToQueue(song:Song){
