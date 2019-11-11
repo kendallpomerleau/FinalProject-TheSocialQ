@@ -12,12 +12,18 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     
 
+    @IBOutlet weak var queueKey: UITextField!
+    @IBOutlet weak var queueTitle: UITextField!
+    @IBOutlet weak var addBtn: UIButton!
     @IBOutlet weak var Access: UISegmentedControl!
     @IBOutlet weak var Picker: UIPickerView!
     var pickerData: [String] = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        addBtn.layer.cornerRadius = 10
+        addBtn.clipsToBounds = true
+        
         // Do any additional setup after loading the view.
         //let font = UIFont.systemFont(ofSize: 20)
         let attr = NSDictionary(object: UIFont(name: "Avenir Next", size: 17.0)!, forKey: NSAttributedString.Key.font as NSCopying)
@@ -43,15 +49,29 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
     }
     
     
+    @IBAction func addClicked(_ sender: UIButton) {
+        if (queueKey.text != "" && queueTitle.text != "") {
+            self.performSegue(withIdentifier: "addQueue", sender: self)
+            
+        }
+    }
+    
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "addQueue" {
+            let destination = segue.destination as? HostQueueViewController
+            let segment = Access.selectedSegmentIndex
+            var add = false
+            if segment == 1 {
+                add = true
+            }
+            let newQueue = Queue(title: queueTitle.text!, key: queueKey.text!, add: add)
+            destination?.currentQueue = newQueue
+        }
     }
-    */
 
 }
