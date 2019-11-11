@@ -28,6 +28,8 @@ class Queue{
     
     func addToQueue(song:Song){
         songs.append(song)
+        
+        // also add to database
     }
     
     func removeFromQueue(song:Song){
@@ -36,6 +38,8 @@ class Queue{
                 songs.remove(at: songToRemove)
             }
         }
+        
+        // also remove from database
     }
     
 }
