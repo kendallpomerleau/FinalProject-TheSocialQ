@@ -9,8 +9,8 @@
 import Foundation
 
 struct Song {
-    let id: Int!
-    let title: String
+    let id: String!
+    let name: String
     let artist: String
     let coverPath: String?
     //other variables?

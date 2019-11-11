@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7DABA2B61CE1811155DA166A /* Pods_FinalProject_TheSocialQ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2A6D52813991E91E7AC93A9 /* Pods_FinalProject_TheSocialQ.framework */; };
+		9C42D96A2378EA6A008A563F /* APIResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C42D9692378EA6A008A563F /* APIResults.swift */; };
 		9C4B657C2371355000B8C123 /* HostConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4B657B2371355000B8C123 /* HostConnectionController.swift */; };
 		9C7296752370E6DA003B5B93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7296742370E6DA003B5B93 /* AppDelegate.swift */; };
 		9C7296772370E6DA003B5B93 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7296762370E6DA003B5B93 /* ViewController.swift */; };
@@ -24,6 +26,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1327BDB387F0F2C1850C043A /* Pods-FinalProject-TheSocialQ.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinalProject-TheSocialQ.release.xcconfig"; path = "Target Support Files/Pods-FinalProject-TheSocialQ/Pods-FinalProject-TheSocialQ.release.xcconfig"; sourceTree = "<group>"; };
+		7EAA7ACED05E0DD707074EAB /* Pods-FinalProject-TheSocialQ.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinalProject-TheSocialQ.debug.xcconfig"; path = "Target Support Files/Pods-FinalProject-TheSocialQ/Pods-FinalProject-TheSocialQ.debug.xcconfig"; sourceTree = "<group>"; };
+		9C42D9692378EA6A008A563F /* APIResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResults.swift; sourceTree = "<group>"; };
 		9C4B657B2371355000B8C123 /* HostConnectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostConnectionController.swift; sourceTree = "<group>"; };
 		9C7296712370E6DA003B5B93 /* FinalProject-TheSocialQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FinalProject-TheSocialQ.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C7296742370E6DA003B5B93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +46,7 @@
 		B255861623776F2B00FD6D06 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		B255861823776FA300FD6D06 /* FinalProject-TheSocialQ-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FinalProject-TheSocialQ-Bridging-Header.h"; sourceTree = "<group>"; };
 		B2EC5CC123722E6B0022A868 /* HostQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostQueueViewController.swift; sourceTree = "<group>"; };
+		E2A6D52813991E91E7AC93A9 /* Pods_FinalProject_TheSocialQ.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FinalProject_TheSocialQ.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +55,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B255861723776F2B00FD6D06 /* SpotifyiOS.framework in Frameworks */,
+				7DABA2B61CE1811155DA166A /* Pods_FinalProject_TheSocialQ.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +67,8 @@
 			children = (
 				9C7296732370E6DA003B5B93 /* FinalProject-TheSocialQ */,
 				9C7296722370E6DA003B5B93 /* Products */,
+				FDCBF939BA53C750E826D9A7 /* Pods */,
+				DBD9540ABB5774214BB10A5F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,6 +90,7 @@
 				9CD9542C237297B30005C3F9 /* GuestQueueController.swift */,
 				9CD9542A23728F620005C3F9 /* Queue.swift */,
 				9CD9542823728E2A0005C3F9 /* SearchSongController.swift */,
+				9C42D9692378EA6A008A563F /* APIResults.swift */,
 				9C72967B2370E6DB003B5B93 /* Assets.xcassets */,
 				9C72967D2370E6DB003B5B93 /* LaunchScreen.storyboard */,
 				9C7296802370E6DB003B5B93 /* Info.plist */,
@@ -102,6 +112,24 @@
 			path = Frameworks;
 			sourceTree = "<group>";
 		};
+		DBD9540ABB5774214BB10A5F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E2A6D52813991E91E7AC93A9 /* Pods_FinalProject_TheSocialQ.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FDCBF939BA53C750E826D9A7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7EAA7ACED05E0DD707074EAB /* Pods-FinalProject-TheSocialQ.debug.xcconfig */,
+				1327BDB387F0F2C1850C043A /* Pods-FinalProject-TheSocialQ.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -109,9 +137,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9C7296832370E6DB003B5B93 /* Build configuration list for PBXNativeTarget "FinalProject-TheSocialQ" */;
 			buildPhases = (
+				A00CF5DB8452F821CFDB7230 /* [CP] Check Pods Manifest.lock */,
 				9C72966D2370E6DA003B5B93 /* Sources */,
 				9C72966E2370E6DA003B5B93 /* Frameworks */,
 				9C72966F2370E6DA003B5B93 /* Resources */,
+				FD46E311DAF572337E55D4D6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -169,6 +199,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A00CF5DB8452F821CFDB7230 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FinalProject-TheSocialQ-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD46E311DAF572337E55D4D6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FinalProject-TheSocialQ/Pods-FinalProject-TheSocialQ-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FinalProject-TheSocialQ/Pods-FinalProject-TheSocialQ-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FinalProject-TheSocialQ/Pods-FinalProject-TheSocialQ-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9C72966D2370E6DA003B5B93 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -181,6 +253,7 @@
 				B2465DF02371F81800ED88DD /* AddHostQueueViewController.swift in Sources */,
 				9C7296752370E6DA003B5B93 /* AppDelegate.swift in Sources */,
 				9CD9542923728E2A0005C3F9 /* SearchSongController.swift in Sources */,
+				9C42D96A2378EA6A008A563F /* APIResults.swift in Sources */,
 				9CD9542B23728F620005C3F9 /* Queue.swift in Sources */,
 				9CD9542D237297B30005C3F9 /* GuestQueueController.swift in Sources */,
 				B2EC5CC223722E6B0022A868 /* HostQueueViewController.swift in Sources */,
@@ -327,6 +400,7 @@
 		};
 		9C7296842370E6DB003B5B93 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7EAA7ACED05E0DD707074EAB /* Pods-FinalProject-TheSocialQ.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -354,6 +428,7 @@
 		};
 		9C7296852370E6DB003B5B93 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1327BDB387F0F2C1850C043A /* Pods-FinalProject-TheSocialQ.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
