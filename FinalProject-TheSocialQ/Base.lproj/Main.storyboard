@@ -314,7 +314,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ebs-Lo-mlV" kind="show" id="Kem-gC-5SN"/>
+                                    <action selector="addClicked:" destination="Y6C-0A-PeT" eventType="touchUpInside" id="sFY-fU-BBV"/>
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="oxF-D2-h2p">
@@ -386,6 +386,10 @@
                     <connections>
                         <outlet property="Access" destination="vfW-8G-616" id="O63-kb-STX"/>
                         <outlet property="Picker" destination="oxF-D2-h2p" id="ee3-RF-who"/>
+                        <outlet property="addBtn" destination="xdd-dG-eeK" id="siU-OP-5A2"/>
+                        <outlet property="queueKey" destination="DB9-Un-lyw" id="O4m-M1-Ogp"/>
+                        <outlet property="queueTitle" destination="hD9-EJ-4oq" id="8mW-XX-oON"/>
+                        <segue destination="ebs-Lo-mlV" kind="show" identifier="addQueue" id="Sml-sX-IaU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bHC-uV-sMq" userLabel="First Responder" sceneMemberID="firstResponder"/>
