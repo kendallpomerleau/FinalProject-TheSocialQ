@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,8 @@
 		B2465DF02371F81800ED88DD /* AddHostQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2465DEF2371F81800ED88DD /* AddHostQueueViewController.swift */; };
 		B255861723776F2B00FD6D06 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B255861623776F2B00FD6D06 /* SpotifyiOS.framework */; };
 		B2EC5CC223722E6B0022A868 /* HostQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EC5CC123722E6B0022A868 /* HostQueueViewController.swift */; };
+		CBDABFB42379D8BF00AB2D5D /* APIFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDABFB32379D8BF00AB2D5D /* APIFunctions.swift */; };
+		CBDABFB62379D8E000AB2D5D /* APIStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDABFB52379D8E000AB2D5D /* APIStructs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		B255861623776F2B00FD6D06 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		B255861823776FA300FD6D06 /* FinalProject-TheSocialQ-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FinalProject-TheSocialQ-Bridging-Header.h"; sourceTree = "<group>"; };
 		B2EC5CC123722E6B0022A868 /* HostQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostQueueViewController.swift; sourceTree = "<group>"; };
+		CBDABFB32379D8BF00AB2D5D /* APIFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFunctions.swift; sourceTree = "<group>"; };
+		CBDABFB52379D8E000AB2D5D /* APIStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStructs.swift; sourceTree = "<group>"; };
 		E2A6D52813991E91E7AC93A9 /* Pods_FinalProject_TheSocialQ.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FinalProject_TheSocialQ.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -100,6 +104,8 @@
 				B2465DEF2371F81800ED88DD /* AddHostQueueViewController.swift */,
 				B2EC5CC123722E6B0022A868 /* HostQueueViewController.swift */,
 				B255861823776FA300FD6D06 /* FinalProject-TheSocialQ-Bridging-Header.h */,
+				CBDABFB32379D8BF00AB2D5D /* APIFunctions.swift */,
+				CBDABFB52379D8E000AB2D5D /* APIStructs.swift */,
 			);
 			path = "FinalProject-TheSocialQ";
 			sourceTree = "<group>";
@@ -126,7 +132,6 @@
 				7EAA7ACED05E0DD707074EAB /* Pods-FinalProject-TheSocialQ.debug.xcconfig */,
 				1327BDB387F0F2C1850C043A /* Pods-FinalProject-TheSocialQ.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -248,8 +253,10 @@
 			files = (
 				9C7296A723711DFB003B5B93 /* Song.swift in Sources */,
 				9C7296772370E6DA003B5B93 /* ViewController.swift in Sources */,
+				CBDABFB62379D8E000AB2D5D /* APIStructs.swift in Sources */,
 				9C4B657C2371355000B8C123 /* HostConnectionController.swift in Sources */,
 				9C7296A523711B7C003B5B93 /* SearchQueueController.swift in Sources */,
+				CBDABFB42379D8BF00AB2D5D /* APIFunctions.swift in Sources */,
 				B2465DF02371F81800ED88DD /* AddHostQueueViewController.swift in Sources */,
 				9C7296752370E6DA003B5B93 /* AppDelegate.swift in Sources */,
 				9CD9542923728E2A0005C3F9 /* SearchSongController.swift in Sources */,
