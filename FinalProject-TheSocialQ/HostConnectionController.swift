@@ -14,7 +14,7 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     let SpotifyRedirectURI = URL(string: "finalproject-thesocialq://")!
     
     @IBOutlet weak var loginBtn: UIButton!
-    @IBOutlet weak var facebookBtn: UIButton!
+   
     
     var accessToken = ""
 //    var auth = SPTAuth.defaultInstance()!
@@ -24,11 +24,9 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loginBtn.layer.cornerRadius = 10
-        loginBtn.clipsToBounds = true
+        //loginBtn.layer.cornerRadius = 10
+        //loginBtn.clipsToBounds = true
         
-        facebookBtn.layer.cornerRadius = 10
-        facebookBtn.clipsToBounds = true
         
         // Do any additional setup after loading the view.
         
@@ -153,7 +151,18 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
 
 
    
-
+    @IBAction func tapConnect(_ sender: UIButton) {
+        let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate]
+        
+        if #available(iOS 11, *) {
+            // Use this on iOS 11 and above to take advantage of SFAuthenticationSession
+            sessionManager.initiateSession(with: scope, options: .clientOnly)
+        } else {
+            // Use this on iOS versions < 11 to use SFSafariViewController
+            sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
