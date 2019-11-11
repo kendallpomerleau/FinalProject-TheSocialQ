@@ -35,5 +35,9 @@ class ViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        (UIApplication.shared.delegate as! AppDelegate).rotateScreen(orientation: .portrait)
+    }
 }
 

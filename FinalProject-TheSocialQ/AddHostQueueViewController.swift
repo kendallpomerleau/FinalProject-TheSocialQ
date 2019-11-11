@@ -21,6 +21,7 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
         addBtn.layer.cornerRadius = 10
         addBtn.clipsToBounds = true
         
@@ -36,6 +37,7 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
         
         
     }
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
