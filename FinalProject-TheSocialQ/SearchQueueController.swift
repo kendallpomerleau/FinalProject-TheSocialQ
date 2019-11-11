@@ -9,13 +9,17 @@
 import Foundation
 import UIKit
 
-class SearchQueueController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SearchQueueController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var joinBtn: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var queueResults:[Queue] = []
     var currentSelection:Queue = Queue(title:"", key: "", add: false)
+    var searchActive : Bool = false
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +31,8 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         let q1 = Queue(title: "Kendall's Party", key: "12345", add: true)
         let q2 = Queue(title: "Sarah's House", key: "12345", add: true)
         
-        let circles = Song(id: 1, title: "Circles", artist:"Post Malone", coverPath: "https://i.scdn.co/image/94105e271865c28853bfb7b44b38353a2fea45d6")
-        let cyanide = Song(id: 2, title: "Cyanide", artist:"Daniel Caesar", coverPath: "https://i.scdn.co/image/ab67616d0000b2737607aa9ae7904e1b12907c93")
+        let circles = Song(id: "1", name: "Circles", artist:"Post Malone", coverPath: "https://i.scdn.co/image/94105e271865c28853bfb7b44b38353a2fea45d6")
+        let cyanide = Song(id: "2", name: "Cyanide", artist:"Daniel Caesar", coverPath: "https://i.scdn.co/image/ab67616d0000b2737607aa9ae7904e1b12907c93")
         q1.songs.append(circles)
         q1.songs.append(cyanide)
         
@@ -40,8 +44,21 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         
         tableView.dataSource = self
         tableView.delegate = self
-        // Do any additional setup after loading the view.
+        searchBar.delegate = self
         
+        // Do any additional setup after loading the view.
+    
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.showsCancelButton = false
+        searchBar.endEditing(true)
+
     }
     
     
@@ -61,6 +78,8 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         
         return myCell
     }
+    
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selecting")

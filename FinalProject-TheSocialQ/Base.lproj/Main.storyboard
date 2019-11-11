@@ -590,6 +590,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="hO7-uk-L4a"/>
                                 </constraints>
+                                <color key="tintColor" red="0.75686274509999996" green="0.59607843140000005" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
@@ -616,6 +617,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="joinBtn" destination="Ehh-iA-8Rn" id="RbC-Y2-oXp"/>
+                        <outlet property="searchBar" destination="Ik6-pS-rCc" id="n3f-7m-HBS"/>
                         <outlet property="tableView" destination="zOR-zZ-k6M" id="JZE-JL-SQX"/>
                         <segue destination="HTe-rU-DF6" kind="show" identifier="viewCurrentQueue" id="KXS-Ko-4GA"/>
                     </connections>
@@ -728,10 +730,11 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="FOU-yV-U0a"/>
                                 </constraints>
+                                <color key="tintColor" red="0.75686274509999996" green="0.59607843140000005" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cKG-pl-7la">
-                                <rect key="frame" x="20" y="245" width="374" height="499"/>
+                                <rect key="frame" x="20" y="245" width="374" height="560"/>
                                 <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -758,8 +761,8 @@
                             <constraint firstItem="cKG-pl-7la" firstAttribute="top" secondItem="GJw-f7-mxW" secondAttribute="bottom" constant="29" id="DVC-Qh-XIK"/>
                             <constraint firstItem="3ey-qJ-07n" firstAttribute="trailing" secondItem="GJw-f7-mxW" secondAttribute="trailing" constant="20" id="H9R-xp-sJa"/>
                             <constraint firstItem="3ey-qJ-07n" firstAttribute="trailing" secondItem="cKG-pl-7la" secondAttribute="trailing" constant="20" id="MYG-AD-5Pm"/>
-                            <constraint firstItem="3ey-qJ-07n" firstAttribute="bottom" secondItem="cKG-pl-7la" secondAttribute="bottom" constant="118" id="Trs-VO-GEV"/>
                             <constraint firstItem="cKG-pl-7la" firstAttribute="leading" secondItem="3ey-qJ-07n" secondAttribute="leading" constant="20" id="Xaq-8U-oUW"/>
+                            <constraint firstItem="3ey-qJ-07n" firstAttribute="bottom" secondItem="cKG-pl-7la" secondAttribute="bottom" constant="57" id="cJQ-Mf-hou"/>
                             <constraint firstItem="3ey-qJ-07n" firstAttribute="trailing" secondItem="6sP-uc-yRR" secondAttribute="trailing" constant="110" id="g38-Bs-ccL"/>
                             <constraint firstItem="6sP-uc-yRR" firstAttribute="top" secondItem="3ey-qJ-07n" secondAttribute="top" constant="23" id="r9X-Ym-9bI"/>
                             <constraint firstItem="GJw-f7-mxW" firstAttribute="leading" secondItem="3ey-qJ-07n" secondAttribute="leading" constant="20" id="yAw-pW-syf"/>
@@ -771,12 +774,22 @@
                     </tabBarItem>
                     <navigationItem key="navigationItem" title="Search Songs" id="AIQ-EY-TCz"/>
                     <connections>
+                        <outlet property="searchBar" destination="GJw-f7-mxW" id="3Ke-YO-6Mj"/>
+                        <outlet property="searchDisplayController" destination="kp7-Ex-sdh" id="n3r-KW-Y7N"/>
                         <outlet property="tableView" destination="cKG-pl-7la" id="zNq-OI-pEt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vmL-60-dlp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="kp7-Ex-sdh">
+                    <connections>
+                        <outlet property="delegate" destination="VTr-Rf-fKz" id="cdO-EJ-iz9"/>
+                        <outlet property="searchContentsController" destination="VTr-Rf-fKz" id="W9z-7X-RVe"/>
+                        <outlet property="searchResultsDataSource" destination="VTr-Rf-fKz" id="ae9-Bt-t4m"/>
+                        <outlet property="searchResultsDelegate" destination="VTr-Rf-fKz" id="YhW-8Y-aFG"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="7339" y="-212"/>
+            <point key="canvasLocation" x="7337.68115942029" y="-212.27678571428569"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ecr-Br-Hol">

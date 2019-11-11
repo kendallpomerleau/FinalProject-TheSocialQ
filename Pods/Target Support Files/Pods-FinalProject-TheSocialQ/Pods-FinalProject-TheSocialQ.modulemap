@@ -1,0 +1,6 @@
+framework module Pods_FinalProject_TheSocialQ {
+  umbrella header "Pods-FinalProject-TheSocialQ-umbrella.h"
+
+  export *
+  module * { export * }
+}

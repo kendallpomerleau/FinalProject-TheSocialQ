@@ -12,6 +12,9 @@ class Queue{
     
     let title:String
     let key:String
+    
+    // when we enable spotify login, comment this out
+    let token:String?
 
     var songs:[Song] = []
     var add:Bool
@@ -20,6 +23,7 @@ class Queue{
         self.title = title
         self.key = key
         self.add = add
+        self.token = nil
     }
     
     func addToQueue(song:Song){

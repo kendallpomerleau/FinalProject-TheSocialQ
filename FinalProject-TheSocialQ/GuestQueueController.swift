@@ -88,7 +88,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         cellDescription.font = UIFont(name: "Avenir Next", size: 13)
         cellDescription.textColor = .white
         
-        cellTitle.text = currentQueue.songs[indexPath.section].title
+        cellTitle.text = currentQueue.songs[indexPath.section].name
         cellDescription.text = currentQueue.songs[indexPath.section].artist
         
         
