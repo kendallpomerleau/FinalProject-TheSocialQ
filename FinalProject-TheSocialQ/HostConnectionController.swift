@@ -8,10 +8,13 @@
 
 import UIKit
 
-class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate {
+class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate, UIApplicationDelegate {
     
     let SpotifyClientID = "cb2d7b9941a84f4a94f41c450fa08a09"
     let SpotifyRedirectURI = URL(string: "finalproject-thesocialq://")!
+    
+    var appDelegate = UIApplication.shared.delegate as! AppDelegate
+
     
     @IBOutlet weak var loginBtn: UIButton!
    
@@ -27,11 +30,12 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
         //loginBtn.layer.cornerRadius = 10
         //loginBtn.clipsToBounds = true
         
-        
+
+
         // Do any additional setup after loading the view.
         
-        
     }
+
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: SpotifyClientID, redirectURL: SpotifyRedirectURI)
         // Set the playURI to a non-nil value so that Spotify plays music after authenticating and App Remote can connect

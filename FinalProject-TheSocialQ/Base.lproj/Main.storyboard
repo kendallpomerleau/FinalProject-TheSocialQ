@@ -39,7 +39,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="2mw-YB-Pg0" kind="show" id="UwJ-ha-T3k"/>
+                                                    <segue destination="2mw-YB-Pg0" kind="show" identifier="hostQueue" id="UwJ-ha-T3k"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-QV-TPd">
@@ -50,7 +50,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="ssh-bh-Ol3" kind="show" id="Xa8-he-SDq"/>
+                                                    <segue destination="ssh-bh-Ol3" kind="show" identifier="joinQueue" id="Xa8-he-SDq"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -158,7 +158,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect to Host" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBY-Kh-rGv">
                                 <rect key="frame" x="20.5" y="117" width="287.5" height="51"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="51" id="L7k-ac-vLJ"/>
+                                    <constraint firstAttribute="height" constant="51" id="rMi-kS-12N"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="37"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -170,7 +170,6 @@
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="trailing" secondItem="ML9-7i-yVq" secondAttribute="trailing" id="1Vs-q2-IPM"/>
                             <constraint firstItem="ML9-7i-yVq" firstAttribute="leading" secondItem="cEy-BT-6lj" secondAttribute="leading" id="2CK-KR-tjn"/>
                             <constraint firstItem="ML9-7i-yVq" firstAttribute="top" secondItem="cEy-BT-6lj" secondAttribute="top" id="45F-v6-Ag9"/>
-                            <constraint firstItem="cEy-BT-6lj" firstAttribute="bottom" secondItem="fBY-Kh-rGv" secondAttribute="bottom" constant="694" id="90t-Ge-GHC"/>
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="trailing" secondItem="ML9-7i-yVq" secondAttribute="trailing" id="AvJ-HW-mZi"/>
                             <constraint firstItem="fBY-Kh-rGv" firstAttribute="top" secondItem="cEy-BT-6lj" secondAttribute="top" constant="29" id="BGE-X3-rCn"/>
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="bottom" secondItem="maQ-2t-Q0F" secondAttribute="bottom" constant="247" id="KkA-sE-Htg"/>

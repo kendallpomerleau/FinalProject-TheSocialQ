@@ -20,7 +20,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     let baseURL:String = "https://api.spotify.com/v1/"
     
     // THIS SHOULD BE GIVEN TO YOU SOMEHOW WHEN YOU LOGIN BECAUSE OF THE QUEUE YOU ARE LOGGING INTO
-    let spotifyToken:String = "BQBnRmfyOpx2rFY1yw9_7yhpr405mKN3WzMsdJ_cX2aDlluAymKh9feALGr8fhz6Hc_I3-gHOtpdqsGlPEBOq1Zt4j4qJEcbDWOVr6OJ2NVWPkGV0GmHKv8HsNBbxyff6-ujyXjTtr_yzgjRLQh1XlrHqm2ueIgoQoVcYPE"
+    let spotifyToken:String = "BQCthjtjfeBSPiib1mnEZMhxhh4br91iJYrequi_gCVAiTtmJ2n1e31GVVd-ECYbsl7jsB2quQtNS5_AEfU-LnZbhFsxLU_OV5YYSTfYpsXoO9wtHWYBR72Z3GKR1o_kDJCjQSAccJlwjIHCw1iGhKeHE-IkyPqNtlsTfx4"
     
     override func viewDidLoad() {
         super.viewDidLoad()
