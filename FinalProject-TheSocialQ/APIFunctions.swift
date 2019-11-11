@@ -347,31 +347,31 @@ func getFeaturedPlaylists(authToken: String) -> [UserPlaylist] {
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
     var returnItemArray : [UserPlaylist] = []
-   
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data,
-                let response = response as? HTTPURLResponse,
-                error == nil else {
-                    print("error", error ?? "Unknown error")
-                    return
-            }
-            
-            guard (200 ... 299) ~= response.statusCode else {
-                print("statusCode should be 2xx, but is \(response.statusCode)")
-                
+    
+    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        guard let data = data,
+            let response = response as? HTTPURLResponse,
+            error == nil else {
+                print("error", error ?? "Unknown error")
                 return
-            }
-            do {
-                let searchJson = try JSONDecoder().decode(FeaturedPlaylists.self, from: data)
-                print("data = \(searchJson)")
-                
-                returnItemArray = searchJson.playlists.items
-            } catch {
-                print("Search JSON decode error")
-                return
-            }
         }
-        task.resume()
+        
+        guard (200 ... 299) ~= response.statusCode else {
+            print("statusCode should be 2xx, but is \(response.statusCode)")
+            
+            return
+        }
+        do {
+            let searchJson = try JSONDecoder().decode(FeaturedPlaylists.self, from: data)
+            print("data = \(searchJson)")
+            
+            returnItemArray = searchJson.playlists.items
+        } catch {
+            print("Search JSON decode error")
+            return
+        }
+    }
+    task.resume()
     
     return returnItemArray
 }
