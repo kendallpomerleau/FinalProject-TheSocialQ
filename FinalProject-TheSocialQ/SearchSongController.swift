@@ -20,24 +20,17 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     let baseURL:String = "https://api.spotify.com/v1/"
     
     // THIS SHOULD BE GIVEN TO YOU SOMEHOW WHEN YOU LOGIN BECAUSE OF THE QUEUE YOU ARE LOGGING INTO
-    let spotifyToken:String = "BQDBPa0elLhn0EOkPSCTtJA13LJFCpUzmafYILBfwjFHPFiCggCZTG99DZLpYFVmjQr0JWzeGR2rEzjosABrBTFQEQfkeUmbEM_A4-1iLxoJeaB5j-UuXs3lOy7xaoLxZjGyb89wXFC_iezCDB7nLuhaJFq_nDogvdOh2pUmYg"
+    let spotifyToken:String = "BQD22-WNXYb9hi3MJ-V0GRC2QKVfho-5V5EpEzeqbfw31PxvqdXTe7ChIUddA03_n8He6-E5Cd2pgIkZ44JQwYtVkRJEfsgw-fTRwtJDzQ4eU-mz847LU8HfB5I5l0m9gC1Z7g2-0N2mXNq59bdjJ5RfdF2UB4YUuTOw6zw"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // load default songs (popular from API)
-        // JUST FOR TESTING
-//        let circles = Song(id: "1", name: "Circles", artist:"Post Malone", coverPath: "https://i.scdn.co/image/94105e271865c28853bfb7b44b38353a2fea45d6")
-//        let cyanide = Song(id: "2", name: "Cyanide", artist:"Daniel Caesar", coverPath: "https://i.scdn.co/image/ab67616d0000b2737607aa9ae7904e1b12907c93")
-//        songResults.append(circles)
-//        songResults.append(cyanide)
         
         tableView.dataSource = self
         tableView.rowHeight = 90
         
         searchBar.delegate = self
 
-        // Do any additional setup after loading the view.
+        // load default songs (today's top hits from API)
         loadDefaultSongs()
     }
     
@@ -80,7 +73,17 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             let swiftyJsonVar = JSON(data)
             let tracks = swiftyJsonVar["tracks"]["items"]
             for i in 0..<tracks.count {
-                self.songResults.append(Song(id: "\(tracks[i]["track"]["id"])", name: "\(tracks[i]["track"]["name"])", artist: "\(tracks[i]["track"]["artists"][0]["name"])", coverPath:
+                var artist = ""
+                if (tracks[i]["track"]["artists"].count > 1){
+                    artist = "\(tracks[i]["track"]["artists"][0]["name"])"
+                    for j in 0..<tracks[i]["track"]["artists"].count {
+                        artist += ", " + "\(tracks[i]["track"]["artists"][j]["name"])"
+                    }
+                }
+                else {
+                    artist = "\(tracks[i]["track"]["artists"][0]["name"])"
+                }
+                self.songResults.append(Song(id: "\(tracks[i]["track"]["id"])", name: "\(tracks[i]["track"]["name"])", artist: artist, coverPath:
                     "\(tracks[i]["track"]["album"]["images"][1]["url"])"))
             }
 
@@ -105,6 +108,68 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         searchBar.showsCancelButton = false
         searchBar.endEditing(true)
         
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        var text = searchBar.text!
+        text = text.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
+        if text != "" {
+            // add the spinner view controller
+//            let child = SpinnerViewController()
+//            addChild(child)
+//            child.view.frame = view.frame
+//            view.addSubview(child.view)
+//            child.didMove(toParent: self)
+            let query = URL(string: baseURL + "search?q=\(text)&type=track&market=US")!
+            var request = URLRequest(url: query)
+            print(request)
+            request.addValue("Bearer \(spotifyToken)", forHTTPHeaderField: "Authorization")
+            request.httpMethod = "GET"
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            DispatchQueue.global(qos: .background) .async {
+                let task = URLSession.shared.dataTask(with: query) { (data, response, error) in
+                    guard error == nil else {
+                        print(error!)
+                        return
+                    }
+                    guard let data = data else {
+                        print("Data is empty")
+                        return
+                    }
+                    print(response)
+                    let swiftyJsonVar = JSON(data)
+                    let tracks = swiftyJsonVar["tracks"]["items"]
+                    for i in 0..<tracks.count {
+                        var artist = ""
+                        if (tracks[i]["track"]["artists"].count > 1){
+                            artist = "\(tracks[i]["track"]["artists"][0]["name"])"
+                            for j in 0..<tracks[i]["track"]["artists"].count {
+                                artist += ", " + "\(tracks[i]["track"]["artists"][j]["name"])"
+                            }
+                        }
+                        else {
+                            artist = "\(tracks[i]["track"]["artists"][0]["name"])"
+                        }
+                        print(artist)
+                        self.songResults.append(Song(id: "\(tracks[i]["track"]["id"])", name: "\(tracks[i]["track"]["name"])", artist: artist, coverPath:
+                            "\(tracks[i]["track"]["album"]["images"][1]["url"])"))
+                    }
+
+
+                    DispatchQueue.main.async {
+                        self.cacheImages()
+                        // remove the spinner view controller
+                        self.tableView.reloadData()
+//                        child.willMove(toParent: nil)
+//                        child.view.removeFromSuperview()
+//                        child.removeFromParent()
+                    }
+                }
+                task.resume()
+            }
+        }
     }
     
     
