@@ -113,6 +113,17 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
                 print("Error subscribing to player state:" + error.localizedDescription)
             }
         })
+        appRemote.connectionParameters.accessToken = self.accessToken
+//        let parameters = appRemote.authorizationParameters(from: url);
+//
+//        if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
+//            appRemote.connectionParameters.accessToken = access_token
+//            self.accessToken = access_token
+//            print(self.accessToken)
+//        } else if (parameters?[SPTAppRemoteErrorDescriptionKey]) != nil {
+//            // Show the error
+//        }
+        print(self.accessToken)
         fetchPlayerState()
     }
     
@@ -172,18 +183,18 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     
     
     //get access token?
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        let parameters = appRemote.authorizationParameters(from: url);
-        
-        if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
-            appRemote.connectionParameters.accessToken = access_token
-            self.accessToken = access_token
-            print(self.accessToken)
-        } else if (parameters?[SPTAppRemoteErrorDescriptionKey]) != nil {
-            // Show the error
-        }
-        return true
-    }
+//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+//        let parameters = appRemote.authorizationParameters(from: url);
+//
+//        if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
+//            appRemote.connectionParameters.accessToken = access_token
+//            self.accessToken = access_token
+//            print(self.accessToken)
+//        } else if (parameters?[SPTAppRemoteErrorDescriptionKey]) != nil {
+//            // Show the error
+//        }
+//        return true
+//    }
     
     /*
     // MARK: - Navigation
