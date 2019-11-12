@@ -20,6 +20,9 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let secondTab = self.tabBarController?.viewControllers![1] as! SearchSongController
+        secondTab.currentQueue = self.currentQueue
 
         addBtn.layer.cornerRadius = 10
         addBtn.clipsToBounds = true
@@ -92,7 +95,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         cellDescription.text = currentQueue.songs[indexPath.section].artist
         
         
-        let dotdotBtn = UIButton(frame: CGRect(x: cell.frame.maxX, y: cell.frame.origin.y+tableView.rowHeight/2.0, width: 20, height: 10))
+        let dotdotBtn = UIButton(frame: CGRect(x: cell.frame.maxX-20, y: cell.frame.origin.y+tableView.rowHeight/2.0, width: 20, height: 10))
 
         dotdotBtn.setBackgroundImage(UIImage(named: "ellipses"), for: .normal)
         
