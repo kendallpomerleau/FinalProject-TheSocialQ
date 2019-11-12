@@ -8,10 +8,13 @@
 
 import UIKit
 
-class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate {
+class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate, UIApplicationDelegate {
     
     let SpotifyClientID = "cb2d7b9941a84f4a94f41c450fa08a09"
     let SpotifyRedirectURI = URL(string: "finalproject-thesocialq://")!
+    
+    var appDelegate = UIApplication.shared.delegate as! AppDelegate
+
     
     @IBOutlet weak var loginBtn: UIButton!
    
@@ -22,16 +25,19 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
 //    var player: SPTAudioStreamingController?
 //    var loginUrl: URL?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //loginBtn.layer.cornerRadius = 10
-        //loginBtn.clipsToBounds = true
+  //      loginBtn.layer.cornerRadius = 10
+  //      loginBtn.clipsToBounds = true
         
-        
+
+
         // Do any additional setup after loading the view.
         
-        
     }
+    
+
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: SpotifyClientID, redirectURL: SpotifyRedirectURI)
         // Set the playURI to a non-nil value so that Spotify plays music after authenticating and App Remote can connect
@@ -127,6 +133,7 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
         presentAlertController(title: "Session Renewed", message: session.description, buttonTitle: "Sweet")
+        print(session.accessToken)
     }
     
     func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
@@ -171,6 +178,6 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
+        */
 
 }

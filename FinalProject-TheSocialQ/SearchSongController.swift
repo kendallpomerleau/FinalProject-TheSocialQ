@@ -16,11 +16,12 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     
     var songResults:[Song] = []
     var imageCache:[UIImage] = []
+    var currentQueue:Queue?
 
     let baseURL:String = "https://api.spotify.com/v1/"
     
     // THIS SHOULD BE GIVEN TO YOU SOMEHOW WHEN YOU LOGIN BECAUSE OF THE QUEUE YOU ARE LOGGING INTO
-    let spotifyToken:String = "BQBnRmfyOpx2rFY1yw9_7yhpr405mKN3WzMsdJ_cX2aDlluAymKh9feALGr8fhz6Hc_I3-gHOtpdqsGlPEBOq1Zt4j4qJEcbDWOVr6OJ2NVWPkGV0GmHKv8HsNBbxyff6-ujyXjTtr_yzgjRLQh1XlrHqm2ueIgoQoVcYPE"
+    let spotifyToken:String = "BQCyV2FnYvw1FCiZw-RYYCSfaPXKgBY8mqLimksHZpgCYWTGNuxwkPGRTAMPrmX-bhYZVXYkoj4F00oMUHvpSNWBpAueffW-gTAC_8q1RD0vkBeg39wtbRMIu58vWrAMclF4TWStWFvCiuD2-9431uvqPRRKYTKt3bSJi2A"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,7 +114,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         var text = searchBar.text!
-        text = text.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
+        text = text.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
         if text != "" {
             self.songResults = []
             // add the spinner view controller
@@ -191,7 +192,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         cell.clipsToBounds = true
         cell.backgroundColor = UIColor(displayP3Red: 25/255, green: 20/255, blue: 20/255, alpha: 0.9)
         
-        if (indexPath.row <= imageCache.count - 1) {
+        if (indexPath.row < imageCache.count && indexPath.row < songResults.count) {
 
             
             let cellImg = UIImageView(frame: CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: 90, height: 90))
@@ -213,7 +214,8 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             cellDescription.text = songResults[indexPath.row].artist
             
             
-            let plusBtn = UIButton(frame: CGRect(x: cell.frame.maxX, y: cell.frame.origin.y+tableView.rowHeight/2.0-10, width: 20, height: 20))
+            let plusBtn = UIButton(frame: CGRect(x: cell.frame.maxX-20, y: cell.frame.origin.y+tableView.rowHeight/2.0-10, width: 20, height: 20))
+            plusBtn.tag = indexPath.row
             plusBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
 
             
@@ -241,7 +243,19 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         
         alert.addAction(cancelAction)
         
-        self.present(alert, animated: true, completion: nil)
+        if (currentQueue?.songs.contains(songResults[sender.tag]))!{
+            return
+        }
+        else {
+            currentQueue?.addToQueue(song: songResults[sender.tag])
+            // somehow need to get the song that the button was attached to
+            let firstTab = self.tabBarController?.viewControllers![0] as! GuestQueueController
+            firstTab.currentQueue = currentQueue!
+            firstTab.cacheImages()
+            firstTab.tableView.reloadData()
+            
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
     /*
