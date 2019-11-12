@@ -56,10 +56,16 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
         return manager
     }()
     
+//    lazy var appRemote: SPTAppRemote = {
+//        let appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
+//        appRemote.delegate = self
+//        return appRemote
+//    }()
     lazy var appRemote: SPTAppRemote = {
-        let appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
-        appRemote.delegate = self
-        return appRemote
+      let appRemote = SPTAppRemote(configuration: self.configuration, logLevel: .debug)
+      appRemote.connectionParameters.accessToken = self.accessToken
+      appRemote.delegate = self
+      return appRemote
     }()
     
     fileprivate var lastPlayerState: SPTAppRemotePlayerState?
