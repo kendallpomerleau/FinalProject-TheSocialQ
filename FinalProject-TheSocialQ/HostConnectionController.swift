@@ -27,8 +27,8 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //loginBtn.layer.cornerRadius = 10
-        //loginBtn.clipsToBounds = true
+        loginBtn.layer.cornerRadius = 10
+        loginBtn.clipsToBounds = true
         
 
 

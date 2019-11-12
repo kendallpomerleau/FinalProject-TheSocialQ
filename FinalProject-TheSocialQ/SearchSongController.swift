@@ -20,7 +20,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     let baseURL:String = "https://api.spotify.com/v1/"
     
     // THIS SHOULD BE GIVEN TO YOU SOMEHOW WHEN YOU LOGIN BECAUSE OF THE QUEUE YOU ARE LOGGING INTO
-    let spotifyToken:String = "BQCthjtjfeBSPiib1mnEZMhxhh4br91iJYrequi_gCVAiTtmJ2n1e31GVVd-ECYbsl7jsB2quQtNS5_AEfU-LnZbhFsxLU_OV5YYSTfYpsXoO9wtHWYBR72Z3GKR1o_kDJCjQSAccJlwjIHCw1iGhKeHE-IkyPqNtlsTfx4"
+    let spotifyToken:String = "BQA-LuyIi2tQTrHxKaXdmfMUFyWcpqTn_PKUKHkWbQ51Tvepe5rkJjG5ESnBFDnWhWLN5Oi1icakfPslq9fWu1GomV00BiCi2Vohs0pmOHfF1uten6NpcvbwHaoW7qp-GT-DO4INDheksdJxeQRMru2CjdHjTLbQ-F_K3Ls"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,7 +113,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         var text = searchBar.text!
-        text = text.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
+        text = text.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
         if text != "" {
             self.songResults = []
             // add the spinner view controller
