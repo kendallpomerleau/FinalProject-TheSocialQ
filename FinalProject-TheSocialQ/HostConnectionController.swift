@@ -25,16 +25,18 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
 //    var player: SPTAudioStreamingController?
 //    var loginUrl: URL?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        loginBtn.layer.cornerRadius = 10
-        loginBtn.clipsToBounds = true
+  //      loginBtn.layer.cornerRadius = 10
+  //      loginBtn.clipsToBounds = true
         
 
 
         // Do any additional setup after loading the view.
         
     }
+    
 
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: SpotifyClientID, redirectURL: SpotifyRedirectURI)
@@ -131,6 +133,7 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
         presentAlertController(title: "Session Renewed", message: session.description, buttonTitle: "Sweet")
+        print(session.accessToken)
     }
     
     func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
@@ -175,6 +178,6 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
+        */
 
 }

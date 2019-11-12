@@ -17,11 +17,19 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
     @IBOutlet weak var addBtn: UIButton!
     @IBOutlet weak var Access: UISegmentedControl!
     @IBOutlet weak var Picker: UIPickerView!
+
     var pickerData: [String] = [String]()
+
+    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+        queueTitle.resignFirstResponder()
+        queueKey.resignFirstResponder()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
+        
         addBtn.layer.cornerRadius = 10
         addBtn.clipsToBounds = true
         

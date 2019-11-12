@@ -91,6 +91,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         let optionMenu = UIAlertController(title: "What's the Key?", message: nil, preferredStyle: .alert)
         
         optionMenu.view.tintColor = .black
+        optionMenu.view.backgroundColor = .white
         
         optionMenu.addTextField(configurationHandler: { (textField) in
             textField.placeholder = "Type Key from Host"
@@ -115,6 +116,9 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
                 }
                 else {
                     let failMenu = UIAlertController(title: "Incorrect Key", message: "Enter the correct key to join the queue", preferredStyle: .alert)
+                    failMenu.view.backgroundColor = .white
+                    failMenu.view.layer.cornerRadius = 25
+
                     var failMutable = NSMutableAttributedString()
                     failMutable = NSMutableAttributedString(string: "Incorrect Key", attributes: [NSAttributedString.Key.font:UIFont(name: "Avenir Next", size: 19.0)!])
                     failMutable.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location:0,length:13))
