@@ -14,29 +14,15 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     let SpotifyRedirectURI = URL(string: "finalproject-thesocialq://")!
     let SpotifyClientSecret = "894b275a1a144e9584c33bb6c0d4712b"
     var playURI = ""
-    
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var accessToken = ""
 
-    
     @IBOutlet weak var loginBtn: UIButton!
    
-    
-    var accessToken = ""
-//    var auth = SPTAuth.defaultInstance()!
-//    var session:SPTSession!
-//    var player: SPTAudioStreamingController?
-//    var loginUrl: URL?
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
   //      loginBtn.layer.cornerRadius = 10
   //      loginBtn.clipsToBounds = true
-        
-
-
-        // Do any additional setup after loading the view.
-        
     }
     
     func connect() {
@@ -49,10 +35,6 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
         // otherwise another app switch will be required
         configuration.playURI = ""
         
-        // Set these url's to your backend which contains the secret to exchange for an access token
-        // You can use the provided ruby script spotify_token_swap.rb for testing purposes
-        //configuration.tokenSwapURL = URL(string: "http://localhost:1234/swap")
-        //configuration.tokenRefreshURL = URL(string: "http://localhost:1234/refresh")
         return configuration
     }()
     
@@ -66,12 +48,6 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
         appRemote.delegate = self
         return appRemote
     }()
-//    lazy var appRemote: SPTAppRemote = {
-//      let appRemote = SPTAppRemote(configuration: self.configuration, logLevel: .debug)
-//      appRemote.connectionParameters.accessToken = self.accessToken
-//      appRemote.delegate = self
-//      return appRemote
-//    }()
     
     fileprivate var lastPlayerState: SPTAppRemotePlayerState?
     
@@ -117,7 +93,6 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     }
     
     func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
-//        updateViewBasedOnConnected()
         appRemote.playerAPI?.delegate = self
         appRemote.playerAPI?.subscribe(toPlayerState: { (success, error) in
             if let error = error {
@@ -125,16 +100,6 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
             }
         })
         appRemote.connectionParameters.accessToken = self.accessToken
-//        let parameters = appRemote.authorizationParameters(from: url);
-//
-//        if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
-//            appRemote.connectionParameters.accessToken = access_token
-//            self.accessToken = access_token
-//            print(self.accessToken)
-//        } else if (parameters?[SPTAppRemoteErrorDescriptionKey]) != nil {
-//            // Show the error
-//        }
-        print(self.accessToken)
         fetchPlayerState()
     }
     
@@ -156,7 +121,6 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
         appRemote.connectionParameters.accessToken = session.accessToken
         self.accessToken = appRemote.connectionParameters.accessToken!
-        print(self.accessToken)
         appRemote.connect()
     }
     
@@ -190,6 +154,7 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
         if #available(iOS 11, *) {
             // Use this on iOS 11 and above to take advantage of SFAuthenticationSession
             sessionManager.initiateSession(with: scope, options: .clientOnly)
+
         } else {
             // Use this on iOS versions < 11 to use SFSafariViewController
             sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
@@ -197,30 +162,16 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     }
     
     
-    //get access token?
-//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-//        print("going")
-//        let parameters = appRemote.authorizationParameters(from: url);
-//        print("\(parameters)")
-//
-//        if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
-//            appRemote.connectionParameters.accessToken = access_token
-//            self.accessToken = access_token
-//            print(self.accessToken)
-//        } else if (parameters?[SPTAppRemoteErrorDescriptionKey]) != nil {
-//            print("error")
-//        }
-//        return true
-//    }
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "loginSuccess" {
+            let destination = segue.destination as! AddHostQueueViewController
+            print("token: \(accessToken)")
+            destination.accessToken = accessToken
+        }
     }
-        */
-
+ 
 }
