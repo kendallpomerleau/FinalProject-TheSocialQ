@@ -76,20 +76,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
             print("going")
         let parameters = rootViewController.appRemote.authorizationParameters(from: url);
-//        print("\(parameters[0])")
-    
+        
+//        var request = NSMutableURLRequest(URL: NSURL(string: "https://accounts.spotify.com/api/token/"))
+//        var session = NSURLSession.sharedSession()
+//        request.HTTPMethod = "POST"
+//
+//        var params = ["username":"jameson", "password":"password"] as Dictionary<String, String>
+//
+//        var err: NSError?
+//        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.addValue("application/json", forHTTPHeaderField: "Accept")
+//
+        
         let url = URL(string: "https://accounts.spotify.com/api/token")!
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
-        let postParams: [String: Any] = [
-            "grant_type": "authorization_code",
-            "code": String((parameters?["code"])!),
-            "redirect_uri": "\(rootViewController.SpotifyRedirectURI)"
-        ]
-        request.httpBody = postParams.percentEscaped().data(using: .utf8)
-
+        let postParams = "grant_type=authorization_code&code="+String((parameters?["code"])!)+"&redirect_uri=\(rootViewController.SpotifyRedirectURI)&client_id=\(rootViewController.SpotifyClientID)&client_secret=\(rootViewController.SpotifyClientSecret)"
+//        let postParams: [String: Any] = [
+//            "grant_type": "authorization_code",
+//            "code": String((parameters?["code"])!),
+//            "redirect_uri": "\(rootViewController.SpotifyRedirectURI)",
+//            "client_id":rootViewController.SpotifyClientID,
+//            "client_secret":rootViewController.SpotifyClientSecret
+//        ]
+        
+        let postData = NSMutableData(data: postParams.data(using: String.Encoding.utf8)!)
+        request.httpBody = postData as Data
+        
+        //request.httpBody = postParams.percentEscaped().data(using: .utf8)
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            
             guard let data = data,
                 let response = response as? HTTPURLResponse,
                 error == nil else {                                              // check for fundamental networking error
@@ -105,6 +125,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             let responseString = String(data: data, encoding: .utf8)
             print("responseString = \(String(describing: responseString))")
+            
+            let swiftyJsonVar = JSON(data)
+            self.rootViewController.accessToken = "\(swiftyJsonVar["token"])"
         }
 
         task.resume()
