@@ -12,6 +12,8 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     
     let SpotifyClientID = "cb2d7b9941a84f4a94f41c450fa08a09"
     let SpotifyRedirectURI = URL(string: "finalproject-thesocialq://")!
+    let SpotifyClientSecret = "894b275a1a144e9584c33bb6c0d4712b"
+    var playURI = ""
     
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
 
@@ -37,6 +39,9 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
         
     }
     
+    func connect() {
+        self.appRemote.authorizeAndPlayURI(self.playURI)
+    }
 
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: SpotifyClientID, redirectURL: SpotifyRedirectURI)
@@ -46,8 +51,8 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
         
         // Set these url's to your backend which contains the secret to exchange for an access token
         // You can use the provided ruby script spotify_token_swap.rb for testing purposes
-        configuration.tokenSwapURL = URL(string: "http://localhost:1234/swap")
-        configuration.tokenRefreshURL = URL(string: "http://localhost:1234/refresh")
+        //configuration.tokenSwapURL = URL(string: "http://localhost:1234/swap")
+        //configuration.tokenRefreshURL = URL(string: "http://localhost:1234/refresh")
         return configuration
     }()
     
@@ -86,18 +91,18 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
 //    func updateViewBasedOnConnected() {
 //        if (appRemote.isConnected) {
 //            connectButton.isHidden = true
-////            disconnectButton.isHidden = false
-////            connectLabel.isHidden = true
-////            imageView.isHidden = false
-////            trackLabel.isHidden = false
-////            pauseAndPlayButton.isHidden = false
-//        } else {
-////            disconnectButton.isHidden = true
-//            connectButton.isHidden = false
-////            connectLabel.isHidden = false
-////            imageView.isHidden = true
-////            trackLabel.isHidden = true
-////            pauseAndPlayButton.isHidden = true
+//            disconnectButton.isHidden = false
+//            connectLabel.isHidden = true
+//            imageView.isHidden = false
+//            trackLabel.isHidden = false
+//            pauseAndPlayButton.isHidden = false
+   //     } else {
+//            disconnectButton.isHidden = true
+   //         connectButton.isHidden = false
+//            connectLabel.isHidden = false
+//            imageView.isHidden = true
+//            trackLabel.isHidden = true
+//            pauseAndPlayButton.isHidden = true
 //        }
 //    }
     
@@ -149,34 +154,38 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     }
     
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
-        presentAlertController(title: "Session Renewed", message: session.description, buttonTitle: "Sweet")
-        print(session.accessToken)
+        appRemote.connectionParameters.accessToken = session.accessToken
+        self.accessToken = appRemote.connectionParameters.accessToken!
+        print(self.accessToken)
+        appRemote.connect()
+    }
+    
+    func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
+        //presentAlertController(title: "Session Renewed", message: session.description, buttonTitle: "Sweet")
+        print("sweet")
     }
     
     func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
-        presentAlertController(title: "Authorization Failed", message: error.localizedDescription, buttonTitle: "Bummer")
+        //presentAlertController(title: "Authorization Failed", message: error.localizedDescription, buttonTitle: "Bummer")
+        print(error)
     }
     
     fileprivate func presentAlertController(title: String, message: String, buttonTitle: String) {
-        let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: buttonTitle, style: .default, handler: nil)
-        controller.addAction(action)
-        present(controller, animated: true)
+        DispatchQueue.main.async {
+            let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: buttonTitle, style: .default, handler: nil)
+            controller.addAction(action)
+            self.present(controller, animated: true)
+        }
+        
     }
-    
-  
-    
-    
-    
     
     //this is what should go here
     //https://developer.spotify.com/documentation/ios/quick-start/
-    
-
 
    
     @IBAction func tapConnect(_ sender: UIButton) {
-        let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate]
+        let scope: SPTScope = [.appRemoteControl, .playlistReadCollaborative, .streaming, .userReadPrivate, .userReadPlaybackState]
         
         if #available(iOS 11, *) {
             // Use this on iOS 11 and above to take advantage of SFAuthenticationSession
@@ -190,14 +199,16 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     
     //get access token?
 //    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+//        print("going")
 //        let parameters = appRemote.authorizationParameters(from: url);
+//        print("\(parameters)")
 //
 //        if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
 //            appRemote.connectionParameters.accessToken = access_token
 //            self.accessToken = access_token
 //            print(self.accessToken)
 //        } else if (parameters?[SPTAppRemoteErrorDescriptionKey]) != nil {
-//            // Show the error
+//            print("error")
 //        }
 //        return true
 //    }
