@@ -114,7 +114,7 @@
         <!--Host Connection Controller-->
         <scene sceneID="h3w-QF-iKY">
             <objects>
-                <viewController id="2mw-YB-Pg0" customClass="HostConnectionController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyHostConnectionController" id="2mw-YB-Pg0" customClass="HostConnectionController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AG4-E5-q26">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -134,14 +134,13 @@
                                         </state>
                                         <connections>
                                             <action selector="tapConnect:" destination="2mw-YB-Pg0" eventType="touchUpInside" id="U0M-F4-V1J"/>
-                                            <segue destination="Y6C-0A-PeT" kind="show" id="Xmd-Ms-DvA"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <variation key="heightClass=compact" axis="horizontal"/>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="party" translatesAutoresizingMaskIntoConstraints="NO" id="ML9-7i-yVq">
-                                <rect key="frame" x="0.0" y="88" width="414" height="255"/>
+                                <rect key="frame" x="0.0" y="88" width="414.00000000000011" height="255"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="255" id="XVR-YH-CDP"/>
                                 </constraints>
@@ -173,16 +172,17 @@
                     </view>
                     <connections>
                         <outlet property="loginBtn" destination="jeL-Nt-Vd5" id="9d7-f7-Hts"/>
+                        <segue destination="Y6C-0A-PeT" kind="show" identifier="loginSuccess" id="5zN-gi-fVD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhd-zp-5kA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4686.9565217391309" y="467.41071428571428"/>
+            <point key="canvasLocation" x="4687" y="467"/>
         </scene>
         <!--Add Host Queue View Controller-->
         <scene sceneID="9f0-8s-Xw3">
             <objects>
-                <viewController id="Y6C-0A-PeT" customClass="AddHostQueueViewController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyAddHostQueueViewController" id="Y6C-0A-PeT" customClass="AddHostQueueViewController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="A21-5G-PK2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -306,6 +306,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TZg-dW-19C"/>
                     </view>
+                    <navigationItem key="navigationItem" id="MJ4-YR-VoU"/>
                     <connections>
                         <outlet property="Access" destination="vfW-8G-616" id="O63-kb-STX"/>
                         <outlet property="Picker" destination="oxF-D2-h2p" id="ee3-RF-who"/>
@@ -472,6 +473,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IGR-4h-3P8"/>
                     </view>
+                    <navigationItem key="navigationItem" id="GK0-kS-Y3V"/>
                     <connections>
                         <outlet property="AddBtn" destination="fjI-6m-MHP" id="Uqp-xQ-Xc9"/>
                         <outlet property="playSongView" destination="Za0-UC-YCN" id="nI5-br-6F9"/>

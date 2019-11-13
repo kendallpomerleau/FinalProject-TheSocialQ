@@ -19,6 +19,7 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
     @IBOutlet weak var Picker: UIPickerView!
 
     var pickerData: [String] = [String]()
+    var accessToken:String?
 
     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         queueTitle.resignFirstResponder()

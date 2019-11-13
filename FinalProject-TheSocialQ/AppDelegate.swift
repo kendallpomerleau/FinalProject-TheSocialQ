@@ -13,8 +13,11 @@ import SwiftyJSON
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    lazy var rootViewController = HostConnectionController()
-    
+    //lazy var rootViewController = HostConnectionController()
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    lazy var rootViewController = storyboard.instantiateViewController(withIdentifier: "MyHostConnectionController") as! HostConnectionController
+    lazy var addQueueViewController = storyboard.instantiateViewController(withIdentifier: "MyAddHostQueueViewController") as! AddHostQueueViewController
+
     private var orientation: UIInterfaceOrientationMask = .portrait
     
     func rotateScreen(orientation: UIInterfaceOrientationMask) {
@@ -63,9 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        if let token = rootViewController.appRemote.connectionParameters.accessToken {
+        if let _ = rootViewController.appRemote.connectionParameters.accessToken {
             rootViewController.appRemote.connect()
-            print(token)
         }
     }
 
@@ -74,20 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-            print("going")
         let parameters = rootViewController.appRemote.authorizationParameters(from: url);
-        
-//        var request = NSMutableURLRequest(URL: NSURL(string: "https://accounts.spotify.com/api/token/"))
-//        var session = NSURLSession.sharedSession()
-//        request.HTTPMethod = "POST"
-//
-//        var params = ["username":"jameson", "password":"password"] as Dictionary<String, String>
-//
-//        var err: NSError?
-//        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.addValue("application/json", forHTTPHeaderField: "Accept")
-//
         
         let url = URL(string: "https://accounts.spotify.com/api/token")!
         var request = URLRequest(url: url)
@@ -124,46 +113,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
 
             let responseString = String(data: data, encoding: .utf8)
-            print("responseString = \(String(describing: responseString))")
             
             let swiftyJsonVar = JSON(data)
-            self.rootViewController.accessToken = "\(swiftyJsonVar["token"])"
+            
+            DispatchQueue.main.async {
+                self.rootViewController.accessToken = "\(swiftyJsonVar["access_token"])"
+//                self.rootViewController.performSegue(withIdentifier: "loginSuccess", sender: self.rootViewController)
+                self.addQueueViewController.accessToken = "\(swiftyJsonVar["access_token"])"
+            }
+
         }
 
         task.resume()
-            if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
-                rootViewController.appRemote.connectionParameters.accessToken = access_token
-                rootViewController.accessToken = access_token
-                print(rootViewController.accessToken)
-            } else if (parameters?[SPTAppRemoteErrorDescriptionKey]) != nil {
-                print("error")
-            }
-            return true
+        return true
+//            if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
+//                rootViewController.appRemote.connectionParameters.accessToken = access_token
+//                rootViewController.accessToken = access_token
+//                print(rootViewController.accessToken)
+//            } else if (parameters?[SPTAppRemoteErrorDescriptionKey]) != nil {
+//                print("error")
+//            }
+//            return true
         }
-    
-  
 
-
-}
-
-extension Dictionary {
-    func percentEscaped() -> String {
-        return map { (key, value) in
-            let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
-            let escapedValue = "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
-            return escapedKey + "=" + escapedValue
-        }
-        .joined(separator: "&")
-    }
-}
-
-extension CharacterSet {
-    static let urlQueryValueAllowed: CharacterSet = {
-        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
-        let subDelimitersToEncode = "!$&'()*+,;="
-
-        var allowed = CharacterSet.urlQueryAllowed
-        allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
-        return allowed
-    }()
 }
