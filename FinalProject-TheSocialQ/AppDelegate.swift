@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -40,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window = UIWindow(frame: UIScreen.main.bounds)
 //        window?.rootViewController = rootViewController
 //        window?.makeKeyAndVisible()
+        FirebaseApp.configure()
         return true
     }
 //    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
