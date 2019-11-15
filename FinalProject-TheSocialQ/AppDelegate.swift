@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //lazy var rootViewController = HostConnectionController()
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     lazy var rootViewController = storyboard.instantiateViewController(withIdentifier: "MyHostConnectionController") as! HostConnectionController
-    lazy var addQueueViewController = storyboard.instantiateViewController(withIdentifier: "MyAddHostQueueViewController") as! AddHostQueueViewController
 
     private var orientation: UIInterfaceOrientationMask = .portrait
     
@@ -82,14 +81,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
+        if (parameters?["error"] != nil) {
+            return false
+        }
         let postParams = "grant_type=authorization_code&code="+String((parameters?["code"])!)+"&redirect_uri=\(rootViewController.SpotifyRedirectURI)&client_id=\(rootViewController.SpotifyClientID)&client_secret=\(rootViewController.SpotifyClientSecret)"
-//        let postParams: [String: Any] = [
-//            "grant_type": "authorization_code",
-//            "code": String((parameters?["code"])!),
-//            "redirect_uri": "\(rootViewController.SpotifyRedirectURI)",
-//            "client_id":rootViewController.SpotifyClientID,
-//            "client_secret":rootViewController.SpotifyClientSecret
-//        ]
         
         let postData = NSMutableData(data: postParams.data(using: String.Encoding.utf8)!)
         request.httpBody = postData as Data
@@ -111,29 +106,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("response = \(response)")
                 return
             }
-
-            let responseString = String(data: data, encoding: .utf8)
             
             let swiftyJsonVar = JSON(data)
             
             DispatchQueue.main.async {
                 self.rootViewController.accessToken = "\(swiftyJsonVar["access_token"])"
-//                self.rootViewController.performSegue(withIdentifier: "loginSuccess", sender: self.rootViewController)
-                self.addQueueViewController.accessToken = "\(swiftyJsonVar["access_token"])"
+                print(swiftyJsonVar["access_token"])
             }
 
         }
 
         task.resume()
         return true
-//            if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
-//                rootViewController.appRemote.connectionParameters.accessToken = access_token
-//                rootViewController.accessToken = access_token
-//                print(rootViewController.accessToken)
-//            } else if (parameters?[SPTAppRemoteErrorDescriptionKey]) != nil {
-//                print("error")
-//            }
-//            return true
-        }
+    }
 
 }

@@ -18,7 +18,8 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     var accessToken = ""
 
     @IBOutlet weak var loginBtn: UIButton!
-   
+    @IBOutlet weak var continueButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
   //      loginBtn.layer.cornerRadius = 10
