@@ -47,7 +47,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sYs-HG-oyZ">
                                         <rect key="frame" x="20" y="50" width="300" height="35"/>
-                                        <color key="backgroundColor" red="0.11372549019607843" green="0.72549019607843135" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                         <state key="normal" title="Host a Queue">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -58,7 +58,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-QV-TPd">
                                         <rect key="frame" x="20" y="144" width="300" height="35"/>
-                                        <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                         <state key="normal" title="Join a Queue">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -125,6 +125,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jeL-Nt-Vd5">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="37"/>
                                         <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="loginBtn"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="37" id="lGw-KD-Uh6"/>
                                         </constraints>
@@ -154,15 +155,34 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlh-W4-6oa">
+                                <rect key="frame" x="20" y="653" width="374" height="37"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="continueBtn"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="A76-IO-jyN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                <state key="normal" title="Continue to Create Queue">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapConnect:" destination="2mw-YB-Pg0" eventType="touchUpInside" id="Q8S-ZI-6sd"/>
+                                    <segue destination="Y6C-0A-PeT" kind="show" identifier="loginSuccess" id="DBd-ig-tGv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.10701538705583757" green="0.10701538705583757" blue="0.10701538705583757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="trailing" secondItem="ML9-7i-yVq" secondAttribute="trailing" id="1Vs-q2-IPM"/>
                             <constraint firstItem="ML9-7i-yVq" firstAttribute="leading" secondItem="cEy-BT-6lj" secondAttribute="leading" id="2CK-KR-tjn"/>
                             <constraint firstItem="ML9-7i-yVq" firstAttribute="top" secondItem="cEy-BT-6lj" secondAttribute="top" id="45F-v6-Ag9"/>
+                            <constraint firstItem="nlh-W4-6oa" firstAttribute="trailing" secondItem="maQ-2t-Q0F" secondAttribute="trailing" id="5my-wb-it7"/>
+                            <constraint firstItem="nlh-W4-6oa" firstAttribute="leading" secondItem="maQ-2t-Q0F" secondAttribute="leading" id="7nW-ru-0gZ"/>
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="trailing" secondItem="ML9-7i-yVq" secondAttribute="trailing" id="AvJ-HW-mZi"/>
                             <constraint firstItem="fBY-Kh-rGv" firstAttribute="top" secondItem="cEy-BT-6lj" secondAttribute="top" constant="29" id="BGE-X3-rCn"/>
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="bottom" secondItem="maQ-2t-Q0F" secondAttribute="bottom" constant="247" id="KkA-sE-Htg"/>
+                            <constraint firstItem="nlh-W4-6oa" firstAttribute="top" secondItem="maQ-2t-Q0F" secondAttribute="bottom" constant="38" id="OLQ-io-uEF"/>
                             <constraint firstItem="maQ-2t-Q0F" firstAttribute="leading" secondItem="cEy-BT-6lj" secondAttribute="leading" constant="20" id="UvX-3W-lGE"/>
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="trailing" secondItem="maQ-2t-Q0F" secondAttribute="trailing" constant="20" id="cyv-qv-8xj"/>
                             <constraint firstItem="ML9-7i-yVq" firstAttribute="leading" secondItem="fBY-Kh-rGv" secondAttribute="trailing" constant="-308" id="kOG-hW-oga"/>
@@ -171,8 +191,8 @@
                         <viewLayoutGuide key="safeArea" id="cEy-BT-6lj"/>
                     </view>
                     <connections>
+                        <outlet property="continueBtn" destination="nlh-W4-6oa" id="wKx-2m-01e"/>
                         <outlet property="loginBtn" destination="jeL-Nt-Vd5" id="9d7-f7-Hts"/>
-                        <segue destination="Y6C-0A-PeT" kind="show" identifier="loginSuccess" id="5zN-gi-fVD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhd-zp-5kA" userLabel="First Responder" sceneMemberID="firstResponder"/>
