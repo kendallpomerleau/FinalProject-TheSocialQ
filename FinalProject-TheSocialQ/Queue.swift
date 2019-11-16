@@ -17,7 +17,7 @@ class Queue: Decodable, Encodable{
     
     // when we enable spotify login, comment this out
     let token:String?
-
+    
     var songs:[Song] = []
     var add:Bool
     var users: [String] = []
@@ -28,6 +28,22 @@ class Queue: Decodable, Encodable{
         self.add = add
         self.token = nil
         self.basePlaylistID = playlistID
+        setupBasePlaylist()
+    }
+    
+    func setupBasePlaylist() {
+        if( token != nil || token != ""){
+            //do we need to shuffle?
+            do {
+                let ref = Database.database().reference()
+                let playlistTracks : [Song] = getTracks(authToken: token!, playlistID: basePlaylistID)
+                let encodedPlaylistTracks = try JSONEncoder().encode(playlistTracks)
+                ref.child("\(title)/upcomingPlaylistSongs").setValue(encodedPlaylistTracks)
+            }
+            catch {
+                return
+            }
+        }
     }
     
     func addToQueue(song:Song){
