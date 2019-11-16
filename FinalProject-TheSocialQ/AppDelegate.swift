@@ -79,14 +79,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         let parameters = rootViewController.appRemote.authorizationParameters(from: url);
         
+        if (parameters?["error"] != nil) {
+            return false
+        }
+        rootViewController.loginBtn.isHidden = true
+        rootViewController.continueBtn.isHidden = false
+        
+//        rootViewController.loginBtn.setTitle("Continue to Create Queue", for: .normal)
+        
         let url = URL(string: "https://accounts.spotify.com/api/token")!
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
-        if (parameters?["error"] != nil) {
-            return false
-        }
+        
         let postParams = "grant_type=authorization_code&code="+String((parameters?["code"])!)+"&redirect_uri=\(rootViewController.SpotifyRedirectURI)&client_id=\(rootViewController.SpotifyClientID)&client_secret=\(rootViewController.SpotifyClientSecret)"
+
         
         let postData = NSMutableData(data: postParams.data(using: String.Encoding.utf8)!)
         request.httpBody = postData as Data

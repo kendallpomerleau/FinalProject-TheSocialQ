@@ -28,7 +28,7 @@
                                     <constraint firstAttribute="height" constant="63.5" id="qiN-XI-JkO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="48"/>
-                                <color key="textColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.11372549019607843" green="0.72549019607843135" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <size key="shadowOffset" width="-1" height="1"/>
@@ -124,7 +124,8 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jeL-Nt-Vd5">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="37"/>
-                                        <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="loginBtn"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="37" id="lGw-KD-Uh6"/>
                                         </constraints>
@@ -154,16 +155,20 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TxZ-ln-GuH">
-                                <rect key="frame" x="21" y="677" width="373" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.11372549019607843" green="0.72549019607843135" blue="0.32941176470588235" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlh-W4-6oa">
+                                <rect key="frame" x="20" y="653" width="374" height="37"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="continueBtn"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="A76-IO-jyN"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <state key="normal" title="Continue to Create Queue">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Y6C-0A-PeT" kind="show" identifier="loginSuccess" id="mny-xg-bXD"/>
+                                    <action selector="tapConnect:" destination="2mw-YB-Pg0" eventType="touchUpInside" id="Q8S-ZI-6sd"/>
+                                    <segue destination="Y6C-0A-PeT" kind="show" identifier="loginSuccess" id="DBd-ig-tGv"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -172,9 +177,12 @@
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="trailing" secondItem="ML9-7i-yVq" secondAttribute="trailing" id="1Vs-q2-IPM"/>
                             <constraint firstItem="ML9-7i-yVq" firstAttribute="leading" secondItem="cEy-BT-6lj" secondAttribute="leading" id="2CK-KR-tjn"/>
                             <constraint firstItem="ML9-7i-yVq" firstAttribute="top" secondItem="cEy-BT-6lj" secondAttribute="top" id="45F-v6-Ag9"/>
+                            <constraint firstItem="nlh-W4-6oa" firstAttribute="trailing" secondItem="maQ-2t-Q0F" secondAttribute="trailing" id="5my-wb-it7"/>
+                            <constraint firstItem="nlh-W4-6oa" firstAttribute="leading" secondItem="maQ-2t-Q0F" secondAttribute="leading" id="7nW-ru-0gZ"/>
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="trailing" secondItem="ML9-7i-yVq" secondAttribute="trailing" id="AvJ-HW-mZi"/>
                             <constraint firstItem="fBY-Kh-rGv" firstAttribute="top" secondItem="cEy-BT-6lj" secondAttribute="top" constant="29" id="BGE-X3-rCn"/>
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="bottom" secondItem="maQ-2t-Q0F" secondAttribute="bottom" constant="247" id="KkA-sE-Htg"/>
+                            <constraint firstItem="nlh-W4-6oa" firstAttribute="top" secondItem="maQ-2t-Q0F" secondAttribute="bottom" constant="38" id="OLQ-io-uEF"/>
                             <constraint firstItem="maQ-2t-Q0F" firstAttribute="leading" secondItem="cEy-BT-6lj" secondAttribute="leading" constant="20" id="UvX-3W-lGE"/>
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="trailing" secondItem="maQ-2t-Q0F" secondAttribute="trailing" constant="20" id="cyv-qv-8xj"/>
                             <constraint firstItem="ML9-7i-yVq" firstAttribute="leading" secondItem="fBY-Kh-rGv" secondAttribute="trailing" constant="-308" id="kOG-hW-oga"/>
@@ -183,13 +191,13 @@
                         <viewLayoutGuide key="safeArea" id="cEy-BT-6lj"/>
                     </view>
                     <connections>
-                        <outlet property="continueButton" destination="TxZ-ln-GuH" id="IXi-pk-ffl"/>
+                        <outlet property="continueBtn" destination="nlh-W4-6oa" id="wKx-2m-01e"/>
                         <outlet property="loginBtn" destination="jeL-Nt-Vd5" id="9d7-f7-Hts"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhd-zp-5kA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4686.9565217391309" y="466.74107142857139"/>
+            <point key="canvasLocation" x="4687" y="467"/>
         </scene>
         <!--Add Host Queue View Controller-->
         <scene sceneID="9f0-8s-Xw3">
@@ -230,7 +238,7 @@
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vfW-8G-616">
                                 <rect key="frame" x="20" y="338" width="374" height="51"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.34159916639328003" green="0.7144814133644104" blue="0.37640661001205444" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Gtw-08-0gJ"/>
                                     <constraint firstAttribute="height" constant="50" id="JhY-Yg-hJN"/>
@@ -243,7 +251,7 @@
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdd-dG-eeK">
                                 <rect key="frame" x="20" y="793" width="374" height="35"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <state key="normal" title="Add">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -254,7 +262,7 @@
                             </button>
                             <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="oxF-D2-h2p">
                                 <rect key="frame" x="20" y="456" width="374" height="181"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.34159916639999999" green="0.71448141340000004" blue="0.37640660999999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </pickerView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Type here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DB9-Un-lyw">
@@ -424,7 +432,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjI-6m-MHP">
                                 <rect key="frame" x="20" y="807" width="374" height="35"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <state key="normal" title="Add Songs">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -485,7 +493,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IGR-4h-3P8"/>
                     </view>
-                    <navigationItem key="navigationItem" id="GK0-kS-Y3V"/>
+                    <navigationItem key="navigationItem" id="GK0-kS-Y3V">
+                        <barButtonItem key="rightBarButtonItem" title="End Queue" id="FCt-VS-m6R"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="AddBtn" destination="fjI-6m-MHP" id="Uqp-xQ-Xc9"/>
                         <outlet property="playSongView" destination="Za0-UC-YCN" id="nI5-br-6F9"/>
@@ -532,7 +542,7 @@
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehh-iA-8Rn">
                                 <rect key="frame" x="57" y="814" width="300" height="35"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <state key="normal" title="Join">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -631,7 +641,7 @@
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4pZ-bl-FwH">
                                 <rect key="frame" x="57" y="741" width="300" height="35"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <state key="normal" title="Add/Suggest">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

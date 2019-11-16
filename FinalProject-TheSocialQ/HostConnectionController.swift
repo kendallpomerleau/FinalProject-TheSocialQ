@@ -16,19 +16,32 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     var playURI = ""
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
     var accessToken = ""
-
+    
+    @IBOutlet weak var continueBtn: UIButton!
+    
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var continueButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-  //      loginBtn.layer.cornerRadius = 10
-  //      loginBtn.clipsToBounds = true
+        appDelegate.rootViewController = self
+        continueBtn.isHidden = true
+    }
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loginBtn.layer.cornerRadius = 10
+        loginBtn.clipsToBounds = true
+        continueBtn.layer.cornerRadius = 10
+        continueBtn.clipsToBounds = true
     }
     
     func connect() {
         self.appRemote.authorizeAndPlayURI(self.playURI)
+        
     }
+   
 
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: SpotifyClientID, redirectURL: SpotifyRedirectURI)
@@ -102,6 +115,8 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
         })
         appRemote.connectionParameters.accessToken = self.accessToken
         fetchPlayerState()
+        print("did connect")
+
     }
     
     
@@ -123,6 +138,9 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
         appRemote.connectionParameters.accessToken = session.accessToken
         self.accessToken = appRemote.connectionParameters.accessToken!
         appRemote.connect()
+        print("did initiate")
+        loginBtn.backgroundColor = .white
+
     }
     
     func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
@@ -135,7 +153,7 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
         print(error)
     }
     
-    fileprivate func presentAlertController(title: String, message: String, buttonTitle: String) {
+    /*fileprivate func presentAlertController(title: String, message: String, buttonTitle: String) {
         DispatchQueue.main.async {
             let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
             let action = UIAlertAction(title: buttonTitle, style: .default, handler: nil)
@@ -143,7 +161,7 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
             self.present(controller, animated: true)
         }
         
-    }
+    }*/
     
     //this is what should go here
     //https://developer.spotify.com/documentation/ios/quick-start/
@@ -151,15 +169,16 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
    
     @IBAction func tapConnect(_ sender: UIButton) {
         let scope: SPTScope = [.appRemoteControl, .playlistReadCollaborative, .streaming, .userReadPrivate, .userReadPlaybackState]
-        
-        if #available(iOS 11, *) {
-            // Use this on iOS 11 and above to take advantage of SFAuthenticationSession
-            sessionManager.initiateSession(with: scope, options: .clientOnly)
-
-        } else {
-            // Use this on iOS versions < 11 to use SFSafariViewController
-            sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
+        if (sender.accessibilityIdentifier == "loginBtn") {
+            if #available(iOS 11, *) {
+                // Use this on iOS 11 and above to take advantage of SFAuthenticationSession
+                sessionManager.initiateSession(with: scope, options: .clientOnly)
+            } else {
+                // Use this on iOS versions < 11 to use SFSafariViewController
+                sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
+            }
         }
+        
     }
     
     
