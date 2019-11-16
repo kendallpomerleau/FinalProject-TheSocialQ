@@ -96,6 +96,9 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         optionMenu.addTextField(configurationHandler: { (textField) in
             textField.placeholder = "Type Key from Host"
         })
+        optionMenu.addTextField(configurationHandler: { (textField) in
+            textField.placeholder = "Create Username"
+        })
         
         optionMenu.view.layer.cornerRadius = 25
         
@@ -110,6 +113,9 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
             let accessAction = UIAlertAction(title: "Join", style: .default, handler: {action in
                 
                 let textField = optionMenu.textFields![0] // Force unwrapping because we know it exists.
+                
+                let userText = optionMenu.textFields![1]
+                // add to database
 
                 if textField.text == self.currentSelection.key {
                     self.performSegue(withIdentifier: "viewCurrentQueue", sender: self)
