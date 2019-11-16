@@ -20,7 +20,8 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     @IBOutlet weak var continueBtn: UIButton!
     
     @IBOutlet weak var loginBtn: UIButton!
-   
+    @IBOutlet weak var continueButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         appDelegate.rootViewController = self

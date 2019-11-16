@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //lazy var rootViewController = HostConnectionController()
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     lazy var rootViewController = storyboard.instantiateViewController(withIdentifier: "MyHostConnectionController") as! HostConnectionController
-    lazy var addQueueViewController = storyboard.instantiateViewController(withIdentifier: "MyAddHostQueueViewController") as! AddHostQueueViewController
 
     private var orientation: UIInterfaceOrientationMask = .portrait
     
@@ -116,29 +115,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("response = \(response)")
                 return
             }
-
-            let responseString = String(data: data, encoding: .utf8)
             
             let swiftyJsonVar = JSON(data)
             
             DispatchQueue.main.async {
                 self.rootViewController.accessToken = "\(swiftyJsonVar["access_token"])"
-//                self.rootViewController.performSegue(withIdentifier: "loginSuccess", sender: self.rootViewController)
-                self.addQueueViewController.accessToken = "\(swiftyJsonVar["access_token"])"
+                print(swiftyJsonVar["access_token"])
             }
 
         }
 
         task.resume()
         return true
-//            if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
-//                rootViewController.appRemote.connectionParameters.accessToken = access_token
-//                rootViewController.accessToken = access_token
-//                print(rootViewController.accessToken)
-//            } else if (parameters?[SPTAppRemoteErrorDescriptionKey]) != nil {
-//                print("error")
-//            }
-//            return true
-        }
+    }
 
 }
