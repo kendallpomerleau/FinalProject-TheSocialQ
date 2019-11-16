@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import FirebaseDatabase
+import SwiftyJSON
 
 class SearchQueueController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
@@ -17,7 +19,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var searchBar: UISearchBar!
     
     var queueResults:[Queue] = []
-    var currentSelection:Queue = Queue(title:"", key: "", add: false)
+    var currentSelection:Queue = Queue(title:"", key: "", add: false, playlistID: "")
     var searchActive : Bool = false
 
     
@@ -28,8 +30,8 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         joinBtn.clipsToBounds = true
         
         // initial queues JUST FOR TESTING
-        let q1 = Queue(title: "Kendall's Party", key: "12345", add: true)
-        let q2 = Queue(title: "Sarah's House", key: "12345", add: true)
+        let q1 = Queue(title: "Kendall's Party", key: "12345", add: true, playlistID: "")
+        let q2 = Queue(title: "Sarah's House", key: "12345", add: true, playlistID: "")
         
         let circles = Song(id: "1", name: "Circles", artist:"Post Malone", coverPath: "https://i.scdn.co/image/94105e271865c28853bfb7b44b38353a2fea45d6")
         let cyanide = Song(id: "2", name: "Cyanide", artist:"Daniel Caesar", coverPath: "https://i.scdn.co/image/ab67616d0000b2737607aa9ae7904e1b12907c93")
@@ -46,8 +48,38 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         tableView.delegate = self
         searchBar.delegate = self
         
+        
+        grabFirebaseData()
         // Do any additional setup after loading the view.
     
+    }
+    
+    func grabFirebaseData() {
+        let ref = Database.database().reference()
+ 
+        // load full list of all queues into table view
+        ref.observe(.value, with: {
+            snapshot in
+                    
+            for child in snapshot.children.allObjects as! [DataSnapshot]{
+                print(child.key)
+
+                let swiftyJsonVar = JSON(child.value)
+                var directAdd = false
+                if swiftyJsonVar["directAdd"] == "True" {
+                    directAdd = true
+                }
+                let queueFromJson = Queue(title: "\(swiftyJsonVar["name"])", key: "\(swiftyJsonVar["passKey"])", add: directAdd, playlistID: "\(swiftyJsonVar["basePlaylistID"])")
+                
+                if !self.queueResults.contains(queueFromJson){
+                    self.queueResults.append(queueFromJson)
+                }
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+
+        })
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

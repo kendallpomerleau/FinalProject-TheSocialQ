@@ -80,7 +80,7 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
             if segment == 1 {
                 add = true
             }
-            let newQueue = Queue(title: queueTitle.text!, key: queueKey.text!, add: add)
+            let newQueue = Queue(title: queueTitle.text!, key: queueKey.text!, add: add, playlistID: "")
             destination?.currentQueue = newQueue
         }
     }
