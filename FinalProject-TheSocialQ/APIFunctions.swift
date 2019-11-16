@@ -26,7 +26,7 @@ let featuredPlaylistURL = "https://api.spotify.com/v1/browse/featured-playlists"
 let userTopTracksURL = "https://api.spotify.com/v1/me/top/"
 let newReleasesURL = "https://api.spotify.com/v1/browse/new-releases?country=US"
 
-func searchSpotify(authToken: String, query: String, queryLimit: Int = 10) -> [Track]{ //authToken for search requires no scopes
+func searchSpotify(authToken: String, query: String, queryLimit: Int = 10) -> [Song]{ //authToken for search requires no scopes
     let searchFullURL = "\(searchURL)?q=\(query)&type=track&market=US&limit=\(queryLimit)"
     let url = URL(string: searchFullURL)
     var request = URLRequest(url: url!)
@@ -34,7 +34,7 @@ func searchSpotify(authToken: String, query: String, queryLimit: Int = 10) -> [T
     request.setValue("application/json", forHTTPHeaderField: "Accept")
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-    var returnItemArray : [Track] = []
+    var returnItemArray : [Song] = []
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
         guard let data = data,
             let response = response as? HTTPURLResponse,
@@ -254,7 +254,7 @@ func getUserPlaylists(authToken: String) -> [UserPlaylist]{ //playlist-read-priv
     
 }
 
-func getTracks(authToken: String, playlistID: String) -> [Track]{ // no scope needed
+func getTracks(authToken: String, playlistID: String) -> [Song]{ // no scope needed
     let limit = 100
     var offset = 0
     let fullURL = "\(playlistTracksURL)\(playlistID)/tracks?limit=\(limit)&offset=\(offset)"
@@ -264,7 +264,7 @@ func getTracks(authToken: String, playlistID: String) -> [Track]{ // no scope ne
     request.setValue("application/json", forHTTPHeaderField: "Accept")
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-    var returnItemArray : [Track] = []
+    var returnItemArray : [Song] = []
     var done = false
     while(!done){
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -376,14 +376,14 @@ func getFeaturedPlaylists(authToken: String) -> [UserPlaylist] {
     return returnItemArray
 }
 
-func getTopTracks(authToken: String) -> [Track] {
+func getTopTracks(authToken: String) -> [Song] {
     let url = URL(string: "\(userTopTracksURL)tracks")
     var request = URLRequest(url: url!)
     request.httpMethod = "GET"
     request.setValue("application/json", forHTTPHeaderField: "Accept")
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-    var returnItemArray : [Track] = []
+    var returnItemArray : [Song] = []
     
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
         guard let data = data,

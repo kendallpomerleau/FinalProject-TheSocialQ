@@ -27,7 +27,7 @@ struct AlbumSearchResult: Codable {
 
 struct TracksSearchSubResult: Codable {
     let href: String
-    let items: [Track]
+    let items: [Song]
 }
 
 struct ArtistsSearchSubResult: Codable {
@@ -117,13 +117,13 @@ struct PlaylistTracksGetResult: Codable {
 
 struct PlaylistTrack: Codable {
     let is_local: Bool
-    let track: Track
+    let track: Song
 }
 
 struct CurrentPlayback: Codable {
     let timestamp: Int64
     let progress_ms: Int
-    let item: Track
+    let item: Song
     let is_playing: Bool
 }
 

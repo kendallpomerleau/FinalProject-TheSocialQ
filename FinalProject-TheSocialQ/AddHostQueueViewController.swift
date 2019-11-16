@@ -20,6 +20,7 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
 
     var pickerData: [String] = [String]()
     var accessToken:String?
+    var pickerPlaylists : [UserPlaylist] = [UserPlaylist]()
 
     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         queueTitle.resignFirstResponder()
@@ -45,6 +46,18 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
         pickerData = ["Playlist 1", "Playlist 2", "Playlist 3", "Playlist 4", "Playlist 5", "Playlist 6"]
         
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //update userPlaylists
+        if(accessToken != ""){
+            let playlists = getUserPlaylists(authToken: accessToken!)
+            pickerPlaylists = playlists
+            pickerData = []
+            for playlist in playlists {
+                pickerData.append(playlist.name)
+            }
+        }
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -80,7 +93,8 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
             if segment == 1 {
                 add = true
             }
-            let newQueue = Queue(title: queueTitle.text!, key: queueKey.text!, add: add, playlistID: "")
+            let playlistID = pickerPlaylists[Picker.selectedRow(inComponent: 0)].id
+            let newQueue = Queue(title: queueTitle.text!, key: queueKey.text!, add: add, playlistID: playlistID)
             destination?.currentQueue = newQueue
         }
     }
