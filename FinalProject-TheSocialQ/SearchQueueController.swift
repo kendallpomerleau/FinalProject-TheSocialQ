@@ -19,6 +19,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var searchBar: UISearchBar!
     
     var queueResults:[Queue] = []
+    var shownQueues:[Queue] = []
     var currentSelection:Queue = Queue(title:"", key: "", add: false, playlistID: "")
     var searchActive : Bool = false
 
@@ -51,7 +52,6 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         
         grabFirebaseData()
         // Do any additional setup after loading the view.
-    
     }
     
     func grabFirebaseData() {
@@ -64,7 +64,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
             for child in snapshot.children.allObjects as! [DataSnapshot]{
                 print(child.key)
 
-                let swiftyJsonVar = JSON(child.value)
+                let swiftyJsonVar = JSON(child.value!)
                 var directAdd = false
                 if swiftyJsonVar["directAdd"] == "True" {
                     directAdd = true
@@ -75,11 +75,30 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
                     self.queueResults.append(queueFromJson)
                 }
             }
-            DispatchQueue.main.async {
+            DispatchQueue.main.async{
+                if self.searchBar.text! == "" {
+                    self.shownQueues = self.queueResults
+                }
                 self.tableView.reloadData()
             }
-
         })
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        shownQueues = []
+        
+        // if nothing written in search bar, load defaults (stored in queueResults)
+        if self.searchBar.text! == "" {
+            self.shownQueues = self.queueResults
+        }
+        else {
+            for queue in queueResults {
+                if (queue.title.contains(searchBar.text!)){
+                    shownQueues.append(queue)
+                }
+            }
+        }
+        tableView.reloadData()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -87,7 +106,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
+
         searchBar.showsCancelButton = false
         searchBar.endEditing(true)
 
@@ -95,12 +114,12 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (queueResults.count)
+        return (shownQueues.count)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-        let currentQueue = queueResults[indexPath.row]
+        let currentQueue = shownQueues[indexPath.row]
         myCell.textLabel?.text = currentQueue.title
         myCell.textLabel?.textColor = .white
         
@@ -115,7 +134,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selecting")
-        currentSelection = queueResults[indexPath.row]
+        currentSelection = shownQueues[indexPath.row]
     }
     
     @IBAction func promptKey(_ sender: UIButton) {
