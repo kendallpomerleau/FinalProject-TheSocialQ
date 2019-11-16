@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class GuestQueueController: UIViewController, UITableViewDataSource {
-
+    
     var currentQueue:Queue = Queue(title: "", key: "", add: false, playlistID: "")
     var imageCache:[UIImage] = []
-
-
+    
+    
     @IBOutlet weak var queueTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addBtn: UIButton!
@@ -23,21 +24,49 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         
         let secondTab = self.tabBarController?.viewControllers![1] as! SearchSongController
         secondTab.currentQueue = self.currentQueue
-
+        
         addBtn.layer.cornerRadius = 10
         addBtn.clipsToBounds = true
         queueTitle.text = currentQueue.title
-
+        
         tableView.dataSource = self
         tableView.rowHeight = 90
         
+        
+        
         cacheImages()
         // Do any additional setup after loading the view.
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        //begin connection to firebase queue
+        let ref = Database.database().reference()
+        ref.child("\(currentQueue.title)").observe(.value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            let passKey = value?["passKey"] as? String ?? ""
+            if(passKey == "" || passKey != self.currentQueue.key) {
+                return
+            }
+            else {
+                do {
+                    let queue = try JSONDecoder().decode(Queue.self, from: snapshot.value as! Data)
+                    self.currentQueue = queue
+                    self.cacheImages()
+                    self.tableView.reloadData()
+                    
+                }
+                catch {
+                    return
+                }
+            }
+        }){ (error) in
+            print(error.localizedDescription)
+        }
     }
     
     func cacheImages() {
@@ -80,7 +109,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         cellImg.image = imageCache[indexPath.section]
         cellImg.layer.cornerRadius=10
         cellImg.clipsToBounds = true
-
+        
         cell.backgroundColor = .darkGray
         
         let cellTitle = UILabel(frame: CGRect(x: cell.frame.origin.x + cellImg.frame.width + 10, y: cell.frame.origin.y + 10, width: cell.frame.width - cellImg.frame.width, height: tableView.rowHeight/2.0))
@@ -96,10 +125,10 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         
         
         let dotdotBtn = UIButton(frame: CGRect(x: cell.frame.maxX-20, y: cell.frame.origin.y+tableView.rowHeight/2.0, width: 20, height: 10))
-
+        
         dotdotBtn.setBackgroundImage(UIImage(named: "ellipses"), for: .normal)
         
-                dotdotBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        dotdotBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
         
         cell.addSubview(cellImg)
         cell.addSubview(cellTitle)
@@ -109,7 +138,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.darkGray
         cell.selectedBackgroundView = backgroundView
-
+        
         
         cell.layer.borderColor = UIColor(red: 25/255, green: 20/255, blue: 20/255, alpha: 1).cgColor
         cell.layer.borderWidth = 5
@@ -120,7 +149,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
     @IBAction func backToSearch(_ sender: UIBarButtonItem) {
         
         performSegue(withIdentifier: "backToSearch", sender: self)
-
+        
     }
     
     @objc func buttonClicked(sender : UIButton){
@@ -132,15 +161,15 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         
         self.present(alert, animated: true, completion: nil)
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

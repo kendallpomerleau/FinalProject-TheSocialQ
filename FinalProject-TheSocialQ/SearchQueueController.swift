@@ -166,9 +166,13 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
                 let textField = optionMenu.textFields![0] // Force unwrapping because we know it exists.
                 
                 let userText = optionMenu.textFields![1]
+                
                 // add to database
 
                 if textField.text == self.currentSelection.key {
+                    if(userText.text != ""){
+                        self.currentSelection.userJoin(username: userText.text!)
+                    }
                     self.performSegue(withIdentifier: "viewCurrentQueue", sender: self)
                 }
                 else {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Song {
+struct Song: Decodable, Encodable {
     let id: String!
     let name: String
     let artist: String

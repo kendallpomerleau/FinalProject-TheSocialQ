@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import FirebaseDatabase
 
-class Queue{
+class Queue: Decodable, Encodable{
     
     let title:String
     let key:String
@@ -19,6 +20,7 @@ class Queue{
 
     var songs:[Song] = []
     var add:Bool
+    var users: [String] = []
     
     init(title: String, key: String, add: Bool, playlistID: String){
         self.title = title
@@ -32,16 +34,35 @@ class Queue{
         songs.append(song)
         
         // also add to database
+        
+        let ref = Database.database().reference()
+        ref.child("\(title)/queuedSongs").setValue(songs)
     }
     
     func removeFromQueue(song:Song){
-        while songs.contains(song) {
+        if songs.contains(song) {
             if let songToRemove = songs.firstIndex(of: song) {
                 songs.remove(at: songToRemove)
+                let ref = Database.database().reference()
+                ref.child("\(title)/queuedSongs").setValue(songs)
             }
         }
         
         // also remove from database
+    }
+    
+    func userJoin(username: String) {
+        users.append(username)
+        //add to firebase
+        let ref = Database.database().reference()
+        ref.child("\(title)/users").setValue(users)
+    }
+    func userLeave(username: String) {
+        if let userToRemoveIndex = users.firstIndex(of: username) {
+            users.remove(at: userToRemoveIndex)
+            let ref = Database.database().reference()
+            ref.child("\(title)/users").setValue(users)
+        }
     }
     
 }
