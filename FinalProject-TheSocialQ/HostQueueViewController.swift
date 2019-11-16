@@ -10,7 +10,7 @@ import UIKit
 
 class HostQueueViewController: UIViewController, UITableViewDataSource {
     
-    var currentQueue:Queue = Queue(title: "", key: "", add: false)
+    var currentQueue:Queue = Queue(title: "", key: "", add: false, playlistID: "")
     var imageCache:[UIImage] = []
 
     @IBOutlet weak var tableView: UITableView!

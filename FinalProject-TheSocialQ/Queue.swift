@@ -12,6 +12,7 @@ class Queue{
     
     let title:String
     let key:String
+    let basePlaylistID:String
     
     // when we enable spotify login, comment this out
     let token:String?
@@ -19,11 +20,12 @@ class Queue{
     var songs:[Song] = []
     var add:Bool
     
-    init(title: String, key: String, add: Bool){
+    init(title: String, key: String, add: Bool, playlistID: String){
         self.title = title
         self.key = key
         self.add = add
         self.token = nil
+        self.basePlaylistID = playlistID
     }
     
     func addToQueue(song:Song){
@@ -42,4 +44,11 @@ class Queue{
         // also remove from database
     }
     
+}
+
+extension Queue: Equatable {
+    static func == (queue1: Queue, queue2: Queue) -> Bool {
+        return
+            queue1.title == queue2.title && queue1.key == queue2.key
+    }
 }
