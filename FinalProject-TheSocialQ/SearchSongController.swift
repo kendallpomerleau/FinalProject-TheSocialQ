@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import FirebaseDatabase
 
 class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDelegate, UISearchBarDelegate {
     
@@ -26,7 +27,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     let baseURL:String = "https://api.spotify.com/v1/"
     
     // THIS SHOULD BE GIVEN TO YOU SOMEHOW WHEN YOU LOGIN BECAUSE OF THE QUEUE YOU ARE LOGGING INTO
-    let spotifyToken:String = "BQCyV2FnYvw1FCiZw-RYYCSfaPXKgBY8mqLimksHZpgCYWTGNuxwkPGRTAMPrmX-bhYZVXYkoj4F00oMUHvpSNWBpAueffW-gTAC_8q1RD0vkBeg39wtbRMIu58vWrAMclF4TWStWFvCiuD2-9431uvqPRRKYTKt3bSJi2A"
+    var spotifyToken:String = "BQCyV2FnYvw1FCiZw-RYYCSfaPXKgBY8mqLimksHZpgCYWTGNuxwkPGRTAMPrmX-bhYZVXYkoj4F00oMUHvpSNWBpAueffW-gTAC_8q1RD0vkBeg39wtbRMIu58vWrAMclF4TWStWFvCiuD2-9431uvqPRRKYTKt3bSJi2A"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +38,41 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         searchBar.delegate = self
         
         // load default songs (today's top hits from API)
-        loadDefaultSongs()
+        grabFirebaseData()
+        
     }
     
+        
+    func grabFirebaseData() {
+        
+        let ref = Database.database().reference()
+     
+        // load full list of all queues into table view
+        ref.observe(.value, with: {
+            snapshot in
+            
+            for child in snapshot.children.allObjects as! [DataSnapshot]{
+                if (child.key == "Queues"){
+                    //print("child value is \(child.value!)")
+                    
+                    let swiftyJsonVar = JSON(child.value!)
+                    for queue in swiftyJsonVar {
+                        print("queue is \(queue)")
+                        let swiftyQueue = JSON(queue.1)
+                        if "\(swiftyQueue["name"])" == self.currentQueue?.title{
+                            self.spotifyToken = "\(swiftyQueue["token"])"
+                        }
+                    }
+                }
+            }
+            DispatchQueue.main.async{
+                print(self.spotifyToken)
+                print("loading songs")
+                self.loadDefaultSongs()
+                self.tableView.reloadData()
+            }
+        })
+    }
     
     
     func cacheImages() {
@@ -93,7 +126,6 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             else {
                 artist = "\(tracks[i]["track"]["artists"][0]["name"])"
             }
-            let songDuration = tracks[i]["track"]["duration"]
             
             self.songResults.append(Song(id: "\(tracks[i]["track"]["id"])", name: "\(tracks[i]["track"]["name"])", artist: artist, coverPath:"\(tracks[i]["track"]["album"]["images"][1]["url"])", duration: "\(tracks[i]["track"]["duration"])"))
          }
@@ -235,7 +267,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
                     artists.append(", \(songResults[indexPath.row].artists[i].name)")
                 }
             }*/
-            var artists = suggestions[indexPath.row].artist
+            let artists = songResults[indexPath.row].artist
 
             cellDescription.text = artists
             

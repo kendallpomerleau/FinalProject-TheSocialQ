@@ -140,7 +140,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
             }
             
         }*/
-        var artists = currentQueue.songs[indexPath.section].artist
+        let artists = currentQueue.songs[indexPath.section].artist
         /*if(currentQueue.songs[indexPath.section].artists.count > 1) {
             for i in 1...currentQueue.songs[indexPath.section].artists.count-1 {
                 artists.append(", \(currentQueue.songs[indexPath.section].artists[i].name)")
