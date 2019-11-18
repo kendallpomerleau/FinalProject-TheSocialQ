@@ -86,6 +86,12 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(Access.selectedSegmentIndex == 1){
+            self.hidesBottomBarWhenPushed = true
+        }
+        else if(Access.selectedSegmentIndex == 0){
+            self.hidesBottomBarWhenPushed = false
+        }
         if segue.identifier == "addQueue" {
             let destination = segue.destination as? HostQueueViewController
             let segment = Access.selectedSegmentIndex
