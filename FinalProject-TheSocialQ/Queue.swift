@@ -62,13 +62,19 @@ class Queue: Decodable, Encodable{
         }
     }
     
-    func addToQueue(song:Track){
+    func addToQueue(song:Track, isHost: Bool, canDirectAdd: Bool){
+        if isHost || canDirectAdd{
+        
         songs.append(song)
         
         // also add to database
         
         let ref = Database.database().reference()
         ref.child("Queues/\(title)/queuedSongs").setValue(songs)
+        }
+        else {
+            // SUGGEST SONGS FUNCTIONALITY HERE
+        }
     }
     
     func removeFromQueue(song:Track){

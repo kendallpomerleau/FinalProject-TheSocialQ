@@ -265,7 +265,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             return
         }
         else {
-            currentQueue?.addToQueue(song: songResults[sender.tag])
+            currentQueue?.addToQueue(song: songResults[sender.tag], isHost: self.isHost, canDirectAdd: self.canDirectAdd)
             // somehow need to get the song that the button was attached to
             let firstTab = self.tabBarController?.viewControllers![0] as! GuestQueueController
             firstTab.currentQueue = currentQueue!
