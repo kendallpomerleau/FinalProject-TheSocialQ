@@ -95,6 +95,7 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
             }
             let playlistID = pickerPlaylists[Picker.selectedRow(inComponent: 0)].id
             let newQueue = Queue(title: queueTitle.text!, key: queueKey.text!, add: add, playlistID: playlistID)
+            newQueue.setToken(newToken: accessToken ?? "")
             destination?.currentQueue = newQueue
         }
     }

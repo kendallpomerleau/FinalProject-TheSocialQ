@@ -31,6 +31,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         joinBtn.clipsToBounds = true
         
         // initial queues JUST FOR TESTING
+        /*
         let q1 = Queue(title: "Kendall's Party", key: "12345", add: true, playlistID: "")
         let q2 = Queue(title: "Sarah's House", key: "12345", add: true, playlistID: "")
         
@@ -44,6 +45,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         
         queueResults.append(q1)
         queueResults.append(q2)
+        */
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -60,21 +62,30 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         // load full list of all queues into table view
         ref.observe(.value, with: {
             snapshot in
-                    
-            for child in snapshot.children.allObjects as! [DataSnapshot]{
-                print(child.key)
-
-                let swiftyJsonVar = JSON(child.value!)
-                var directAdd = false
-                if swiftyJsonVar["directAdd"] == "True" {
-                    directAdd = true
+            do {
+                let queues = try JSONDecoder().decode([Queue].self, from: snapshot.value as! Data)
+                for queue in queues {
+                    if !self.queueResults.contains(queue){
+                        self.queueResults.append(queue)
+                    }
                 }
-                let queueFromJson = Queue(title: "\(swiftyJsonVar["name"])", key: "\(swiftyJsonVar["passKey"])", add: directAdd, playlistID: "\(swiftyJsonVar["basePlaylistID"])")
-                
-                if !self.queueResults.contains(queueFromJson){
-                    self.queueResults.append(queueFromJson)
-                }
+            } catch {
+                return
             }
+//            for child in snapshot.children.allObjects as! [DataSnapshot]{
+//                print(child.key)
+//
+//                let swiftyJsonVar = JSON(child.value!)
+//                var directAdd = false
+//                if swiftyJsonVar["directAdd"] == "True" {
+//                    directAdd = true
+//                }
+//                let queueFromJson = Queue(title: "\(swiftyJsonVar["name"])", key: "\(swiftyJsonVar["passKey"])", add: directAdd, playlistID: "\(swiftyJsonVar["basePlaylistID"])")
+//
+//                if !self.queueResults.contains(queueFromJson){
+//                    self.queueResults.append(queueFromJson)
+//                }
+//            }
             DispatchQueue.main.async{
                 if self.searchBar.text! == "" {
                     self.shownQueues = self.queueResults
