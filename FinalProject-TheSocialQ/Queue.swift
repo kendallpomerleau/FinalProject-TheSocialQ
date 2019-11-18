@@ -19,17 +19,22 @@ class Queue: Decodable, Encodable{
     var token:String?
     
     var songs:[Track] = []
-    var add:Bool
+    var add:String //needs to be a String for firebase reasons
     var users: [String] = []
     var playlistLength : Int = 0
     
     init(title: String, key: String, add: Bool, playlistID: String){
         self.title = title
         self.key = key
-        self.add = add
+        if add {
+            self.add = "True"
+        }
+        else {
+            self.add = "False"
+        }
         self.token = nil
         self.basePlaylistID = playlistID
-        setupPlayer()
+        
     }
     
     func setToken(newToken: String) {
@@ -45,10 +50,10 @@ class Queue: Decodable, Encodable{
                 let encodedPlaylistTracks = try JSONEncoder().encode(playlistTracks)
                 // we are shuffling no matter what -- maybe set as an option
                 let shuffledPlaylistTracks = encodedPlaylistTracks.shuffled()
-                ref.child("\(title)/allPlaylistSongs").setValue(shuffledPlaylistTracks)
+                ref.child("Queues/\(title)/allPlaylistSongs").setValue(shuffledPlaylistTracks)
                 let emptyQueue : [Track] = []
-                ref.child("\(title)/queuedSongs").setValue(emptyQueue)
-                ref.child("\(title)/currentSongPointer").setValue(0)
+                ref.child("Queues/\(title)/queuedSongs").setValue(emptyQueue)
+                ref.child("Queues/\(title)/currentSongPointer").setValue(0)
                 
             }
             catch {
@@ -63,7 +68,7 @@ class Queue: Decodable, Encodable{
         // also add to database
         
         let ref = Database.database().reference()
-        ref.child("\(title)/queuedSongs").setValue(songs)
+        ref.child("Queues/\(title)/queuedSongs").setValue(songs)
     }
     
     func removeFromQueue(song:Track){
@@ -71,7 +76,7 @@ class Queue: Decodable, Encodable{
             if let songToRemove = songs.firstIndex(of: song) {
                 songs.remove(at: songToRemove)
                 let ref = Database.database().reference()
-                ref.child("\(title)/queuedSongs").setValue(songs)
+                ref.child("Queues/\(title)/queuedSongs").setValue(songs)
             }
         }
         
@@ -99,7 +104,7 @@ class Queue: Decodable, Encodable{
         var areQueued = false
         var nextQueued : Track?
         var newQueuedList : [Track] = []
-        ref.child("\(title)/queuedSongs").observeSingleEvent(of: .value, with: {snapshot in
+        ref.child("Queues/\(title)/queuedSongs").observeSingleEvent(of: .value, with: {snapshot in
             //let queuedSongs = snapshot.value as? [Track]
             do {
             let queuedSongs = try JSONDecoder().decode([Track].self, from: snapshot.value as! Data)
@@ -119,11 +124,11 @@ class Queue: Decodable, Encodable{
             //if queued songs == empty -> play from playlist, ++currentSongPointer
             
             var currentPointer = 0
-            ref.child("\(title)/currentSongPointer").observeSingleEvent(of: .value, with: {snapshot in
+            ref.child("Queues/\(title)/currentSongPointer").observeSingleEvent(of: .value, with: {snapshot in
                 currentPointer = snapshot.value as! Int
             })
                 var nextSong : Track?
-            let singleSongRef = ref.child("\(title)/allPlaylistSongs").queryEqual(toValue: currentPointer)
+            let singleSongRef = ref.child("Queues/\(title)/allPlaylistSongs").queryEqual(toValue: currentPointer)
                 singleSongRef.observe(.value, with: {snapshot in
                     do {
                         nextSong = try JSONDecoder().decode(Track.self, from: snapshot.value as! Data)
@@ -134,7 +139,7 @@ class Queue: Decodable, Encodable{
             if currentPointer >= playlistLength-1{
                 currentPointer = -1
             }
-            ref.child("\(title)/currentSongPointer").setValue(currentPointer+1)
+            ref.child("Queues/\(title)/currentSongPointer").setValue(currentPointer+1)
             if nextSong != nil {
                 playSong(authToken: token!, trackId: nextSong!.id)
             }
@@ -143,7 +148,7 @@ class Queue: Decodable, Encodable{
         else {
             //else play top queued song and delete
             playSong(authToken: token!, trackId: nextQueued!.id)
-            ref.child("\(title)/queuedSongs").setValue(newQueuedList)
+            ref.child("Queues/\(title)/queuedSongs").setValue(newQueuedList)
         }
         
         
@@ -163,14 +168,14 @@ class Queue: Decodable, Encodable{
             //go to actual previous song from playlist
             let ref = Database.database().reference()
             var currentPointer = 0
-            ref.child("\(title)/currentSongPointer").observeSingleEvent(of: .value, with: {snapshot in
+            ref.child("Queues/\(title)/currentSongPointer").observeSingleEvent(of: .value, with: {snapshot in
                 currentPointer = snapshot.value as! Int
             })
             if currentPointer == 0{
                 currentPointer = playlistLength
             }
             var previousSong : Track?
-            let singleSongRef = ref.child("\(title)/allPlaylistSongs").queryEqual(toValue: currentPointer-1)
+            let singleSongRef = ref.child("Queues/\(title)/allPlaylistSongs").queryEqual(toValue: currentPointer-1)
                 singleSongRef.observe(.value, with: {snapshot in
                     do {
                         previousSong = try JSONDecoder().decode(Track.self, from: snapshot.value as! Data)
@@ -178,7 +183,7 @@ class Queue: Decodable, Encodable{
                         return
                     }
                 })
-            ref.child("\(title)/currentSongPointer").setValue(currentPointer-1)
+            ref.child("Queues/\(title)/currentSongPointer").setValue(currentPointer-1)
             if previousSong != nil {
                 playSong(authToken: token!, trackId: previousSong!.id)
             }
@@ -201,13 +206,13 @@ class Queue: Decodable, Encodable{
         users.append(username)
         //add to firebase
         let ref = Database.database().reference()
-        ref.child("\(title)/users").setValue(users)
+        ref.child("Queues/\(title)/users").setValue(users)
     }
     func userLeave(username: String) {
         if let userToRemoveIndex = users.firstIndex(of: username) {
             users.remove(at: userToRemoveIndex)
             let ref = Database.database().reference()
-            ref.child("\(title)/users").setValue(users)
+            ref.child("Queues/\(title)/users").setValue(users)
         }
     }
     

@@ -42,9 +42,6 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         isPlaying = true
     }
     
-    @IBAction func toSearchController(_ sender: Any) {
-        //TODO
-    }
     
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -160,5 +157,17 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "searchFromHost" {
+            let destination = segue.destination as? SearchSongController
+            destination?.isHost = true
+            destination?.canDirectAdd = true
+            
+        }
+    }
+    
 }
+
+
 

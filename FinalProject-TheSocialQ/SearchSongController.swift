@@ -18,6 +18,9 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     var imageCache:[UIImage] = []
     var currentQueue:Queue?
     
+    var isHost = false
+    var canDirectAdd = false
+    
     let baseURL:String = "https://api.spotify.com/v1/"
     
     // THIS SHOULD BE GIVEN TO YOU SOMEHOW WHEN YOU LOGIN BECAUSE OF THE QUEUE YOU ARE LOGGING INTO
@@ -272,6 +275,8 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    
     
     /*
      // MARK: - Navigation

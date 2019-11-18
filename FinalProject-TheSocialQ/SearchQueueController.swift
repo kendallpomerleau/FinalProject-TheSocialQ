@@ -62,16 +62,35 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         // load full list of all queues into table view
         ref.observe(.value, with: {
             snapshot in
-            do {
-                let queues = try JSONDecoder().decode([Queue].self, from: snapshot.value as! Data)
+//            do {
+                let dictionary = snapshot.value as! NSDictionary
+                //let queues = try JSONDecoder().decode([Queue].self, from: dictionary?["Queues"] as! Data) //wants as! NSDictionary
+            let dict2 = dictionary["Queues"] as? NSDictionary
+            var queues : [Queue] = []
+            for (_,value) in dict2! {
+                let furtherDict = value as! NSDictionary
+                let name = furtherDict["name"] as? String
+                let key = furtherDict["passKey"] as? String
+                let directAdd = furtherDict["directAdd"] as? String
+                var add = false
+                if directAdd! == "True" {
+                    add = true
+                }
+                let playlistID = furtherDict["basePlaylistID"] as? String
+                let newQueue = Queue(title: name!, key: key!, add: add, playlistID: playlistID!)
+                queues.append(newQueue)
+            }
+                
                 for queue in queues {
                     if !self.queueResults.contains(queue){
                         self.queueResults.append(queue)
                     }
                 }
-            } catch {
-                return
-            }
+//        }
+//            catch {
+//              return
+//            }
+            
 //            for child in snapshot.children.allObjects as! [DataSnapshot]{
 //                print(child.key)
 //

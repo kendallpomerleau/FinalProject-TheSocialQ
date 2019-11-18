@@ -46,23 +46,25 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         
         //begin connection to firebase queue
         let ref = Database.database().reference()
-        ref.child("\(currentQueue.title)").observe(.value, with: { snapshot in
+        ref.child("Queues").observe(.value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             let passKey = value?["passKey"] as? String ?? ""
             if(passKey == "" || passKey != self.currentQueue.key) {
                 return
             }
             else {
-                do {
-                    let queue = try JSONDecoder().decode(Queue.self, from: snapshot.value as! Data)
-                    self.currentQueue = queue
+//              do {
+                    let dictionary = snapshot.value as! NSDictionary
+                    //let queue = try JSONDecoder().decode(Queue.self, from: dictionary["\(self.currentQueue.title)"] as! Data)
+                    let queue = dictionary["\(self.currentQueue.title)"] as? Queue
+                    self.currentQueue = queue!
                     self.cacheImages()
                     self.tableView.reloadData()
                     
-                }
-                catch {
-                    return
-                }
+//                }
+//                catch {
+//                    return
+//                }
             }
         }){ (error) in
             print(error.localizedDescription)
@@ -73,19 +75,14 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         print("caching in guestqueuecontroller")
         imageCache = []
         for song in currentQueue.songs {
-            if song.coverPath != nil {
-                let url = URL(string: song.coverPath!)
+            
+                let url = URL(string: song.album.images[2].url)
                 let data = try? Data(contentsOf: url!)
                 if (data != nil){
                     let image = UIImage(data:data!)
                     imageCache.append(image!)
                 }
-            }
-            else {
-                // append empty image
-                imageCache.append(UIImage())
-                print("empty image")
-            }
+            
         }
     }
     
@@ -121,7 +118,14 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         cellDescription.textColor = .white
         
         cellTitle.text = currentQueue.songs[indexPath.section].name
-        cellDescription.text = currentQueue.songs[indexPath.section].artist
+        var artists = currentQueue.songs[indexPath.section].artists[0].name
+        if(currentQueue.songs[indexPath.section].artists.count > 1) {
+            for i in 1...currentQueue.songs[indexPath.section].artists.count-1 {
+                artists.append(", \(currentQueue.songs[indexPath.section].artists[i].name)")
+            }
+            
+        }
+        cellDescription.text = artists
         
         
         let dotdotBtn = UIButton(frame: CGRect(x: cell.frame.maxX-20, y: cell.frame.origin.y+tableView.rowHeight/2.0, width: 20, height: 10))
@@ -161,6 +165,21 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         
         self.present(alert, animated: true, completion: nil)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "searchFromGuest" {
+            let destination = segue.destination as? SearchSongController
+            destination?.isHost = false
+            if currentQueue.add == "True"{
+                destination?.canDirectAdd = true
+            }
+            else {
+                destination?.canDirectAdd = false
+            }
+            
+        }
+    }
+    
     
     /*
      // MARK: - Navigation
