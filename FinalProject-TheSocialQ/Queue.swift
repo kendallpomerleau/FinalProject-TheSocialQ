@@ -54,7 +54,7 @@ class Queue: Decodable, Encodable{
                 let emptyQueue : [Track] = []
                 ref.child("Queues/\(title)/queuedSongs").setValue(emptyQueue)
                 ref.child("Queues/\(title)/currentSongPointer").setValue(0)
-                
+                //ADD SUGGESTEDSONGS ARRAY TO FIREBASE SETUP HERE
             }
             catch {
                 return
