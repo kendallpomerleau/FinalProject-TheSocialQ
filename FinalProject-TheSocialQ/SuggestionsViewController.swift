@@ -30,6 +30,8 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
         // Do any additional setup after loading the view.
         loadSuggestions()
         
+        
+        
     }
     
     func loadSuggestions(){
