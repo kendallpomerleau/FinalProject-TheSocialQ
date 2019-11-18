@@ -249,35 +249,41 @@ func getUserPlaylists(authToken: String) -> [UserPlaylist]{ //playlist-read-priv
     request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
     var returnItemArray : [UserPlaylist] = []
     var done = false
-    while(!done){
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data,
-                let response = response as? HTTPURLResponse,
-                error == nil else {
-                    print("error", error ?? "Unknown error")
-                    return
-            }
-            
-            guard (200 ... 299) ~= response.statusCode else {
-                print("statusCode should be 2xx, but is \(response.statusCode)")
-                
+    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        guard let data = data,
+            let response = response as? HTTPURLResponse,
+            error == nil else {
+                print("error", error ?? "Unknown error")
                 return
-            }
-            do {
-                let searchJson = try JSONDecoder().decode(PlaylistGetResult.self, from: data)
-                print("data = \(searchJson)")
-                if(searchJson.next == nil){
-                    done = true
-                } else{
-                    offset += 50
-                }
-                returnItemArray.append(contentsOf: searchJson.items)
-            } catch {
-                print("Search JSON decode error")
-                return
-            }
         }
-        task.resume()
+        
+        guard (200 ... 299) ~= response.statusCode else {
+            print("statusCode should be 2xx, but is \(response.statusCode)")
+            
+            return
+        }
+        do {
+            let searchJson = try JSONDecoder().decode(PlaylistGetResult.self, from: data)
+            print("data = \(searchJson)")
+            if(searchJson.next == nil){
+                done = true
+            } else{
+                offset += 50
+            }
+            returnItemArray = searchJson.items
+        } catch {
+            print("Search JSON decode error")
+            return
+        }
+        DispatchQueue.main.async {
+            print("return array: \(returnItemArray)")
+            //return returnItemArray
+        }
+    }
+    task.resume()
+
+    while(returnItemArray.count == 0){
+        sleep(1)
     }
     return returnItemArray
     
@@ -286,8 +292,8 @@ func getUserPlaylists(authToken: String) -> [UserPlaylist]{ //playlist-read-priv
 func getTracks(authToken: String, playlistID: String) -> [Track]{ // no scope needed
     let limit = 100
     var offset = 0
-    let fullURL = "\(playlistTracksURL)\(playlistID)/tracks?limit=\(limit)&offset=\(offset)"
-    let url = URL(string: fullURL)
+    var fullURL = "\(playlistTracksURL)\(playlistID)/tracks?limit=\(limit)&offset=\(offset)"
+    var url = URL(string: fullURL)
     var request = URLRequest(url: url!)
     request.httpMethod = "GET"
     request.setValue("application/json", forHTTPHeaderField: "Accept")
@@ -295,8 +301,16 @@ func getTracks(authToken: String, playlistID: String) -> [Track]{ // no scope ne
     request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
     var returnItemArray : [Track] = []
     var done = false
-    while(!done){
+   // while(!done){
+        fullURL = "\(playlistTracksURL)\(playlistID)/tracks?limit=\(limit)&offset=\(offset)"
+        url = URL(string: fullURL)
+        request = URLRequest(url: url!)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            print("task")
             guard let data = data,
                 let response = response as? HTTPURLResponse,
                 error == nil else {
@@ -310,12 +324,15 @@ func getTracks(authToken: String, playlistID: String) -> [Track]{ // no scope ne
                 return
             }
             do {
+                print("doing")
                 let searchJson = try JSONDecoder().decode(PlaylistTracksGetResult.self, from: data)
                 print("data = \(searchJson)")
                 if(searchJson.next == nil){
                     done = true
                 } else{
                     offset += limit
+                    print(offset)
+                    
                 }
                 for item in searchJson.items {
                     if (!item.is_local) {
@@ -329,6 +346,9 @@ func getTracks(authToken: String, playlistID: String) -> [Track]{ // no scope ne
             }
         }
         task.resume()
+    //}
+    while (returnItemArray.count == 0){
+        sleep(1)
     }
     return returnItemArray
 }

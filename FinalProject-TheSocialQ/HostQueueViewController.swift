@@ -86,13 +86,18 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         imageCache = []
         for song in currentQueue.songs {
             
-            let url = URL(string: song.album.images[0].url)
+            /*let url = URL(string: song.album.images[0].url)
+            let data = try? Data(contentsOf: url!)
+            if (data != nil){
+                let image = UIImage(data:data!)
+                imageCache.append(image!)
+            }*/
+            let url = URL(string: song.coverPath!)
             let data = try? Data(contentsOf: url!)
             if (data != nil){
                 let image = UIImage(data:data!)
                 imageCache.append(image!)
             }
-            
         }
     }
     
@@ -127,20 +132,20 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         cellDescription.textColor = .white
         
         cellTitle.text = currentQueue.songs[indexPath.section].name
-        var artists = currentQueue.songs[indexPath.row].artists[0].name
-        if currentQueue.songs[indexPath.row].artists.count != 1{
+        
+        /*if currentQueue.songs[indexPath.row].artists.count != 1{
             for i in 1...currentQueue.songs[indexPath.row].artists.count-1 {
                 artists.append(", \(currentQueue.songs[indexPath.row].artists[i].name)")
             }
-        }
-        cellDescription.text = artists
+        }*/
+        cellDescription.text = currentQueue.songs[indexPath.row].artist
         
         
         let dotdotBtn = UIButton(frame: CGRect(x: cell.frame.maxX, y: cell.frame.origin.y+tableView.rowHeight/2.0, width: 20, height: 10))
         
         dotdotBtn.setBackgroundImage(UIImage(named: "ellipses"), for: .normal)
         
-        //            dotdotBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+//                    dotdotBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
         
         cell.addSubview(cellImg)
         cell.addSubview(cellTitle)

@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseDatabase
+import SwiftyJSON
 
 class Queue: Decodable, Encodable{
     
@@ -18,7 +19,8 @@ class Queue: Decodable, Encodable{
     // when we enable spotify login, comment this out
     var token:String?
     
-    var songs:[Track] = []
+    /*var songs:[Track] = []*/
+    var songs:[Song] = []
     var add:String //needs to be a String for firebase reasons
     var users: [String] = []
     var playlistLength : Int = 0
@@ -46,14 +48,45 @@ class Queue: Decodable, Encodable{
             do {
                 let ref = Database.database().reference()
                 let playlistTracks : [Track] = getTracks(authToken: token!, playlistID: basePlaylistID)
+                //print("tracks\n\n\n\n\n \(playlistTracks)")
                 playlistLength = playlistTracks.count
-                let encodedPlaylistTracks = try JSONEncoder().encode(playlistTracks)
-                // we are shuffling no matter what -- maybe set as an option
-                let shuffledPlaylistTracks = encodedPlaylistTracks.shuffled()
-                ref.child("Queues/\(title)/allPlaylistSongs").setValue(shuffledPlaylistTracks)
+                let shuffledPlaylistTracks = playlistTracks.shuffled()
+                print("\n\n\n\n" + "\(shuffledPlaylistTracks[0])" + "\n\n\n\n")
+                
+                var songName = "", songId = "", songArtist = "", songCoverPath = ""
+                
+                var songDuration = ""
+                var songToAdd:Song?
+                
+                for track in shuffledPlaylistTracks {
+                    songName = track.name
+                    songId = track.id
+                    songArtist = ""
+                    for artist in track.artists {
+                        songArtist += artist.name
+                    }
+                    songCoverPath = track.album.images[1].url
+                    songDuration = "\(track.duration_ms)"
+                    songToAdd = Song(id: songId, name: songName, artist: songArtist, coverPath: songCoverPath, duration: "\(songDuration)")
+                    ref.child("Queues/\(title)/allPlaylistSongs/\(songId)/").setValue(songToAdd?.nsDictionary)
+
+                }
+                
                 let emptyQueue : [Track] = []
                 ref.child("Queues/\(title)/queuedSongs").setValue(emptyQueue)
                 ref.child("Queues/\(title)/currentSongPointer").setValue(0)
+                ref.child("Queues/\(title)/passKey").setValue(self.key)
+                ref.child("Queues/\(title)/directAdd").setValue(self.add)
+                ref.child("Queues/\(title)/name").setValue(self.title)
+                ref.child("Queues/\(title)/token").setValue(self.token)
+                
+                /*let encodedPlaylistTracks = try JSONEncoder().encode(shuffledPlaylistTracks)
+                print(encodedPlaylistTracks.count)
+                // we are shuffling no matter what -- maybe set as an option
+                ref.child("Queues/\(title)/allPlaylistSongs").setValue(encodedPlaylistTracks)
+                let emptyQueue : [Track] = []
+                ref.child("Queues/\(title)/queuedSongs").setValue(emptyQueue)
+                ref.child("Queues/\(title)/currentSongPointer").setValue(0)*/
                 //ADD SUGGESTEDSONGS ARRAY TO FIREBASE SETUP HERE
             }
             catch {
@@ -62,22 +95,35 @@ class Queue: Decodable, Encodable{
         }
     }
     
-    func addToQueue(song:Track, isHost: Bool, canDirectAdd: Bool){
+    func addToQueue(song:Song, isHost: Bool, canDirectAdd: Bool){
         if isHost || canDirectAdd{
         
-        songs.append(song)
+            songs.append(song)
+            // also add to database
         
-        // also add to database
-        
-        let ref = Database.database().reference()
-        ref.child("Queues/\(title)/queuedSongs").setValue(songs)
+            let ref = Database.database().reference()
+            var songName = "", songId = "", songArtist = "", songCoverPath = ""
+            var songDuration = ""
+            var songToAdd:Song?
+            for song in songs {
+                songName = song.name
+                songId = song.id
+                songArtist = song.artist
+                songCoverPath = song.coverPath!
+                songDuration = song.duration!
+                songToAdd = Song(id: songId, name: songName, artist: songArtist, coverPath: songCoverPath, duration: "\(songDuration)")
+                ref.child("Queues/\(title)/queuedSongs/\(songId)/").setValue(songToAdd?.nsDictionary)
+            }
+            
+            
+            /*ref.child("Queues/\(title)/queuedSongs").setValue(songs)*/
         }
         else {
             // SUGGEST SONGS FUNCTIONALITY HERE
         }
     }
     
-    func removeFromQueue(song:Track){
+    func removeFromQueue(song:Song){
         if songs.contains(song) {
             if let songToRemove = songs.firstIndex(of: song) {
                 songs.remove(at: songToRemove)

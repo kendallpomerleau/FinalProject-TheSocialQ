@@ -85,12 +85,18 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         imageCache = []
         for song in currentQueue.songs {
             
-                let url = URL(string: song.album.images[2].url)
+                /*let url = URL(string: song.album.images[2].url)
                 let data = try? Data(contentsOf: url!)
                 if (data != nil){
                     let image = UIImage(data:data!)
                     imageCache.append(image!)
-                }
+                }*/
+            let url = URL(string: song.coverPath!)
+            let data = try? Data(contentsOf: url!)
+            if (data != nil){
+                let image = UIImage(data:data!)
+                imageCache.append(image!)
+            }
             
         }
     }
@@ -127,13 +133,20 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         cellDescription.textColor = .white
         
         cellTitle.text = currentQueue.songs[indexPath.section].name
-        var artists = currentQueue.songs[indexPath.section].artists[0].name
+        /*var artists = currentQueue.songs[indexPath.section].artists[0].name
         if(currentQueue.songs[indexPath.section].artists.count > 1) {
             for i in 1...currentQueue.songs[indexPath.section].artists.count-1 {
                 artists.append(", \(currentQueue.songs[indexPath.section].artists[i].name)")
             }
             
-        }
+        }*/
+        var artists = currentQueue.songs[indexPath.section].artist
+        /*if(currentQueue.songs[indexPath.section].artists.count > 1) {
+            for i in 1...currentQueue.songs[indexPath.section].artists.count-1 {
+                artists.append(", \(currentQueue.songs[indexPath.section].artists[i].name)")
+            }
+            
+        }*/
         cellDescription.text = artists
         
         
@@ -177,6 +190,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "searchFromGuest" {
+            print("segue")
             let destination = segue.destination as? SearchSongController
             destination?.isHost = false
             if currentQueue.add == "True"{
