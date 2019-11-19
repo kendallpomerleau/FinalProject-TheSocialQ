@@ -49,6 +49,7 @@ struct Track: Codable {
     let name: String
     let type: String
     let uri: String
+
 }
 
 extension Track: Equatable {
@@ -78,6 +79,7 @@ struct Album: Codable {
     let total_tracks: Int
     let type: String
     let uri: String
+    
 }
 
 struct Image: Codable {

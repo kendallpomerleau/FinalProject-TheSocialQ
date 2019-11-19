@@ -12,7 +12,7 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
     
     
     @IBOutlet weak var tableView: UITableView!
-    var suggestions:[Track] = []
+    var suggestions:[Song] = []
     var imageCache:[UIImage] = []
     var currentQueue:Queue?
     
@@ -42,12 +42,18 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
            imageCache = []
            for song in suggestions {
                
-               let url = URL(string: song.album.images[0].url)
+               /*let url = URL(string: song.album.images[0].url)
                let data = try? Data(contentsOf: url!)
                if (data != nil){
                    let image = UIImage(data:data!)
                    imageCache.append(image!)
-               }
+               }*/
+            let url = URL(string: song.coverPath!)
+            let data = try? Data(contentsOf: url!)
+            if (data != nil){
+                let image = UIImage(data:data!)
+                imageCache.append(image!)
+            }
         }
     }
     
@@ -81,12 +87,14 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
             cellDescription.textColor = .white
             
             cellTitle.text = suggestions[indexPath.row].name
-            var artists = suggestions[indexPath.row].artists[0].name
+            /*var artists = suggestions[indexPath.row].artists[0].name
             if suggestions[indexPath.row].artists.count != 1{
                 for i in 1...suggestions[indexPath.row].artists.count-1 {
                     artists.append(", \(suggestions[indexPath.row].artists[i].name)")
                 }
-            }
+            }*/
+            var artists = suggestions[indexPath.row].artist
+            
             cellDescription.text = artists
             
             

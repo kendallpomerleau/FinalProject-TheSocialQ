@@ -8,13 +8,16 @@
 
 import UIKit
 import SwiftyJSON
+import FirebaseDatabase
 
 class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var songResults:[Track] = []
+    /*var songResults:[Track] = []*/
+    var songResults:[Song] = []
+    var suggestions:[Song] = []
     var imageCache:[UIImage] = []
     var currentQueue:Queue?
     
@@ -24,7 +27,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     let baseURL:String = "https://api.spotify.com/v1/"
     
     // THIS SHOULD BE GIVEN TO YOU SOMEHOW WHEN YOU LOGIN BECAUSE OF THE QUEUE YOU ARE LOGGING INTO
-    let spotifyToken:String = "BQCyV2FnYvw1FCiZw-RYYCSfaPXKgBY8mqLimksHZpgCYWTGNuxwkPGRTAMPrmX-bhYZVXYkoj4F00oMUHvpSNWBpAueffW-gTAC_8q1RD0vkBeg39wtbRMIu58vWrAMclF4TWStWFvCiuD2-9431uvqPRRKYTKt3bSJi2A"
+    var spotifyToken:String = "BQCyV2FnYvw1FCiZw-RYYCSfaPXKgBY8mqLimksHZpgCYWTGNuxwkPGRTAMPrmX-bhYZVXYkoj4F00oMUHvpSNWBpAueffW-gTAC_8q1RD0vkBeg39wtbRMIu58vWrAMclF4TWStWFvCiuD2-9431uvqPRRKYTKt3bSJi2A"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,16 +38,54 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         searchBar.delegate = self
         
         // load default songs (today's top hits from API)
-        loadDefaultSongs()
+        grabFirebaseData()
+        
     }
     
+        
+    func grabFirebaseData() {
+        
+        let ref = Database.database().reference()
+     
+        // load full list of all queues into table view
+        ref.observe(.value, with: {
+            snapshot in
+            
+            for child in snapshot.children.allObjects as! [DataSnapshot]{
+                if (child.key == "Queues"){
+                    //print("child value is \(child.value!)")
+                    
+                    let swiftyJsonVar = JSON(child.value!)
+                    for queue in swiftyJsonVar {
+                        print("queue is \(queue)")
+                        let swiftyQueue = JSON(queue.1)
+                        if "\(swiftyQueue["name"])" == self.currentQueue?.title{
+                            self.spotifyToken = "\(swiftyQueue["token"])"
+                        }
+                    }
+                }
+            }
+            DispatchQueue.main.async{
+                print(self.spotifyToken)
+                print("loading songs")
+                self.loadDefaultSongs()
+                self.tableView.reloadData()
+            }
+        })
+    }
     
     
     func cacheImages() {
         imageCache = []
         for song in songResults {
             
-            let url = URL(string: song.album.images[0].url)
+            /*let url = URL(string: song.album.images[0].url)
+            let data = try? Data(contentsOf: url!)
+            if (data != nil){
+                let image = UIImage(data:data!)
+                imageCache.append(image!)
+            }*/
+            let url = URL(string: song.coverPath!)
             let data = try? Data(contentsOf: url!)
             if (data != nil){
                 let image = UIImage(data:data!)
@@ -55,7 +96,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     }
     
     func loadDefaultSongs() {
-        /*
+        
          let url = URL(string: baseURL + "playlists/37i9dQZF1DXcBWIGoYBM5M")
          
          var request = URLRequest(url: url!)
@@ -63,41 +104,41 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
          request.httpMethod = "GET"
          
          let task = URLSession.shared.dataTask(with: request) { data, response, error in
-         guard error == nil else {
-         print(error!)
-         return
-         }
-         guard let data = data else {
-         print("Data is empty")
-         return
-         }
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            guard let data = data else {
+                print("Data is empty")
+                return
+            }
          
          let swiftyJsonVar = JSON(data)
          let tracks = swiftyJsonVar["tracks"]["items"]
          for i in 0..<tracks.count {
-         var artist = ""
-         if (tracks[i]["track"]["artists"].count > 1){
-         artist = "\(tracks[i]["track"]["artists"][0]["name"])"
-         for j in 0..<tracks[i]["track"]["artists"].count {
-         artist += ", " + "\(tracks[i]["track"]["artists"][j]["name"])"
-         }
-         }
-         else {
-         artist = "\(tracks[i]["track"]["artists"][0]["name"])"
-         }
-         self.songResults.append(Song(id: "\(tracks[i]["track"]["id"])", name: "\(tracks[i]["track"]["name"])", artist: artist, coverPath:
-         "\(tracks[i]["track"]["album"]["images"][1]["url"])"))
+            var artist = ""
+            if (tracks[i]["track"]["artists"].count > 1){
+                artist = "\(tracks[i]["track"]["artists"][0]["name"])"
+                for j in 0..<tracks[i]["track"]["artists"].count {
+                    artist += ", " + "\(tracks[i]["track"]["artists"][j]["name"])"
+                }
+            }
+            else {
+                artist = "\(tracks[i]["track"]["artists"][0]["name"])"
+            }
+            
+            self.songResults.append(Song(id: "\(tracks[i]["track"]["id"])", name: "\(tracks[i]["track"]["name"])", artist: artist, coverPath:"\(tracks[i]["track"]["album"]["images"][1]["url"])", duration: "\(tracks[i]["track"]["duration"])"))
          }
          
          DispatchQueue.main.async {
-         print(self.songResults)
-         self.cacheImages()
-         // remove the spinner view controller
-         self.tableView.reloadData()
-         }
+            print(self.songResults)
+            self.cacheImages()
+            // remove the spinner view controller
+            self.tableView.reloadData()
+            }
          }
          task.resume()
-         */
+         /*
         let todaysHitsID = "37i9dQZF1DXcBWIGoYBM5M"
         let hotTracks = getTracks(authToken: spotifyToken, playlistID: todaysHitsID)
         songResults = hotTracks
@@ -106,7 +147,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             self.cacheImages()
             // remove the spinner view controller
             self.tableView.reloadData()
-        }
+        }*/
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -135,7 +176,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             //            child.didMove(toParent: self)
             //            let query = URL(string: baseURL + "search?q=\(text)&type=track&market=US")!
             //            var request = URLRequest(url: query)
-            /*
+            
              let url = URL(string: baseURL + "search?q=\(text)&type=track&market=US")
              
              var request = URLRequest(url: url!)
@@ -146,47 +187,44 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
              
              DispatchQueue.global(qos: .background) .async {
              let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-             guard error == nil else {
-             print(error!)
-             return
-             }
-             guard let data = data else {
-             print("Data is empty")
-             return
-             }
-             let swiftyJsonVar = JSON(data)
-             let tracks = swiftyJsonVar["tracks"]["items"]
-             for i in 0..<tracks.count {
-             var artist = ""
-             if (tracks[i]["artists"].count > 1){
-             artist = "\(tracks[i]["artists"][0]["name"])"
-             for j in 1..<tracks[i]["artists"].count {
-             artist += ", " + "\(tracks[i]["artists"][j]["name"])"
-             }
-             }
-             else {
-             artist = "\(tracks[i]["artists"][0]["name"])"
-             }
-             print(artist)
-             self.songResults.append(Song(id: "\(tracks[i]["id"])", name: "\(tracks[i]["name"])", artist: artist, coverPath:
-             "\(tracks[i]["album"]["images"][1]["url"])"))
-             }
-             
-             
-             DispatchQueue.main.async {
-             self.cacheImages()
-             print(self.songResults)
-             // remove the spinner view controller
-             self.tableView.reloadData()
-             //                        child.willMove(toParent: nil)
-             //                        child.view.removeFromSuperview()
-             //                        child.removeFromParent()
-             }
-             }
-             task.resume()
-             }
-             */
-            
+                guard error == nil else {
+                    print(error!)
+                    return
+                }
+                guard let data = data else {
+                    print("Data is empty")
+                    return
+                }
+                let swiftyJsonVar = JSON(data)
+                let tracks = swiftyJsonVar["tracks"]["items"]
+                for i in 0..<tracks.count {
+                    var artist = ""
+                    if (tracks[i]["artists"].count > 1){
+                        artist = "\(tracks[i]["artists"][0]["name"])"
+                        for j in 1..<tracks[i]["artists"].count {
+                            artist += ", " + "\(tracks[i]["artists"][j]["name"])"
+                        }
+                    }
+                    else {
+                        artist = "\(tracks[i]["artists"][0]["name"])"
+                    }
+                    print(artist)
+                    self.songResults.append(Song(id: "\(tracks[i]["id"])", name: "\(tracks[i]["name"])", artist: artist, coverPath:
+                "\(tracks[i]["album"]["images"][1]["url"])", duration: "\(tracks[i]["duration_ms"])"))
+                }
+
+                    DispatchQueue.main.async {
+                        self.cacheImages()
+                        print(self.songResults)
+                        // remove the spinner view controller
+                        self.tableView.reloadData()
+                        //                        child.willMove(toParent: nil)
+                        //                        child.view.removeFromSuperview()
+                        //                        child.removeFromParent()
+                    }
+                }
+                task.resume()
+            }
         }
     }
     
@@ -223,12 +261,14 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             cellDescription.textColor = .white
             
             cellTitle.text = songResults[indexPath.row].name
-            var artists = songResults[indexPath.row].artists[0].name
+            /*var artists = songResults[indexPath.row].artists[0].name
             if songResults[indexPath.row].artists.count != 1{
                 for i in 1...songResults[indexPath.row].artists.count-1 {
                     artists.append(", \(songResults[indexPath.row].artists[i].name)")
                 }
-            }
+            }*/
+            let artists = songResults[indexPath.row].artist
+
             cellDescription.text = artists
             
             

@@ -63,48 +63,55 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         ref.observe(.value, with: {
             snapshot in
 //            do {
-                let dictionary = snapshot.value as! NSDictionary
-                //let queues = try JSONDecoder().decode([Queue].self, from: dictionary?["Queues"] as! Data) //wants as! NSDictionary
-            let dict2 = dictionary["Queues"] as? NSDictionary
-            var queues : [Queue] = []
-            for (_,value) in dict2! {
-                let furtherDict = value as! NSDictionary
-                let name = furtherDict["name"] as? String
-                let key = furtherDict["passKey"] as? String
-                let directAdd = furtherDict["directAdd"] as? String
-                var add = false
-                if directAdd! == "True" {
-                    add = true
-                }
-                let playlistID = furtherDict["basePlaylistID"] as? String
-                let newQueue = Queue(title: name!, key: key!, add: add, playlistID: playlistID!)
-                queues.append(newQueue)
-            }
-                
-                for queue in queues {
-                    if !self.queueResults.contains(queue){
-                        self.queueResults.append(queue)
-                    }
-                }
+//                let dictionary = snapshot.value as! NSDictionary
+//                //let queues = try JSONDecoder().decode([Queue].self, from: dictionary?["Queues"] as! Data) //wants as! NSDictionary
+//            let dict2 = dictionary["Queues"] as? NSDictionary
+//            var queues : [Queue] = []
+//            for (_,value) in dict2! {
+//                let furtherDict = value as! NSDictionary
+//                let name = furtherDict["name"] as? String
+//                let key = furtherDict["passKey"] as? String
+//                let directAdd = furtherDict["directAdd"] as? String
+//                var add = false
+//                if directAdd! == "True" {
+//                    add = true
+//                }
+//                let playlistID = furtherDict["basePlaylistID"] as? String
+//                let newQueue = Queue(title: name!, key: key!, add: add, playlistID: playlistID!)
+//                queues.append(newQueue)
+//            }
+//                
+//                for queue in queues {
+//                    if !self.queueResults.contains(queue){
+//                        self.queueResults.append(queue)
+//                    }
+//                }
 //        }
 //            catch {
 //              return
 //            }
             
-//            for child in snapshot.children.allObjects as! [DataSnapshot]{
-//                print(child.key)
-//
-//                let swiftyJsonVar = JSON(child.value!)
-//                var directAdd = false
-//                if swiftyJsonVar["directAdd"] == "True" {
-//                    directAdd = true
-//                }
-//                let queueFromJson = Queue(title: "\(swiftyJsonVar["name"])", key: "\(swiftyJsonVar["passKey"])", add: directAdd, playlistID: "\(swiftyJsonVar["basePlaylistID"])")
-//
-//                if !self.queueResults.contains(queueFromJson){
-//                    self.queueResults.append(queueFromJson)
-//                }
-//            }
+            for child in snapshot.children.allObjects as! [DataSnapshot]{
+                if (child.key == "Queues"){
+                    //print("child value is \(child.value!)")
+                    
+                    let swiftyJsonVar = JSON(child.value!)
+                    for queue in swiftyJsonVar {
+                        print("queue is \(queue)")
+                        let swiftyQueue = JSON(queue.1)
+                        var directAdd = false
+                        if swiftyQueue["directAdd"] == "True" {
+                            directAdd = true
+                        }
+                        let queueFromJson = Queue(title: "\(swiftyQueue["name"])", key: "\(swiftyQueue["passKey"])", add: directAdd, playlistID: "\(swiftyQueue["basePlaylistID"])")
+
+                        if !self.queueResults.contains(queueFromJson){
+                            self.queueResults.append(queueFromJson)
+                        }
+                    }
+                }
+                
+            }
             DispatchQueue.main.async{
                 if self.searchBar.text! == "" {
                     self.shownQueues = self.queueResults

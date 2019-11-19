@@ -32,8 +32,6 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         tableView.dataSource = self
         tableView.rowHeight = 90
         
-        
-        
         cacheImages()
         // Do any additional setup after loading the view.
         
@@ -81,16 +79,21 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
     }
     
     func cacheImages() {
-        print("caching in guestqueuecontroller")
         imageCache = []
         for song in currentQueue.songs {
             
-                let url = URL(string: song.album.images[2].url)
+                /*let url = URL(string: song.album.images[2].url)
                 let data = try? Data(contentsOf: url!)
                 if (data != nil){
                     let image = UIImage(data:data!)
                     imageCache.append(image!)
-                }
+                }*/
+            let url = URL(string: song.coverPath!)
+            let data = try? Data(contentsOf: url!)
+            if (data != nil){
+                let image = UIImage(data:data!)
+                imageCache.append(image!)
+            }
             
         }
     }
@@ -105,7 +108,6 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("showing cell")
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         
         cell.layer.cornerRadius = 10
@@ -127,13 +129,20 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         cellDescription.textColor = .white
         
         cellTitle.text = currentQueue.songs[indexPath.section].name
-        var artists = currentQueue.songs[indexPath.section].artists[0].name
+        /*var artists = currentQueue.songs[indexPath.section].artists[0].name
         if(currentQueue.songs[indexPath.section].artists.count > 1) {
             for i in 1...currentQueue.songs[indexPath.section].artists.count-1 {
                 artists.append(", \(currentQueue.songs[indexPath.section].artists[i].name)")
             }
             
-        }
+        }*/
+        let artists = currentQueue.songs[indexPath.section].artist
+        /*if(currentQueue.songs[indexPath.section].artists.count > 1) {
+            for i in 1...currentQueue.songs[indexPath.section].artists.count-1 {
+                artists.append(", \(currentQueue.songs[indexPath.section].artists[i].name)")
+            }
+            
+        }*/
         cellDescription.text = artists
         
         
@@ -177,6 +186,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "searchFromGuest" {
+            print("segue")
             let destination = segue.destination as? SearchSongController
             destination?.isHost = false
             if currentQueue.add == "True"{

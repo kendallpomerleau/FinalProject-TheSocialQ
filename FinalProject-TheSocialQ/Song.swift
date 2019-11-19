@@ -13,7 +13,19 @@ struct Song: Decodable, Encodable {
     let name: String
     let artist: String
     let coverPath: String?
+    let duration: String?
     //other variables?
+    
+    var dictionary: [String: Any] {
+        return ["id": id as Any,
+                "name": name,
+                "artist": artist,
+                "coverPath": coverPath as Any,
+                "duration": duration as Any]
+    }
+    var nsDictionary: NSDictionary {
+        return dictionary as NSDictionary
+    }
 }
 
 extension Song: Equatable {

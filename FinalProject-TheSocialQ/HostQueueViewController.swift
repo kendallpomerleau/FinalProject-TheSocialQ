@@ -12,20 +12,27 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
     
     var currentQueue:Queue = Queue(title: "", key: "", add: false, playlistID: "")
     var imageCache:[UIImage] = []
+    @IBOutlet weak var songTitleLbl: UILabel!
+    @IBOutlet weak var songArtistLbl: UILabel!
+    @IBOutlet weak var durationBar: UIProgressView!
     
-    var isPlaying:Bool = false
+    @IBOutlet weak var songImage: UIImageView!
+    
+    var isPlaying:Bool = true
     
     @IBAction func playPause(_ sender: Any) {
         //set image
         if isPlaying {
             currentQueue.pausePlayingSong()
             isPlaying = false
-            playPauseButton.imageView?.image = UIImage(named: "play")
+            playPauseButton.setBackgroundImage(UIImage(named: "play"), for: .normal)
+            //playPauseButton.imageView?.image = UIImage(named: "play")
         }
         else {
             currentQueue.resumePlayingSong()
             isPlaying = true
-            playPauseButton.imageView?.image = UIImage(named: "pause")
+            //playPauseButton.imageView?.image = UIImage(named: "pause")
+            playPauseButton.setBackgroundImage(UIImage(named: "pause"), for: .normal)
         }
     }
     
@@ -51,7 +58,7 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         
         //check on this
-        isPlaying = false
+        isPlaying = true
         
         // Do any additional setup after loading the view.
         self.playSongView.layer.cornerRadius = 10
@@ -60,9 +67,8 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         
         AddBtn.layer.cornerRadius = 10
         AddBtn.clipsToBounds = true
-        
         cacheImages()
-        
+
     }
     
     
@@ -79,6 +85,39 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+                //playPauseButton.imageView?.image = UIImage(named: "pause")
+        DispatchQueue.main.async{
+            var timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {_ in
+                self.updateSongInfo()
+            })
+        }
+    }
+    
+    func updateSongInfo(){
+        print("current song name \(currentQueue.currentSong?.name)")
+        if (songTitleLbl.text != currentQueue.currentSong?.name){
+            songTitleLbl.text = currentQueue.currentSong?.name
+            songArtistLbl.text = currentQueue.currentSong?.artist
+            updateAlbumImage()
+
+        }
+        
+
+        // get progress of song
+        let songProgress = currentQueue.checkSongProgressAsFloat()
+        durationBar.setProgress(songProgress, animated: true)
+
+    }
+    
+    func updateAlbumImage() {
+        //api call to get image
+        let imagePath = currentQueue.currentSong?.coverPath
+        let url = URL(string: imagePath ?? "https://research.engineering.wustl.edu/~todd/todd_test_3.jpg")
+        let data = try? Data(contentsOf: url!)
+        if (data != nil){
+            let image = UIImage(data:data!)
+            songImage.image = image
+        }
     }
     
     func cacheImages() {
@@ -86,13 +125,18 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         imageCache = []
         for song in currentQueue.songs {
             
-            let url = URL(string: song.album.images[0].url)
+            /*let url = URL(string: song.album.images[0].url)
+            let data = try? Data(contentsOf: url!)
+            if (data != nil){
+                let image = UIImage(data:data!)
+                imageCache.append(image!)
+            }*/
+            let url = URL(string: song.coverPath!)
             let data = try? Data(contentsOf: url!)
             if (data != nil){
                 let image = UIImage(data:data!)
                 imageCache.append(image!)
             }
-            
         }
     }
     
@@ -127,20 +171,20 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         cellDescription.textColor = .white
         
         cellTitle.text = currentQueue.songs[indexPath.section].name
-        var artists = currentQueue.songs[indexPath.row].artists[0].name
-        if currentQueue.songs[indexPath.row].artists.count != 1{
+        
+        /*if currentQueue.songs[indexPath.row].artists.count != 1{
             for i in 1...currentQueue.songs[indexPath.row].artists.count-1 {
                 artists.append(", \(currentQueue.songs[indexPath.row].artists[i].name)")
             }
-        }
-        cellDescription.text = artists
+        }*/
+        cellDescription.text = currentQueue.songs[indexPath.row].artist
         
         
         let dotdotBtn = UIButton(frame: CGRect(x: cell.frame.maxX, y: cell.frame.origin.y+tableView.rowHeight/2.0, width: 20, height: 10))
         
         dotdotBtn.setBackgroundImage(UIImage(named: "ellipses"), for: .normal)
         
-        //            dotdotBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+//                    dotdotBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
         
         cell.addSubview(cellImg)
         cell.addSubview(cellTitle)
