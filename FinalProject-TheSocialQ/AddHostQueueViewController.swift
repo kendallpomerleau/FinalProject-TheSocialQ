@@ -96,23 +96,30 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
             self.hidesBottomBarWhenPushed = false
         }
         if segue.identifier == "addQueue" {
-            print("entered segue")
-            let destination = segue.destination as? HostQueueViewController
-            let segment = Access.selectedSegmentIndex
-            var add = false
-            if segment == 1 {
-                add = true
+            let destination = segue.destination as? UITabBarController
+            for controller in (destination?.viewControllers)! {
+                if (controller.isKind(of: HostQueueViewController.self) == true) {
+                    let segment = Access.selectedSegmentIndex
+                    var add = false
+                    if segment == 1 {
+                        add = true
+                    }
+                    let playlistID = pickerPlaylists[Picker.selectedRow(inComponent: 0)].id
+                    let newQueue = Queue(title: queueTitle.text!, key: queueKey.text!, add: add, playlistID: playlistID)
+                    print("about to do queue stuff")
+                    print(accessToken)
+                    newQueue.token = accessToken
+                    //newQueue.setToken(newToken: accessToken ?? "")
+                    print("set token")
+                    newQueue.setupPlayer()
+                    print("set up player")
+                    print("going to destination")
+                    (controller as! HostQueueViewController).currentQueue = newQueue
+                    //(controller as! HostQueueViewController).songTitleText =(controller as ! HostQueueViewController).currentQueue.currentSong.name
+                    //(controller as! HostQueueViewController).songArtistText = (controller as ! HostQueueViewController).currentQueue.currentSong!.artist
+                }
             }
-            let playlistID = pickerPlaylists[Picker.selectedRow(inComponent: 0)].id
-            let newQueue = Queue(title: queueTitle.text!, key: queueKey.text!, add: add, playlistID: playlistID)
-            print("about to do queue stuff")
-            newQueue.setToken(newToken: accessToken ?? "")
-            print("set token")
-            newQueue.setupPlayer()
-
-            print("set up player")
-            destination?.currentQueue = newQueue
-            print("going to destination")
+            
         }
     }
 

@@ -32,8 +32,6 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         tableView.dataSource = self
         tableView.rowHeight = 90
         
-        
-        
         cacheImages()
         // Do any additional setup after loading the view.
         
@@ -81,7 +79,6 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
     }
     
     func cacheImages() {
-        print("caching in guestqueuecontroller")
         imageCache = []
         for song in currentQueue.songs {
             
@@ -111,7 +108,6 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("showing cell")
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         
         cell.layer.cornerRadius = 10
