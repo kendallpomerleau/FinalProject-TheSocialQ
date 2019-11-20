@@ -189,13 +189,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
             print("segue")
             let destination = segue.destination as? SearchSongController
             destination?.isHost = false
-            if currentQueue.add == "True"{
-                destination?.canDirectAdd = true
-            }
-            else {
-                destination?.canDirectAdd = false
-            }
-            
+            destination?.canDirectAdd = false
         }
     }
     

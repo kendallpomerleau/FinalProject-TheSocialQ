@@ -350,7 +350,6 @@ func getTracks(authToken: String, playlistID: String) -> [Track]{ // no scope ne
 
 
 func getCurrentPlayback(authToken: String) -> CurrentPlayback?{ //user-read-playback-state
-    print("getting current playback")
     let url = URL(string: playbackURL)
     var request = URLRequest(url: url!)
     request.httpMethod = "GET"
@@ -359,7 +358,6 @@ func getCurrentPlayback(authToken: String) -> CurrentPlayback?{ //user-read-play
     request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
     var returnItem : CurrentPlayback?
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
-        print("starting task")
         guard let data = data,
             let response = response as? HTTPURLResponse,
             error == nil else {
@@ -373,10 +371,7 @@ func getCurrentPlayback(authToken: String) -> CurrentPlayback?{ //user-read-play
             return
         }
         do {
-            print("doing")
             let searchJson = try JSONDecoder().decode(CurrentPlayback.self, from: data)
-            print("what")
-            print("data = \(searchJson)")
             returnItem = searchJson
         } catch {
             print("Search JSON decode error")
