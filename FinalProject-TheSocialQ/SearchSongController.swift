@@ -38,40 +38,32 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         searchBar.delegate = self
         
         // load default songs (today's top hits from API)
-        grabFirebaseData()
+        
         
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        grabFirebaseData()
+        DispatchQueue.main.async{
+           self.loadDefaultSongs()
+           self.tableView.reloadData()
+        }
+    }
         
     func grabFirebaseData() {
         
         let ref = Database.database().reference()
      
         // load full list of all queues into table view
-        ref.observe(.value, with: {
-            snapshot in
-            
-            for child in snapshot.children.allObjects as! [DataSnapshot]{
-                if (child.key == "Queues"){
-                    //print("child value is \(child.value!)")
-                    
-                    let swiftyJsonVar = JSON(child.value!)
-                    for queue in swiftyJsonVar {
-                        print("queue is \(queue)")
-                        let swiftyQueue = JSON(queue.1)
-                        if "\(swiftyQueue["name"])" == self.currentQueue?.title{
-                            self.spotifyToken = "\(swiftyQueue["token"])"
-                        }
-                    }
-                }
-            }
-            DispatchQueue.main.async{
-                print(self.spotifyToken)
-                print("loading songs")
-                self.loadDefaultSongs()
-                self.tableView.reloadData()
-            }
-        })
+        if (currentQueue != nil ){
+            ref.child("Queues/\(currentQueue!.title)").observe(.value, with: {
+                
+                snapshot in
+                let swiftyJsonVar = JSON(snapshot.value!)
+                self.spotifyToken = "\(swiftyJsonVar["token"])"
+                
+                
+            })
+        }
     }
     
     
@@ -131,7 +123,6 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
          }
          
          DispatchQueue.main.async {
-            print(self.songResults)
             self.cacheImages()
             // remove the spinner view controller
             self.tableView.reloadData()
@@ -183,7 +174,6 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
              request.addValue("Bearer \(spotifyToken)", forHTTPHeaderField: "Authorization")
              request.httpMethod = "GET"
              
-             print(request)
              
              DispatchQueue.global(qos: .background) .async {
              let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -208,14 +198,12 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
                     else {
                         artist = "\(tracks[i]["artists"][0]["name"])"
                     }
-                    print(artist)
                     self.songResults.append(Song(id: "\(tracks[i]["id"])", name: "\(tracks[i]["name"])", artist: artist, coverPath:
                 "\(tracks[i]["album"]["images"][1]["url"])", duration: "\(tracks[i]["duration_ms"])"))
                 }
 
                     DispatchQueue.main.async {
                         self.cacheImages()
-                        print(self.songResults)
                         // remove the spinner view controller
                         self.tableView.reloadData()
                         //                        child.willMove(toParent: nil)
@@ -296,24 +284,30 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     }
     
     @objc func buttonClicked(sender : UIButton){
-        let alert = UIAlertController(title: "Clicked", message: "You have clicked on the add", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let alert = UIAlertController(title: "Added", message: "Successfully added to Queue", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
         
         alert.addAction(cancelAction)
         
-        if (currentQueue?.songs.contains(songResults[sender.tag]))!{
-            return
-        }
-        else {
-            currentQueue?.addToQueue(song: songResults[sender.tag], isHost: self.isHost, canDirectAdd: self.canDirectAdd)
-            // somehow need to get the song that the button was attached to
-            let firstTab = self.tabBarController?.viewControllers![0] as! GuestQueueController
-            firstTab.currentQueue = currentQueue!
+        print("song result is \(songResults[sender.tag])")
+        
+        currentQueue?.addToQueue(song: songResults[sender.tag], isHost: self.isHost, canDirectAdd: self.canDirectAdd)
+        
+        if (canDirectAdd){
+            let firstTab = self.tabBarController?.viewControllers![0] as! HostQueueViewController
             firstTab.cacheImages()
             firstTab.tableView.reloadData()
-            
-            self.present(alert, animated: true, completion: nil)
+            firstTab.currentQueue = currentQueue!
         }
+        else {
+            let firstTab = self.tabBarController?.viewControllers![0] as! GuestQueueController
+            firstTab.cacheImages()
+            firstTab.tableView.reloadData()
+            firstTab.currentQueue = currentQueue!
+        }
+        
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     

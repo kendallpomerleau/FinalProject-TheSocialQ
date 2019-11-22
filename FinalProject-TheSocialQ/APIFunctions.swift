@@ -239,7 +239,7 @@ func resumeSong(authToken : String) {
 
 func getUserPlaylists(authToken: String) -> [UserPlaylist]{ //playlist-read-private scope
     let limit = 50
-    var offset = 0
+    let offset = 0
     let playlistFullURL = "\(userPlaylistURL)?limit=\(limit)&offset=\(offset)"
     let url = URL(string: playlistFullURL)
     var request = URLRequest(url: url!)
@@ -248,7 +248,6 @@ func getUserPlaylists(authToken: String) -> [UserPlaylist]{ //playlist-read-priv
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
     var returnItemArray : [UserPlaylist] = []
-    var done = false
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
         guard let data = data,
             let response = response as? HTTPURLResponse,
@@ -264,11 +263,7 @@ func getUserPlaylists(authToken: String) -> [UserPlaylist]{ //playlist-read-priv
         }
         do {
             let searchJson = try JSONDecoder().decode(PlaylistGetResult.self, from: data)
-            if(searchJson.next == nil){
-                done = true
-            } else{
-                offset += 50
-            }
+            
             returnItemArray = searchJson.items
         } catch {
             print("Search JSON decode error")
@@ -286,7 +281,7 @@ func getUserPlaylists(authToken: String) -> [UserPlaylist]{ //playlist-read-priv
 
 func getTracks(authToken: String, playlistID: String) -> [Track]{ // no scope needed
     let limit = 100
-    var offset = 0
+    let offset = 0
     var fullURL = "\(playlistTracksURL)\(playlistID)/tracks?limit=\(limit)&offset=\(offset)"
     var url = URL(string: fullURL)
     var request = URLRequest(url: url!)
@@ -295,7 +290,6 @@ func getTracks(authToken: String, playlistID: String) -> [Track]{ // no scope ne
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
     var returnItemArray : [Track] = []
-    var done = false
    // while(!done){
         fullURL = "\(playlistTracksURL)\(playlistID)/tracks?limit=\(limit)&offset=\(offset)"
         url = URL(string: fullURL)
@@ -305,7 +299,6 @@ func getTracks(authToken: String, playlistID: String) -> [Track]{ // no scope ne
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            print("task")
             guard let data = data,
                 let response = response as? HTTPURLResponse,
                 error == nil else {
@@ -319,16 +312,8 @@ func getTracks(authToken: String, playlistID: String) -> [Track]{ // no scope ne
                 return
             }
             do {
-                print("doing")
                 let searchJson = try JSONDecoder().decode(PlaylistTracksGetResult.self, from: data)
-                print("data = \(searchJson)")
-                if(searchJson.next == nil){
-                    done = true
-                } else{
-                    offset += limit
-                    print(offset)
-                    
-                }
+
                 for item in searchJson.items {
                     if (!item.is_local) {
                         returnItemArray.append(item.track)
@@ -350,7 +335,6 @@ func getTracks(authToken: String, playlistID: String) -> [Track]{ // no scope ne
 
 
 func getCurrentPlayback(authToken: String) -> CurrentPlayback?{ //user-read-playback-state
-    print("getting current playback")
     let url = URL(string: playbackURL)
     var request = URLRequest(url: url!)
     request.httpMethod = "GET"
@@ -359,7 +343,6 @@ func getCurrentPlayback(authToken: String) -> CurrentPlayback?{ //user-read-play
     request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
     var returnItem : CurrentPlayback?
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
-        print("starting task")
         guard let data = data,
             let response = response as? HTTPURLResponse,
             error == nil else {
@@ -373,10 +356,7 @@ func getCurrentPlayback(authToken: String) -> CurrentPlayback?{ //user-read-play
             return
         }
         do {
-            print("doing")
             let searchJson = try JSONDecoder().decode(CurrentPlayback.self, from: data)
-            print("what")
-            print("data = \(searchJson)")
             returnItem = searchJson
         } catch {
             print("Search JSON decode error")

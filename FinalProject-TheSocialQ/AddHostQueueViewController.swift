@@ -15,7 +15,6 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
     @IBOutlet weak var queueKey: UITextField!
     @IBOutlet weak var queueTitle: UITextField!
     @IBOutlet weak var addBtn: UIButton!
-    @IBOutlet weak var Access: UISegmentedControl!
     @IBOutlet weak var Picker: UIPickerView!
 
     var pickerData: [String] = [String]()
@@ -37,8 +36,7 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
         
         // Do any additional setup after loading the view.
         //let font = UIFont.systemFont(ofSize: 20)
-        let attr = NSDictionary(object: UIFont(name: "Avenir Next", size: 17.0)!, forKey: NSAttributedString.Key.font as NSCopying)
-        Access.setTitleTextAttributes(attr as? [NSAttributedString.Key : Any] , for: .normal)
+        //let attr = NSDictionary(object: UIFont(name: "Avenir Next", size: 17.0)!, forKey: NSAttributedString.Key.font as NSCopying)
         
         //picker
         self.Picker.delegate = self
@@ -51,7 +49,7 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
     override func viewWillAppear(_ animated: Bool) {
         //update userPlaylists
         if(accessToken != nil || accessToken != ""){
-            print("token is \(self.accessToken)")
+            //print("token is \(self.accessToken)")
             let playlists = getUserPlaylists(authToken: self.accessToken!)
             self.pickerPlaylists = playlists
             self.pickerData = []
@@ -87,33 +85,15 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(Access.selectedSegmentIndex == 1){
-            print("segment index = 1")
-            self.hidesBottomBarWhenPushed = true
-        }
-        else if(Access.selectedSegmentIndex == 0){
-            print("segment index = 0")
-            self.hidesBottomBarWhenPushed = false
-        }
         if segue.identifier == "addQueue" {
             let destination = segue.destination as? UITabBarController
             for controller in (destination?.viewControllers)! {
                 if (controller.isKind(of: HostQueueViewController.self) == true) {
-                    let segment = Access.selectedSegmentIndex
-                    var add = false
-                    if segment == 1 {
-                        add = true
-                    }
                     let playlistID = pickerPlaylists[Picker.selectedRow(inComponent: 0)].id
+                    let add = false
                     let newQueue = Queue(title: queueTitle.text!, key: queueKey.text!, add: add, playlistID: playlistID)
-                    print("about to do queue stuff")
-                    print(accessToken)
                     newQueue.token = accessToken
-                    //newQueue.setToken(newToken: accessToken ?? "")
-                    print("set token")
                     newQueue.setupPlayer()
-                    print("set up player")
-                    print("going to destination")
                     (controller as! HostQueueViewController).currentQueue = newQueue
                     //(controller as! HostQueueViewController).songTitleText =(controller as ! HostQueueViewController).currentQueue.currentSong.name
                     //(controller as! HostQueueViewController).songArtistText = (controller as ! HostQueueViewController).currentQueue.currentSong!.artist
