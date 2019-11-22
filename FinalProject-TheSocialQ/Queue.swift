@@ -26,6 +26,9 @@ class Queue: Decodable, Encodable{
     var users: [String] = []
     var playlistLength : Int = 0
     var currentSong:Song?
+    var currentSongPoint = 0
+    var isQueued=false
+    var topOfQueueKey = "0"
     
     init(title: String, key: String, add: Bool, playlistID: String){
         self.title = title
@@ -75,6 +78,8 @@ class Queue: Decodable, Encodable{
             var emptyQueue : [NSDictionary] = []
             let toadSprout = Song(id: "4phGZZrJZRo4ElhRtViYdl", name: "I'm Yours", artist: "Toad Sprout", coverPath: "Hey", duration: "500")
             emptyQueue.append(toadSprout.nsDictionary)
+            
+            
             songs.append(toadSprout)
             ref.child("Queues/\(title)/queuedSongs").setValue(emptyQueue)
             ref.child("Queues/\(title)/currentSongPointer").setValue(-1)
@@ -82,6 +87,46 @@ class Queue: Decodable, Encodable{
             ref.child("Queues/\(title)/directAdd").setValue(self.add)
             ref.child("Queues/\(title)/name").setValue(self.title)
             ref.child("Queues/\(title)/token").setValue(self.token)
+            
+            ref.child("Queues/\(title)/queuedSongs").observe(.value , with: { (snapshot) in
+
+                let queuedFirebase = snapshot.value as? [Any] ?? []
+                
+                self.isQueued = true
+/*                self.songs = []
+//                var counter = false
+                for song in queuedFirebase {
+                    
+                    let swiftyJsonVar = JSON(song)
+                    print("next song is")
+                    print(swiftyJsonVar)
+                    if (swiftyJsonVar["id"] != ""){
+                         self.songs.append(Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))"))
+                    }
+                }*/
+                
+                var numSongsInFirebase = 0
+                var newSong:Song?
+                for song in queuedFirebase{
+                    numSongsInFirebase+=1
+                    let swiftyJsonVar = JSON(song)
+                    newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+                }
+                if self.songs.count < numSongsInFirebase {
+                    self.songs.append(newSong!)
+                }
+                
+                var setKey = false
+                
+                for child in snapshot.children {
+                    let snap = child as! DataSnapshot
+                    if (snap.key > "0" && !setKey){
+                        self.topOfQueueKey = snap.key
+                        setKey = true
+                    }
+                }
+                
+            })
             
             playNextSong()
             
@@ -110,12 +155,10 @@ class Queue: Decodable, Encodable{
             songId = song.id
             songArtist = song.artist
             songCoverPath = song.coverPath!
-            songDuration = song.duration!
+            songDuration = song.duration ?? "0"
             songToAdd = Song(id: songId, name: songName, artist: songArtist, coverPath: songCoverPath, duration: "\(songDuration)")
-            ref.child("Queues/\(title)/queuedSongs/\(songId)/").setValue(songToAdd?.nsDictionary)
+            ref.child("Queues/\(title)/queuedSongs/").child("\(songs.count-1)").setValue(songToAdd?.nsDictionary)
             
-            
-            /*ref.child("Queues/\(title)/queuedSongs").setValue(songs)*/
         }
         else {
             // SUGGEST SONGS FUNCTIONALITY HERE
@@ -126,8 +169,11 @@ class Queue: Decodable, Encodable{
         if songs.contains(song) {
             if let songToRemove = songs.firstIndex(of: song) {
                 songs.remove(at: songToRemove)
+                
                 let ref = Database.database().reference()
-                ref.child("Queues/\(title)/queuedSongs").setValue(songs)
+//                songs[1]
+                ref.child("Queues/\(title)/queuedSongs/\(topOfQueueKey)").removeValue()
+
             }
         }
         
@@ -174,13 +220,14 @@ class Queue: Decodable, Encodable{
         
         //check queued songs from firebase
         let ref = Database.database().reference()
-        var areQueued = false
         var nextQueued : Song?
         var newQueuedList : [Song] = []
-        ref.child("Queues/\(title)/queuedSongs").observeSingleEvent(of: .value, with: {snapshot in
+        
+        
+//        ref.child("Queues/\(self.title)/queuedSongs").observeSingleEvent(of: .value, with: {snapshot in
             //let queuedSongs = snapshot.value as? [Track]
-            let queuedSongs = JSON(snapshot.value!)
-            var counter = 0
+//            let queuedSongs = JSON(snapshot.value!)
+/*            var counter = 0
             for song in queuedSongs {
                 let swiftySong = JSON(song.1)
                 let tempSong = Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])")
@@ -195,9 +242,12 @@ class Queue: Decodable, Encodable{
                 
                 counter += 1
             }
-            
-        })
-        if (!areQueued) {
+         
+        
+ */
+ //       })
+
+        if (!self.isQueued) {
             print("no queued")
             
             //if queued songs == empty -> play from playlist, ++currentSongPointer
@@ -216,30 +266,18 @@ class Queue: Decodable, Encodable{
                     playSong(authToken: self.token!, trackId: nextSong!.id)
                     self.currentSong = Song(id: nextSong?.id, name: nextSong!.name, artist: (nextSong?.artists[0].name)!, coverPath: nextSong?.album.images[1].url, duration: "\( nextSong!.duration_ms)")
                 }
-                //should never enter
-                else {
-                    //else play top queued song and delete
-                    playSong(authToken: self.token!, trackId: nextQueued!.id)
-                    ref.child("Queues/\(self.title)/queuedSongs").setValue(newQueuedList)
-                    self.currentSong = nextQueued
-                }
             })
-            //print("current pointer \(currentPointer)")
-            /*let singleSongRef = ref.child("Queues/\(title)/allPlaylistSongs").queryLimited(toFirst: UInt(currentPointer+1)).queryLimited(toLast: 1)
-             singleSongRef.observe(.value, with: {snapshot in
-             do {
-             print(snapshot.value!)
-             let song = JSON(snapshot.value!)
-             let swiftySong = JSON(song)
-             print(swiftySong)
-             nextSong = Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])")
-             
-             } catch {
-             return
-             }
-             })
-             */
             
+        }
+        else {
+            //else play top queued song and delete
+            playSong(authToken: self.token!, trackId: songs[1].id!)
+            nextQueued = songs[1]
+            removeFromQueue(song: songs[1])
+            if (songs.count == 1) {
+                isQueued = false
+            }
+            self.currentSong = nextQueued
         }
         
         

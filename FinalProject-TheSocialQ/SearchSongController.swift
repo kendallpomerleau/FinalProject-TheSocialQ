@@ -38,38 +38,32 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         searchBar.delegate = self
         
         // load default songs (today's top hits from API)
-        grabFirebaseData()
+        
         
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        grabFirebaseData()
+        DispatchQueue.main.async{
+           self.loadDefaultSongs()
+           self.tableView.reloadData()
+        }
+    }
         
     func grabFirebaseData() {
         
         let ref = Database.database().reference()
      
         // load full list of all queues into table view
-        ref.observe(.value, with: {
-            snapshot in
-            
-            for child in snapshot.children.allObjects as! [DataSnapshot]{
-                if (child.key == "Queues"){
-                    //print("child value is \(child.value!)")
-                    
-                    let swiftyJsonVar = JSON(child.value!)
-                    for queue in swiftyJsonVar {
-                        print("queue is \(queue)")
-                        let swiftyQueue = JSON(queue.1)
-                        if "\(swiftyQueue["name"])" == self.currentQueue?.title{
-                            self.spotifyToken = "\(swiftyQueue["token"])"
-                        }
-                    }
-                }
-            }
-            DispatchQueue.main.async{
-                self.loadDefaultSongs()
-                self.tableView.reloadData()
-            }
-        })
+        if (currentQueue != nil ){
+            ref.child("Queues/\(currentQueue!.title)").observe(.value, with: {
+                
+                snapshot in
+                let swiftyJsonVar = JSON(snapshot.value!)
+                self.spotifyToken = "\(swiftyJsonVar["token"])"
+                
+                
+            })
+        }
     }
     
     
@@ -303,11 +297,13 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             let firstTab = self.tabBarController?.viewControllers![0] as! HostQueueViewController
             firstTab.cacheImages()
             firstTab.tableView.reloadData()
+            firstTab.currentQueue = currentQueue!
         }
         else {
             let firstTab = self.tabBarController?.viewControllers![0] as! GuestQueueController
             firstTab.cacheImages()
             firstTab.tableView.reloadData()
+            firstTab.currentQueue = currentQueue!
         }
         
         

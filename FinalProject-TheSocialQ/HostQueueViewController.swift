@@ -91,7 +91,7 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
                 //playPauseButton.imageView?.image = UIImage(named: "pause")
         DispatchQueue.main.async{
-            var timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {_ in
+            _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {_ in
                 self.updateSongInfo()
             })
         }

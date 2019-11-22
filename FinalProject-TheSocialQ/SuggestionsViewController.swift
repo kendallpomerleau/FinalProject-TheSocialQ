@@ -93,7 +93,7 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
                     artists.append(", \(suggestions[indexPath.row].artists[i].name)")
                 }
             }*/
-            var artists = suggestions[indexPath.row].artist
+            let artists = suggestions[indexPath.row].artist
             
             cellDescription.text = artists
             
