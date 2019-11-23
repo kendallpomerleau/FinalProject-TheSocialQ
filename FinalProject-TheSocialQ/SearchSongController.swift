@@ -41,16 +41,18 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         spinner!.center = view.center
         spinner!.startAnimating()
         view.addSubview(spinner!)
-        
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        
         grabFirebaseData()
+
         DispatchQueue.main.async{
             self.loadDefaultSongs()
             self.tableView.reloadData()
         }
+        
     }
+//    override func viewWillAppear(_ animated: Bool) {
+//
+//
+//    }
     
     func grabFirebaseData() {
         
@@ -81,7 +83,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     }
     
     func loadDefaultSongs() {
-        
+        print("loading default songs")
         let url = URL(string: baseURL + "playlists/37i9dQZF1DXcBWIGoYBM5M")
         
         var request = URLRequest(url: url!)
@@ -116,6 +118,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             }
             
             DispatchQueue.main.async {
+                print("doing this")
                 self.cacheImages()
                 // remove the spinner view controller
                 self.tableView.reloadData()
@@ -123,6 +126,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             }
         }
         task.resume()
+        print("done")
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

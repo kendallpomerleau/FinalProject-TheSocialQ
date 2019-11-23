@@ -67,9 +67,11 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         self.playSongView.layer.cornerRadius = 10
         tableView.dataSource = self
         tableView.rowHeight = 90
-        
+    
         cacheImages()
-        
+        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {_ in
+            self.updateSongInfo()
+        })
     }
     
     
@@ -83,15 +85,12 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        
-        cacheImages()
-        tableView.reloadData()
-        
-        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {_ in
-            self.updateSongInfo()
-        })
-        
-        
+        DispatchQueue.main.async{
+            self.cacheImages()
+            self.tableView.reloadData()
+
+        }
+
     }
     
     func updateSongInfo(){
@@ -112,7 +111,6 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
                     self.cacheImages()
                     self.tableView.reloadData()
                 }
-                
             }
         }
     }
