@@ -47,6 +47,8 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
     @IBAction func nextSong(_ sender: Any) {
         currentQueue.skipSong()
         isPlaying = true
+        cacheImages()
+        tableView.reloadData()
     }
     
     

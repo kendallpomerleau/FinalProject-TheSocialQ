@@ -99,8 +99,6 @@ class Queue: Decodable, Encodable{
                 for song in queuedFirebase {
                     
                     let swiftyJsonVar = JSON(song)
-                    print("next song is")
-                    print(swiftyJsonVar)
                     if (swiftyJsonVar["id"] != ""){
                          self.songs.append(Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))"))
                     }
@@ -108,7 +106,7 @@ class Queue: Decodable, Encodable{
                 
                 var numSongsInFirebase = 0
                 var newSong:Song?
-                for song in queuedFirebase{
+                for song in queuedFirebase {
                     numSongsInFirebase+=1
                     let swiftyJsonVar = JSON(song)
                     newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
@@ -220,7 +218,6 @@ class Queue: Decodable, Encodable{
         if (self.songs.count == 1) {
             isQueued = false
         }
-        print(self.isQueued!)
         //assumed progress already checked
         
         //check queued songs from firebase
@@ -240,8 +237,6 @@ class Queue: Decodable, Encodable{
                 }else if(counter != 0){
                     newQueuedList.append(tempSong)
                 }
-                print("song is \(song)")
-                print("swiftysong \(swiftySong)")
                 
                 counter += 1
             }
@@ -250,7 +245,6 @@ class Queue: Decodable, Encodable{
  */
  //       })
         if (!self.isQueued!) {
-            print("no queued")
             
             //if queued songs == empty -> play from playlist, ++currentSongPointer
             var currentPointer = 0
@@ -273,20 +267,14 @@ class Queue: Decodable, Encodable{
         }
         else {
             //else play top queued song and delete
-            print("printing songs before playing first up")
-            print(songs)
             playSong(authToken: self.token!, trackId: songs[1].id!)
             nextQueued = songs[1]
             removeFromQueue(song: songs[1])
             if (self.songs.count == 1) {
-                print("switching to base playlist")
                 self.isQueued = false
             }
             self.currentSong = nextQueued
-            print("printing songs after removing")
-            print(self.songs)
         }
-        print(isQueued)
     }
     
     func skipSong() {
