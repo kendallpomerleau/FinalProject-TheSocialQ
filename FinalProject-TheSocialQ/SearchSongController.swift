@@ -24,6 +24,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     var isHost = false
     var canDirectAdd = false
     
+    var spinner:UIActivityIndicatorView?
     let baseURL:String = "https://api.spotify.com/v1/"
     
     // THIS SHOULD BE GIVEN TO YOU SOMEHOW WHEN YOU LOGIN BECAUSE OF THE QUEUE YOU ARE LOGGING INTO
@@ -36,32 +37,31 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         tableView.rowHeight = 90
         
         searchBar.delegate = self
-        
-        // load default songs (today's top hits from API)
-        
+        spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
+        spinner!.center = view.center
+        spinner!.startAnimating()
+        view.addSubview(spinner!)
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        
         grabFirebaseData()
         DispatchQueue.main.async{
-           self.loadDefaultSongs()
-           self.tableView.reloadData()
+            self.loadDefaultSongs()
+            self.tableView.reloadData()
         }
     }
-        
+    
     func grabFirebaseData() {
         
         let ref = Database.database().reference()
-     
+        
         // load full list of all queues into table view
         if (currentQueue != nil ){
             ref.child("Queues/\(currentQueue!.title)").observe(.value, with: {
-                
                 snapshot in
                 let swiftyJsonVar = JSON(snapshot.value!)
                 self.spotifyToken = "\(swiftyJsonVar["token"])"
-                
-                
             })
         }
     }
@@ -70,13 +70,6 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     func cacheImages() {
         imageCache = []
         for song in songResults {
-            
-            /*let url = URL(string: song.album.images[0].url)
-            let data = try? Data(contentsOf: url!)
-            if (data != nil){
-                let image = UIImage(data:data!)
-                imageCache.append(image!)
-            }*/
             let url = URL(string: song.coverPath!)
             let data = try? Data(contentsOf: url!)
             if (data != nil){
@@ -89,13 +82,13 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     
     func loadDefaultSongs() {
         
-         let url = URL(string: baseURL + "playlists/37i9dQZF1DXcBWIGoYBM5M")
-         
-         var request = URLRequest(url: url!)
-         request.addValue("Bearer \(spotifyToken)", forHTTPHeaderField: "Authorization")
-         request.httpMethod = "GET"
-         
-         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let url = URL(string: baseURL + "playlists/37i9dQZF1DXcBWIGoYBM5M")
+        
+        var request = URLRequest(url: url!)
+        request.addValue("Bearer \(spotifyToken)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 print(error!)
                 return
@@ -104,41 +97,32 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
                 print("Data is empty")
                 return
             }
-         
-         let swiftyJsonVar = JSON(data)
-         let tracks = swiftyJsonVar["tracks"]["items"]
-         for i in 0..<tracks.count {
-            var artist = ""
-            if (tracks[i]["track"]["artists"].count > 1){
-                artist = "\(tracks[i]["track"]["artists"][0]["name"])"
-                for j in 0..<tracks[i]["track"]["artists"].count {
-                    artist += ", " + "\(tracks[i]["track"]["artists"][j]["name"])"
+            
+            let swiftyJsonVar = JSON(data)
+            let tracks = swiftyJsonVar["tracks"]["items"]
+            for i in 0..<tracks.count {
+                var artist = ""
+                if (tracks[i]["track"]["artists"].count > 1){
+                    artist = "\(tracks[i]["track"]["artists"][0]["name"])"
+                    for j in 0..<tracks[i]["track"]["artists"].count {
+                        artist += ", " + "\(tracks[i]["track"]["artists"][j]["name"])"
+                    }
                 }
-            }
-            else {
-                artist = "\(tracks[i]["track"]["artists"][0]["name"])"
+                else {
+                    artist = "\(tracks[i]["track"]["artists"][0]["name"])"
+                }
+                
+                self.songResults.append(Song(id: "\(tracks[i]["track"]["id"])", name: "\(tracks[i]["track"]["name"])", artist: artist, coverPath:"\(tracks[i]["track"]["album"]["images"][1]["url"])", duration: "\(tracks[i]["track"]["duration"])"))
             }
             
-            self.songResults.append(Song(id: "\(tracks[i]["track"]["id"])", name: "\(tracks[i]["track"]["name"])", artist: artist, coverPath:"\(tracks[i]["track"]["album"]["images"][1]["url"])", duration: "\(tracks[i]["track"]["duration"])"))
-         }
-         
-         DispatchQueue.main.async {
-            self.cacheImages()
-            // remove the spinner view controller
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.cacheImages()
+                // remove the spinner view controller
+                self.tableView.reloadData()
+                self.spinner?.removeFromSuperview()
             }
-         }
-         task.resume()
-         /*
-        let todaysHitsID = "37i9dQZF1DXcBWIGoYBM5M"
-        let hotTracks = getTracks(authToken: spotifyToken, playlistID: todaysHitsID)
-        songResults = hotTracks
-        DispatchQueue.main.async {
-            print(self.songResults)
-            self.cacheImages()
-            // remove the spinner view controller
-            self.tableView.reloadData()
-        }*/
+        }
+        task.resume()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -160,55 +144,49 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         if text != "" {
             self.songResults = []
             // add the spinner view controller
-            //            let child = SpinnerViewController()
-            //            addChild(child)
-            //            child.view.frame = view.frame
-            //            view.addSubview(child.view)
-            //            child.didMove(toParent: self)
-            //            let query = URL(string: baseURL + "search?q=\(text)&type=track&market=US")!
-            //            var request = URLRequest(url: query)
+            spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
+            spinner!.center = view.center
+            spinner!.startAnimating()
+            view.addSubview(spinner!)
             
-             let url = URL(string: baseURL + "search?q=\(text)&type=track&market=US")
-             
-             var request = URLRequest(url: url!)
-             request.addValue("Bearer \(spotifyToken)", forHTTPHeaderField: "Authorization")
-             request.httpMethod = "GET"
-             
-             
-             DispatchQueue.global(qos: .background) .async {
-             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                guard error == nil else {
-                    print(error!)
-                    return
-                }
-                guard let data = data else {
-                    print("Data is empty")
-                    return
-                }
-                let swiftyJsonVar = JSON(data)
-                let tracks = swiftyJsonVar["tracks"]["items"]
-                for i in 0..<tracks.count {
-                    var artist = ""
-                    if (tracks[i]["artists"].count > 1){
-                        artist = "\(tracks[i]["artists"][0]["name"])"
-                        for j in 1..<tracks[i]["artists"].count {
-                            artist += ", " + "\(tracks[i]["artists"][j]["name"])"
+            let url = URL(string: baseURL + "search?q=\(text)&type=track&market=US")
+            
+            var request = URLRequest(url: url!)
+            request.addValue("Bearer \(spotifyToken)", forHTTPHeaderField: "Authorization")
+            request.httpMethod = "GET"
+            
+            
+            DispatchQueue.global(qos: .background) .async {
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    guard error == nil else {
+                        print(error!)
+                        return
+                    }
+                    guard let data = data else {
+                        print("Data is empty")
+                        return
+                    }
+                    let swiftyJsonVar = JSON(data)
+                    let tracks = swiftyJsonVar["tracks"]["items"]
+                    for i in 0..<tracks.count {
+                        var artist = ""
+                        if (tracks[i]["artists"].count > 1){
+                            artist = "\(tracks[i]["artists"][0]["name"])"
+                            for j in 1..<tracks[i]["artists"].count {
+                                artist += ", " + "\(tracks[i]["artists"][j]["name"])"
+                            }
                         }
+                        else {
+                            artist = "\(tracks[i]["artists"][0]["name"])"
+                        }
+                        self.songResults.append(Song(id: "\(tracks[i]["id"])", name: "\(tracks[i]["name"])", artist: artist, coverPath:
+                            "\(tracks[i]["album"]["images"][1]["url"])", duration: "\(tracks[i]["duration_ms"])"))
                     }
-                    else {
-                        artist = "\(tracks[i]["artists"][0]["name"])"
-                    }
-                    self.songResults.append(Song(id: "\(tracks[i]["id"])", name: "\(tracks[i]["name"])", artist: artist, coverPath:
-                "\(tracks[i]["album"]["images"][1]["url"])", duration: "\(tracks[i]["duration_ms"])"))
-                }
-
+                    
                     DispatchQueue.main.async {
                         self.cacheImages()
-                        // remove the spinner view controller
                         self.tableView.reloadData()
-                        //                        child.willMove(toParent: nil)
-                        //                        child.view.removeFromSuperview()
-                        //                        child.removeFromParent()
+                        self.spinner?.removeFromSuperview()
                     }
                 }
                 task.resume()
@@ -249,19 +227,14 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             cellDescription.textColor = .white
             
             cellTitle.text = songResults[indexPath.row].name
-            /*var artists = songResults[indexPath.row].artists[0].name
-            if songResults[indexPath.row].artists.count != 1{
-                for i in 1...songResults[indexPath.row].artists.count-1 {
-                    artists.append(", \(songResults[indexPath.row].artists[i].name)")
-                }
-            }*/
-            let artists = songResults[indexPath.row].artist
 
-            cellDescription.text = artists
+            let artists = songResults[indexPath.row].artist
             
+            cellDescription.text = artists
             
             let plusBtn = UIButton(frame: CGRect(x: cell.frame.maxX-20, y: cell.frame.origin.y+tableView.rowHeight/2.0-10, width: 20, height: 20))
             plusBtn.tag = indexPath.row
+            
             plusBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
             
             
@@ -288,26 +261,28 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
         
         alert.addAction(cancelAction)
+
         
         print("song result is \(songResults[sender.tag])")
-        
-        currentQueue?.addToQueue(song: songResults[sender.tag], isHost: self.isHost, canDirectAdd: self.canDirectAdd)
-        
-        if (canDirectAdd){
-            let firstTab = self.tabBarController?.viewControllers![0] as! HostQueueViewController
-            firstTab.cacheImages()
-            firstTab.tableView.reloadData()
-            firstTab.currentQueue = currentQueue!
+
+        let index = sender.tag
+        DispatchQueue.global(qos: .background).async {
+            print("This is run on the background queue")
+            self.currentQueue?.addToQueue(song: self.songResults[index], isHost: self.isHost, canDirectAdd: self.canDirectAdd)
+
+            DispatchQueue.main.async {
+                print("This is run on the main queue, after the previous code in outer block")
+                self.present(alert, animated: true, completion: nil)
+                if (self.canDirectAdd){
+                    let firstTab = self.tabBarController?.viewControllers![0] as! HostQueueViewController
+                    firstTab.currentQueue = self.currentQueue!
+                }
+                else {
+                    let firstTab = self.tabBarController?.viewControllers![0] as! GuestQueueController
+                    firstTab.currentQueue = self.currentQueue!
+                }
+            }
         }
-        else {
-            let firstTab = self.tabBarController?.viewControllers![0] as! GuestQueueController
-            firstTab.cacheImages()
-            firstTab.tableView.reloadData()
-            firstTab.currentQueue = currentQueue!
-        }
-        
-        
-        self.present(alert, animated: true, completion: nil)
     }
     
     

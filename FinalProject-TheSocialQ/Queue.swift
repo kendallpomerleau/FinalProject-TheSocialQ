@@ -170,9 +170,7 @@ class Queue: Decodable, Encodable{
                 songs.remove(at: songToRemove)
                 
                 let ref = Database.database().reference()
-//                songs[1]
                 ref.child("Queues/\(title)/queuedSongs/\(topOfQueueKey)").removeValue()
-
             }
         }
         
@@ -240,10 +238,9 @@ class Queue: Decodable, Encodable{
                 
                 counter += 1
             }
-         
-        
  */
  //       })
+        
         if (!self.isQueued!) {
             
             //if queued songs == empty -> play from playlist, ++currentSongPointer
