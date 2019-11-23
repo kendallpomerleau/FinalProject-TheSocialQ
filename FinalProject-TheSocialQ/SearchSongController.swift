@@ -83,7 +83,6 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     }
     
     func loadDefaultSongs() {
-        print("loading default songs")
         let url = URL(string: baseURL + "playlists/37i9dQZF1DXcBWIGoYBM5M")
         
         var request = URLRequest(url: url!)
@@ -118,7 +117,6 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             }
             
             DispatchQueue.main.async {
-                print("doing this")
                 self.cacheImages()
                 // remove the spinner view controller
                 self.tableView.reloadData()
@@ -126,7 +124,6 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
             }
         }
         task.resume()
-        print("done")
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -267,15 +264,13 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         alert.addAction(cancelAction)
 
         
-        print("song result is \(songResults[sender.tag])")
+//        print("song result is \(songResults[sender.tag])")
 
         let index = sender.tag
         DispatchQueue.global(qos: .background).async {
-            print("This is run on the background queue")
             self.currentQueue?.addToQueue(song: self.songResults[index], isHost: self.isHost, canDirectAdd: self.canDirectAdd)
 
             DispatchQueue.main.async {
-                print("This is run on the main queue, after the previous code in outer block")
                 self.present(alert, animated: true, completion: nil)
                 if (self.canDirectAdd){
                     let firstTab = self.tabBarController?.viewControllers![0] as! HostQueueViewController

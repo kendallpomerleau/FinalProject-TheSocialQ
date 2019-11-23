@@ -106,8 +106,8 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
             DispatchQueue.main.async{
                 self.durationBar.setProgress(songFraction, animated: true)
                 if songProgress < 400 {
-                    print("playing next song")
                     self.currentQueue.playNextSong()
+                    self.updateSongInfo()
                     self.cacheImages()
                     self.tableView.reloadData()
                 }
