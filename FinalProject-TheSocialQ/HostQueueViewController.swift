@@ -111,6 +111,8 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         
         if songProgress < 1000 {
             currentQueue.playNextSong()
+            cacheImages()
+            tableView.reloadData()
         }
 
     }
