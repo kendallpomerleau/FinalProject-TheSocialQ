@@ -84,7 +84,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     }
     
     func loadDefaultSongs() {
-        let url = URL(string: baseURL + "playlists/37i9dQZF1DXcBWIGoYBM5M")
+        let url = URL(string: baseURL + "playlists/37i9dQZF1DXcBWIGoYBM5M?orderby=popularity")
         
         var request = URLRequest(url: url!)
         request.addValue("Bearer \(spotifyToken)", forHTTPHeaderField: "Authorization")
