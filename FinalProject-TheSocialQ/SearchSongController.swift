@@ -44,6 +44,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         grabFirebaseData()
 
         DispatchQueue.main.async{
+            print(self.spotifyToken)
             self.loadDefaultSongs()
             self.tableView.reloadData()
         }
@@ -262,9 +263,6 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
         
         alert.addAction(cancelAction)
-
-        
-//        print("song result is \(songResults[sender.tag])")
 
         let index = sender.tag
         DispatchQueue.global(qos: .background).async {
