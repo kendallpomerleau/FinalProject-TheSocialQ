@@ -224,15 +224,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="PLAYLIST KEY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="p31-qI-dta">
-                                <rect key="frame" x="20" y="673" width="149" height="24"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdd-dG-eeK">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdd-dG-eeK">
                                 <rect key="frame" x="20" y="793" width="374" height="35"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="LgF-65-sEx"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <state key="normal" title="Add">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -241,13 +238,13 @@
                                     <action selector="addClicked:" destination="Y6C-0A-PeT" eventType="touchUpInside" id="sFY-fU-BBV"/>
                                 </connections>
                             </button>
-                            <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="749" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oxF-D2-h2p">
-                                <rect key="frame" x="20" y="314" width="374" height="323"/>
+                            <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="oxF-D2-h2p">
+                                <rect key="frame" x="20" y="314" width="374" height="357"/>
                                 <color key="backgroundColor" red="0.34159916639999999" green="0.71448141340000004" blue="0.37640660999999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </pickerView>
-                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Type here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DB9-Un-lyw">
-                                <rect key="frame" x="20" y="705" width="374" height="54"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Type here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DB9-Un-lyw">
+                                <rect key="frame" x="20" y="711" width="374" height="54"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -269,22 +266,27 @@
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PLAYLIST KEY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="p31-qI-dta">
+                                <rect key="frame" x="20" y="679" width="149" height="24"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.13225729695431476" green="0.13225729695431476" blue="0.13225729695431476" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="DB9-Un-lyw" firstAttribute="top" secondItem="p31-qI-dta" secondAttribute="bottom" constant="8" id="0Ho-DR-sjp"/>
                             <constraint firstItem="TZg-dW-19C" firstAttribute="trailing" secondItem="ZWk-lx-5mD" secondAttribute="trailing" constant="20" id="1gU-VL-3Yg"/>
                             <constraint firstItem="xdd-dG-eeK" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="4Ij-vN-KMA"/>
-                            <constraint firstItem="xdd-dG-eeK" firstAttribute="top" secondItem="DB9-Un-lyw" secondAttribute="bottom" constant="34" id="5s5-OD-rha"/>
                             <constraint firstItem="ZWk-lx-5mD" firstAttribute="top" secondItem="hD9-EJ-4oq" secondAttribute="bottom" constant="8" id="69L-9e-4j8"/>
                             <constraint firstItem="SDp-mR-of8" firstAttribute="top" secondItem="TZg-dW-19C" secondAttribute="top" constant="33" id="6A2-Pq-TiG"/>
                             <constraint firstItem="TZg-dW-19C" firstAttribute="trailing" secondItem="xdd-dG-eeK" secondAttribute="trailing" constant="20" id="7oh-sL-f0L"/>
                             <constraint firstItem="TZg-dW-19C" firstAttribute="trailing" secondItem="oxF-D2-h2p" secondAttribute="trailing" constant="20" id="82g-VT-3Yq"/>
                             <constraint firstItem="TZg-dW-19C" firstAttribute="bottom" secondItem="xdd-dG-eeK" secondAttribute="bottom" constant="34" id="85r-UQ-6oJ"/>
                             <constraint firstItem="TZg-dW-19C" firstAttribute="trailing" secondItem="F60-Fh-Pg6" secondAttribute="trailing" constant="20" id="8Ys-yi-YZb"/>
+                            <constraint firstItem="xdd-dG-eeK" firstAttribute="top" secondItem="DB9-Un-lyw" secondAttribute="bottom" constant="28" id="8vJ-6J-hcS"/>
                             <constraint firstItem="hD9-EJ-4oq" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="93l-T2-ELv"/>
                             <constraint firstItem="oxF-D2-h2p" firstAttribute="top" secondItem="ZWk-lx-5mD" secondAttribute="bottom" constant="8" id="A3Y-GI-WRy"/>
-                            <constraint firstItem="p31-qI-dta" firstAttribute="top" secondItem="oxF-D2-h2p" secondAttribute="bottom" constant="36" id="EtZ-eh-efT"/>
                             <constraint firstItem="p31-qI-dta" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="H6I-rP-Bni"/>
                             <constraint firstItem="oxF-D2-h2p" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="MuG-yo-E0D"/>
                             <constraint firstItem="F60-Fh-Pg6" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="Oox-Pv-1UP"/>
@@ -293,6 +295,7 @@
                             <constraint firstItem="TZg-dW-19C" firstAttribute="trailing" secondItem="p31-qI-dta" secondAttribute="trailing" constant="245" id="YgA-60-2gi"/>
                             <constraint firstItem="TZg-dW-19C" firstAttribute="trailing" secondItem="SDp-mR-of8" secondAttribute="trailing" constant="20" id="bb9-tF-TnR"/>
                             <constraint firstItem="F60-Fh-Pg6" firstAttribute="top" secondItem="SDp-mR-of8" secondAttribute="bottom" constant="16" id="eXh-5d-Gxd"/>
+                            <constraint firstItem="p31-qI-dta" firstAttribute="top" secondItem="oxF-D2-h2p" secondAttribute="bottom" constant="8" id="gap-o9-Ige"/>
                             <constraint firstItem="SDp-mR-of8" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="jPE-zh-GKh"/>
                             <constraint firstItem="TZg-dW-19C" firstAttribute="trailing" secondItem="hD9-EJ-4oq" secondAttribute="trailing" constant="20" id="ljF-Jo-iMe"/>
                             <constraint firstItem="ZWk-lx-5mD" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="qXM-4t-lu9"/>
@@ -442,7 +445,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IGR-4h-3P8"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Host Queue" image="person.circle" catalog="system" id="zmx-xs-oXH"/>
+                    <tabBarItem key="tabBarItem" title="Host Queue" image="host" id="zmx-xs-oXH"/>
                     <navigationItem key="navigationItem" id="GK0-kS-Y3V">
                         <barButtonItem key="rightBarButtonItem" title="End Queue" id="FCt-VS-m6R"/>
                     </navigationItem>
@@ -459,71 +462,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jQs-KN-Qwj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="7279.7101449275369" y="466.74107142857139"/>
-        </scene>
-        <!--Search-->
-        <scene sceneID="HnS-Ag-N7L">
-            <objects>
-                <viewController id="DYs-qo-ffJ" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="YT3-s0-XHN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for Songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="OQI-Dc-nF0">
-                                <rect key="frame" x="20" y="69" width="374" height="48"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="35"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <searchBar contentMode="redraw" text="" placeholder="Search" backgroundImage="black" translatesAutoresizingMaskIntoConstraints="NO" id="E0d-ez-ig0">
-                                <rect key="frame" x="20" y="130" width="374" height="44"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="HG2-Jt-WJK"/>
-                                </constraints>
-                                <color key="tintColor" red="0.75686274509999996" green="0.59607843140000005" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2xD-ls-DJN">
-                                <rect key="frame" x="20" y="203" width="374" height="614"/>
-                                <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="separatorColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="sectionIndexBackgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="125" id="yz4-zn-npT">
-                                        <rect key="frame" x="0.0" y="28" width="374" height="125"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yz4-zn-npT" id="eNI-si-JfQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="125"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="tintColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.13331398367881775" green="0.13334444165229797" blue="0.13331207633018494" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="OQI-Dc-nF0" firstAttribute="leading" secondItem="3Ir-e0-YVN" secondAttribute="leading" constant="20" id="46f-xB-7Lm"/>
-                            <constraint firstItem="E0d-ez-ig0" firstAttribute="leading" secondItem="3Ir-e0-YVN" secondAttribute="leading" constant="20" id="5Az-JF-Kjq"/>
-                            <constraint firstItem="2xD-ls-DJN" firstAttribute="top" secondItem="E0d-ez-ig0" secondAttribute="bottom" constant="29" id="8nB-9Y-jPC"/>
-                            <constraint firstItem="3Ir-e0-YVN" firstAttribute="trailing" secondItem="2xD-ls-DJN" secondAttribute="trailing" constant="20" id="BCJ-Ns-PXy"/>
-                            <constraint firstItem="E0d-ez-ig0" firstAttribute="top" secondItem="OQI-Dc-nF0" secondAttribute="bottom" constant="13" id="GvT-0H-5Uu"/>
-                            <constraint firstItem="OQI-Dc-nF0" firstAttribute="top" secondItem="3Ir-e0-YVN" secondAttribute="top" constant="25" id="aQ7-2O-tCu"/>
-                            <constraint firstItem="2xD-ls-DJN" firstAttribute="leading" secondItem="3Ir-e0-YVN" secondAttribute="leading" constant="20" id="ghj-kp-niC"/>
-                            <constraint firstItem="3Ir-e0-YVN" firstAttribute="bottom" secondItem="2xD-ls-DJN" secondAttribute="bottom" constant="45" id="qQa-5r-a2n"/>
-                            <constraint firstItem="3Ir-e0-YVN" firstAttribute="trailing" secondItem="OQI-Dc-nF0" secondAttribute="trailing" constant="20" id="qji-lh-ojq"/>
-                            <constraint firstItem="3Ir-e0-YVN" firstAttribute="trailing" secondItem="E0d-ez-ig0" secondAttribute="trailing" constant="20" id="sOz-cJ-9eR"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="3Ir-e0-YVN"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Search" image="search" id="CuT-XG-Ote"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PBC-yo-t8g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="7495.652173913044" y="1228.7946428571429"/>
         </scene>
         <!-- -->
         <scene sceneID="Eh3-Ib-zqP">
@@ -697,7 +635,7 @@
             </objects>
             <point key="canvasLocation" x="6541" y="-212"/>
         </scene>
-        <!--Search Songs-->
+        <!--Search-->
         <scene sceneID="jZc-a6-RQj">
             <objects>
                 <viewController id="VTr-Rf-fKz" customClass="SearchSongController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
@@ -759,7 +697,7 @@
                     <tabBarItem key="tabBarItem" title="Search" image="search" id="rnN-80-m6d">
                         <color key="badgeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" title="Search Songs" id="AIQ-EY-TCz"/>
+                    <navigationItem key="navigationItem" id="AIQ-EY-TCz"/>
                     <connections>
                         <outlet property="searchBar" destination="GJw-f7-mxW" id="3Ke-YO-6Mj"/>
                         <outlet property="searchDisplayController" destination="kp7-Ex-sdh" id="n3r-KW-Y7N"/>
@@ -767,7 +705,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vmL-60-dlp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="kp7-Ex-sdh">
+                <searchDisplayController id="kp7-Ex-sdh" userLabel="Search Controller">
                     <connections>
                         <outlet property="delegate" destination="VTr-Rf-fKz" id="cdO-EJ-iz9"/>
                         <outlet property="searchContentsController" destination="VTr-Rf-fKz" id="W9z-7X-RVe"/>
@@ -837,6 +775,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="0.78700560330000002" green="0.60581791399999996" blue="0.97431415320000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="ebs-Lo-mlV" kind="relationship" relationship="viewControllers" id="ic0-vM-Zk8"/>
@@ -856,9 +795,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Suggested Songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="8eb-1J-tIL">
-                                <rect key="frame" x="20" y="109" width="313" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Suggested Songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="8eb-1J-tIL">
+                                <rect key="frame" x="20" y="109" width="374" height="51"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="37"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -886,6 +824,11 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.13333165645599365" green="0.13333219289779663" blue="0.13333338499069214" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="8eb-1J-tIL" firstAttribute="leading" secondItem="a7X-nb-mFq" secondAttribute="leading" constant="20" id="EmL-Sh-tDd"/>
+                            <constraint firstItem="a7X-nb-mFq" firstAttribute="trailing" secondItem="8eb-1J-tIL" secondAttribute="trailing" constant="20" id="Ybh-ye-Tm9"/>
+                            <constraint firstItem="8eb-1J-tIL" firstAttribute="top" secondItem="a7X-nb-mFq" secondAttribute="top" constant="21" id="oDF-yi-BJr"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="a7X-nb-mFq"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Suggestions" image="music" id="NTY-uF-Jqd"/>
@@ -895,22 +838,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P2k-s1-3S1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6540.579710144928" y="1229.4642857142856"/>
+            <point key="canvasLocation" x="6540.579710144928" y="1228.7946428571429"/>
         </scene>
     </scenes>
     <resources>
         <image name="black" width="63" height="29"/>
         <image name="dancingdude" width="299" height="360"/>
         <image name="fast forward" width="128" height="128"/>
+        <image name="host" width="32" height="32"/>
         <image name="music" width="32" height="32"/>
         <image name="party" width="499" height="305"/>
         <image name="pause" width="128" height="128"/>
-        <image name="person.circle" catalog="system" width="64" height="60"/>
         <image name="rewind" width="128" height="128"/>
         <image name="search" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="iIt-Ki-HV9"/>
+        <segue reference="KI3-lc-QE7"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
