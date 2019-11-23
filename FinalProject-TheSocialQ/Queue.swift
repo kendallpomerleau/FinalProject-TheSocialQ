@@ -27,7 +27,7 @@ class Queue: Decodable, Encodable{
     var playlistLength : Int = 0
     var currentSong:Song?
     var currentSongPoint = 0
-    var isQueued=false
+    var isQueued:Bool?
     var topOfQueueKey = "0"
     
     init(title: String, key: String, add: Bool, playlistID: String){
@@ -41,6 +41,7 @@ class Queue: Decodable, Encodable{
         }
         self.token = nil
         self.basePlaylistID = playlistID
+        self.isQueued = false
         
     }
     
@@ -216,13 +217,15 @@ class Queue: Decodable, Encodable{
     }
     
     func playNextSong() {
+        if (self.songs.count == 1) {
+            isQueued = false
+        }
+        print(self.isQueued!)
         //assumed progress already checked
         
         //check queued songs from firebase
         let ref = Database.database().reference()
         var nextQueued : Song?
-        var newQueuedList : [Song] = []
-        
         
 //        ref.child("Queues/\(self.title)/queuedSongs").observeSingleEvent(of: .value, with: {snapshot in
             //let queuedSongs = snapshot.value as? [Track]
@@ -246,8 +249,7 @@ class Queue: Decodable, Encodable{
         
  */
  //       })
-
-        if (!self.isQueued) {
+        if (!self.isQueued!) {
             print("no queued")
             
             //if queued songs == empty -> play from playlist, ++currentSongPointer
@@ -271,16 +273,20 @@ class Queue: Decodable, Encodable{
         }
         else {
             //else play top queued song and delete
+            print("printing songs before playing first up")
+            print(songs)
             playSong(authToken: self.token!, trackId: songs[1].id!)
             nextQueued = songs[1]
             removeFromQueue(song: songs[1])
-            if (songs.count == 1) {
-                isQueued = false
+            if (self.songs.count == 1) {
+                print("switching to base playlist")
+                self.isQueued = false
             }
             self.currentSong = nextQueued
+            print("printing songs after removing")
+            print(self.songs)
         }
-        
-        
+        print(isQueued)
     }
     
     func skipSong() {
