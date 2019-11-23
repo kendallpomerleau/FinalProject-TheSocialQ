@@ -93,7 +93,6 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
             
             for child in snapshot.children.allObjects as! [DataSnapshot]{
                 if (child.key == "Queues"){
-                    //print("child value is \(child.value!)")
                     
                     let swiftyJsonVar = JSON(child.value!)
                     for queue in swiftyJsonVar {
@@ -104,6 +103,11 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
                             directAdd = true
                         }
                         let queueFromJson = Queue(title: "\(swiftyQueue["name"])", key: "\(swiftyQueue["passKey"])", add: directAdd, playlistID: "\(swiftyQueue["basePlaylistID"])")
+                        queueFromJson.token = "\(swiftyQueue["token"])"
+                        for song in swiftyQueue["queuedSongs"] {
+                            let swiftySong = JSON(song.1)
+                            queueFromJson.songs.append(Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])"))
+                        }
 
                         if !self.queueResults.contains(queueFromJson){
                             self.queueResults.append(queueFromJson)
@@ -198,6 +202,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
 
         // ADD HANDLER TO THIS TO DEAL WITH GOING TO NEXT VIEW CONTROLLER
         if currentSelection.title != "" {
+            
             let accessAction = UIAlertAction(title: "Join", style: .default, handler: {action in
                 
                 let textField = optionMenu.textFields![0] // Force unwrapping because we know it exists.
@@ -251,12 +256,16 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "viewCurrentQueue" {
             let destination = segue.destination as? UITabBarController
+            let secondTab = destination?.viewControllers![1] as! SearchSongController
+            secondTab.spotifyToken = currentSelection.token!
+            print("set spotify token to be \(currentSelection.token!)")
             for controller in (destination?.viewControllers)! {
                 if (controller.isKind(of: GuestQueueController.self) == true) {
                     (controller as! GuestQueueController).currentQueue = currentSelection
-                    (controller as! GuestQueueController).tabBarItem.imageInsets = UIEdgeInsets(top: 2, left: 0, bottom: -2, right: 0)
+                    (controller as! GuestQueueController).cacheImages()
                     break
                 }
+
             }
         }
      }
