@@ -134,8 +134,6 @@ class Queue: Decodable, Encodable{
             })
             
             playNextSong()
-
-            //ADD SUGGESTEDSONGS ARRAY TO FIREBASE SETUP HERE
         }
     }
     
@@ -294,6 +292,7 @@ class Queue: Decodable, Encodable{
                 self.currentSong = Song(id: previousSong!.id!, name: previousSong!.name, artist: (previousSong!.artist), coverPath: previousSong?.coverPath!, duration: "\( previousSong!.duration!)")
                 ref.child("Queues/\(self.title)/currentSongPointer").setValue(currentPointer)
                 if previousSong != nil {
+                    
                     playSong(authToken: self.token!, trackId: previousSong!.id)
                 }
                 return

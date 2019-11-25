@@ -41,9 +41,9 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
     
     
     @IBAction func prevSong(_ sender: Any) {
-        if currentQueue.previousSong() {
-            isPlaying = true
-        }
+        _ = currentQueue.previousSong()
+        isPlaying = true
+        playPauseButton.setBackgroundImage(UIImage(named: "pause"), for: .normal)
         
     }
     
@@ -51,6 +51,7 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         currentQueue.skipSong()
         isPlaying = true
         updateSongInfo()
+        playPauseButton.setBackgroundImage(UIImage(named: "pause"), for: .normal)
         
     }
     
