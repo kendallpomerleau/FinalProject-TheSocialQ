@@ -29,7 +29,6 @@ class Queue: Decodable, Encodable{
     var users: [String] = []
     var playlistLength : Int = 0
     var currentSong:Song?
-    var currentSongPoint = 0
     var isQueued:Bool?
     var topOfQueueKey = "0"
     
@@ -73,6 +72,7 @@ class Queue: Decodable, Encodable{
             var songDuration = ""
             var songToAdd:Song?
             
+            var songQueue:[NSDictionary] = []
             for track in playlistTracks {
                 songName = track.name
                 songId = track.id
@@ -83,9 +83,11 @@ class Queue: Decodable, Encodable{
                 songCoverPath = track.album.images[1].url
                 songDuration = "\(track.duration_ms)"
                 songToAdd = Song(id: songId, name: songName, artist: songArtist, coverPath: songCoverPath, duration: "\(songDuration)")
-                ref.child("Queues/\(title)/allPlaylistSongs/\(songId)/").setValue(songToAdd?.nsDictionary)
+                songQueue.append(songToAdd!.nsDictionary)
                 
             }
+            ref.child("Queues/\(title)/allPlaylistSongs").setValue(songQueue)
+
             
             var emptyQueue : [NSDictionary] = []
             let toadSprout = Song(id: "4phGZZrJZRo4ElhRtViYdl", name: "I'm Yours", artist: "Toad Sprout", coverPath: "Hey", duration: "500")
