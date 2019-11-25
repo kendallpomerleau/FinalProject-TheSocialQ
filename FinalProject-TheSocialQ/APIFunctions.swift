@@ -64,6 +64,7 @@ func searchSpotify(authToken: String, query: String, queryLimit: Int = 10) -> [T
 
 
 func playSong(authToken: String, trackId: String = trackIdExample) { //authToken requires user-modify-playback-state scope
+    print("playing song")
     let url = URL(string: playURL)
     var request = URLRequest(url: url!)
     request.httpMethod = "PUT"
@@ -263,10 +264,22 @@ func getUserPlaylists(authToken: String) -> [UserPlaylist]{ //playlist-read-priv
         }
         do {
             let searchJson = try JSONDecoder().decode(PlaylistGetResult.self, from: data)
-            
+            print(searchJson)
             returnItemArray = searchJson.items
-        } catch {
-            print("Search JSON decode error")
+        } catch let DecodingError.dataCorrupted(context) {
+             print(context)
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch let DecodingError.typeMismatch(type, context)  {
+            print("Type '\(type)' mismatch:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        }
+        catch{
+            print("error: \(error)")
             return
         }
     }

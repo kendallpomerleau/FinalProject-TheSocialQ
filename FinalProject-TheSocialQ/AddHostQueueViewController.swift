@@ -10,8 +10,8 @@ import UIKit
 
 class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    
 
+    @IBOutlet weak var reconnectKey: UITextField!
     @IBOutlet weak var queueKey: UITextField!
     @IBOutlet weak var queueTitle: UITextField!
     @IBOutlet weak var addBtn: UIButton!
@@ -24,6 +24,7 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         queueTitle.resignFirstResponder()
         queueKey.resignFirstResponder()
+        reconnectKey.resignFirstResponder()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,16 +88,17 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addQueue" {
             let destination = segue.destination as? UITabBarController
+
             for controller in (destination?.viewControllers)! {
                 if (controller.isKind(of: HostQueueViewController.self) == true) {
                     let playlistID = pickerPlaylists[Picker.selectedRow(inComponent: 0)].id
                     let add = false
-                    let newQueue = Queue(title: queueTitle.text!, key: queueKey.text!, add: add, playlistID: playlistID)
+                    let newQueue = Queue(title: queueTitle.text!, key: queueKey.text!, reconnectKey: reconnectKey.text!, add: add, playlistID: playlistID)
                     newQueue.token = accessToken
                     newQueue.setupPlayer()
                     (controller as! HostQueueViewController).currentQueue = newQueue
-                    //(controller as! HostQueueViewController).songTitleText =(controller as ! HostQueueViewController).currentQueue.currentSong.name
-                    //(controller as! HostQueueViewController).songArtistText = (controller as ! HostQueueViewController).currentQueue.currentSong!.artist
+                    let secondTab = destination?.viewControllers![1] as! SuggestionsViewController
+                    secondTab.currentQueue = newQueue
                 }
             }
             

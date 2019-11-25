@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class HostQueueViewController: UIViewController, UITableViewDataSource {
     
-    var currentQueue:Queue = Queue(title: "", key: "", add: false, playlistID: "")
+    @IBOutlet weak var endBtn: UIButton!
+    var currentQueue:Queue = Queue(title: "", key: "", reconnectKey: "", add: false, playlistID: "")
     var imageCache:[UIImage] = []
     @IBOutlet weak var songTitleLbl: UILabel!
     @IBOutlet weak var songArtistLbl: UILabel!
@@ -49,8 +51,7 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         currentQueue.skipSong()
         isPlaying = true
         updateSongInfo()
-        cacheImages()
-        tableView.reloadData()
+        
     }
     
     
@@ -90,14 +91,35 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
             self.tableView.reloadData()
 
         }
+        
+//        let barButtonItem = UIBarButtonItem(title: "End Queue", style: .plain, target: self, action: #selector(addTapped))
+//        barButtonItem.tintColor = .purple
+//        self.navigationItem.rightBarButtonItem = barButtonItem
+        endBtn.clipsToBounds = true
+        endBtn.layer.cornerRadius = 10
 
     }
+    
+    @IBAction func endQueue(_ sender: Any) {
+        // delete from firebase
+        
+        let ref = Database.database().reference()
+        ref.child("Queues/\(currentQueue.title)").removeValue()
+        self.performSegue(withIdentifier: "backToHome", sender: self)
+    }
+    
     
     func updateSongInfo(){
         if (songTitleLbl.text != currentQueue.currentSong?.name){
             songTitleLbl.text = currentQueue.currentSong?.name
             songArtistLbl.text = currentQueue.currentSong?.artist
             updateAlbumImage()
+            self.cacheImages()
+            self.tableView.reloadData()
+//            DispatchQueue.main.async{
+//                //print(self.currentQueue.songs)
+//
+//            }
         }
         
         // get progress of song
@@ -143,9 +165,10 @@ func cacheImages() {
             imageCache.append(image!)
         }
     }
-    
+    print("printing playlist songs")
+    print(currentQueue.playlistSongs)
     for song in currentQueue.playlistSongs {
-        let url = URL(string: song.album.images[1].url)
+        let url = URL(string: song.coverPath!)
         let data = try? Data(contentsOf: url!)
         if (data != nil){
             let image = UIImage(data:data!)
@@ -206,7 +229,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     
     if (indexPath.row >= currentQueue.songs.count-1){
         cellTitle.text = currentQueue.playlistSongs[indexPath.row - currentQueue.songs.count+1].name
-        cellDescription.text = currentQueue.playlistSongs[indexPath.row - currentQueue.songs.count+1].artists[0].name
+        cellDescription.text = currentQueue.playlistSongs[indexPath.row - currentQueue.songs.count+1].artist
     }
     else {
         cellTitle.text = currentQueue.songs[indexPath.row+1].name

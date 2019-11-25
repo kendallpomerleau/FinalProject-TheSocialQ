@@ -111,6 +111,83 @@
             </objects>
             <point key="canvasLocation" x="3731.884057971015" y="-6.0267857142857144"/>
         </scene>
+        <!--Host Search Queue View Controller-->
+        <scene sceneID="ygN-xD-rbK">
+            <objects>
+                <viewController id="gCD-aa-gau" customClass="HostSearchQueueViewController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ha0-2A-o0o">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Search for Your Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="xnm-zV-fAQ">
+                                <rect key="frame" x="25" y="88" width="362" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="35"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vAS-jj-qrp">
+                                <rect key="frame" x="19" y="218" width="374" height="566"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="q0C-TH-lwX">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q0C-TH-lwX" id="bmU-vp-wfc">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3E-dP-8yB">
+                                <rect key="frame" x="57" y="826" width="300" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                <state key="normal" title="Host">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="promptKey:" destination="gCD-aa-gau" eventType="touchUpInside" id="hyN-ai-HIc"/>
+                                </connections>
+                            </button>
+                            <searchBar contentMode="redraw" ambiguous="YES" text="" placeholder="Search" backgroundImage="black" translatesAutoresizingMaskIntoConstraints="NO" id="iDY-pT-AYd">
+                                <rect key="frame" x="20" y="152" width="362" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="HyP-pM-MuW"/>
+                                </constraints>
+                                <color key="tintColor" red="0.75686274509999996" green="0.59607843140000005" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" red="0.13004767894744873" green="0.10184582322835922" blue="0.10157845169305801" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="iDY-pT-AYd" firstAttribute="leading" secondItem="jP0-4w-zoE" secondAttribute="leading" constant="20" id="7DB-Fq-czs"/>
+                            <constraint firstItem="jP0-4w-zoE" firstAttribute="trailing" secondItem="iDY-pT-AYd" secondAttribute="trailing" constant="32" id="7xf-Gr-8HT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jP0-4w-zoE"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="tOB-JE-yl4"/>
+                    <connections>
+                        <outlet property="joinBtn" destination="m3E-dP-8yB" id="bnY-Tf-OxN"/>
+                        <outlet property="searchBar" destination="iDY-pT-AYd" id="gyR-xd-XvA"/>
+                        <outlet property="tableView" destination="vAS-jj-qrp" id="mW4-NW-VbE"/>
+                        <segue destination="zcX-TF-5a5" kind="show" identifier="hostLogin" id="sDI-Hq-tda"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dza-0b-oV2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3732" y="759"/>
+        </scene>
         <!--Host Connection Controller-->
         <scene sceneID="h3w-QF-iKY">
             <objects>
@@ -163,12 +240,28 @@
                                     <constraint firstAttribute="height" constant="37" id="A76-IO-jyN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                <state key="normal" title="Continue to Create Queue">
+                                <state key="normal" title="Create New Queue">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="tapConnect:" destination="2mw-YB-Pg0" eventType="touchUpInside" id="Q8S-ZI-6sd"/>
                                     <segue destination="Y6C-0A-PeT" kind="show" identifier="loginSuccess" id="DBd-ig-tGv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vaM-0u-Jdv">
+                                <rect key="frame" x="20" y="727" width="374" height="37"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="continueBtn"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="rLQ-E5-7VG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                <state key="normal" title="Host Existing Queue">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapConnect:" destination="2mw-YB-Pg0" eventType="touchUpInside" id="2oj-Va-28H"/>
+                                    <segue destination="gCD-aa-gau" kind="show" id="0Ik-Zk-59p"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -181,23 +274,28 @@
                             <constraint firstItem="nlh-W4-6oa" firstAttribute="leading" secondItem="maQ-2t-Q0F" secondAttribute="leading" id="7nW-ru-0gZ"/>
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="trailing" secondItem="ML9-7i-yVq" secondAttribute="trailing" id="AvJ-HW-mZi"/>
                             <constraint firstItem="fBY-Kh-rGv" firstAttribute="top" secondItem="cEy-BT-6lj" secondAttribute="top" constant="29" id="BGE-X3-rCn"/>
+                            <constraint firstItem="vaM-0u-Jdv" firstAttribute="top" secondItem="nlh-W4-6oa" secondAttribute="bottom" constant="37" id="Kc3-Ah-KXj"/>
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="bottom" secondItem="maQ-2t-Q0F" secondAttribute="bottom" constant="247" id="KkA-sE-Htg"/>
                             <constraint firstItem="nlh-W4-6oa" firstAttribute="top" secondItem="maQ-2t-Q0F" secondAttribute="bottom" constant="38" id="OLQ-io-uEF"/>
                             <constraint firstItem="maQ-2t-Q0F" firstAttribute="leading" secondItem="cEy-BT-6lj" secondAttribute="leading" constant="20" id="UvX-3W-lGE"/>
+                            <constraint firstItem="vaM-0u-Jdv" firstAttribute="leading" secondItem="cEy-BT-6lj" secondAttribute="leading" constant="20" id="aD1-HD-ARU"/>
                             <constraint firstItem="cEy-BT-6lj" firstAttribute="trailing" secondItem="maQ-2t-Q0F" secondAttribute="trailing" constant="20" id="cyv-qv-8xj"/>
+                            <constraint firstItem="cEy-BT-6lj" firstAttribute="trailing" secondItem="vaM-0u-Jdv" secondAttribute="trailing" constant="20" id="d7n-XN-PDI"/>
                             <constraint firstItem="ML9-7i-yVq" firstAttribute="leading" secondItem="fBY-Kh-rGv" secondAttribute="trailing" constant="-308" id="kOG-hW-oga"/>
                             <constraint firstItem="fBY-Kh-rGv" firstAttribute="leading" secondItem="cEy-BT-6lj" secondAttribute="leading" constant="20.5" id="xZ5-gV-k8t"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cEy-BT-6lj"/>
                     </view>
+                    <navigationItem key="navigationItem" id="L8K-2q-BNQ"/>
                     <connections>
                         <outlet property="continueBtn" destination="nlh-W4-6oa" id="wKx-2m-01e"/>
+                        <outlet property="existingBtn" destination="vaM-0u-Jdv" id="NwJ-FG-P72"/>
                         <outlet property="loginBtn" destination="jeL-Nt-Vd5" id="9d7-f7-Hts"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhd-zp-5kA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4687" y="467"/>
+            <point key="canvasLocation" x="4686.9565217391309" y="466.74107142857139"/>
         </scene>
         <!--Add Host Queue View Controller-->
         <scene sceneID="9f0-8s-Xw3">
@@ -224,6 +322,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GUEST KEY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="p31-qI-dta">
+                                <rect key="frame" x="20" y="679" width="149" height="24"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdd-dG-eeK">
                                 <rect key="frame" x="20" y="793" width="374" height="35"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -239,7 +343,7 @@
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="oxF-D2-h2p">
-                                <rect key="frame" x="20" y="314" width="374" height="357"/>
+                                <rect key="frame" x="20" y="314" width="374" height="262"/>
                                 <color key="backgroundColor" red="0.34159916639999999" green="0.71448141340000004" blue="0.37640660999999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </pickerView>
@@ -266,12 +370,23 @@
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PLAYLIST KEY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="p31-qI-dta">
-                                <rect key="frame" x="20" y="679" width="149" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECONNECT KEY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="crL-Yp-vVr">
+                                <rect key="frame" x="20" y="584" width="149" height="24"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Type here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IbO-qx-MaG">
+                                <rect key="frame" x="20" y="616" width="374" height="54"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="HcE-Id-rQS"/>
+                                </constraints>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.13225729695431476" green="0.13225729695431476" blue="0.13225729695431476" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
@@ -287,7 +402,11 @@
                             <constraint firstItem="xdd-dG-eeK" firstAttribute="top" secondItem="DB9-Un-lyw" secondAttribute="bottom" constant="28" id="8vJ-6J-hcS"/>
                             <constraint firstItem="hD9-EJ-4oq" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="93l-T2-ELv"/>
                             <constraint firstItem="oxF-D2-h2p" firstAttribute="top" secondItem="ZWk-lx-5mD" secondAttribute="bottom" constant="8" id="A3Y-GI-WRy"/>
+                            <constraint firstItem="crL-Yp-vVr" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="DGX-Li-I5v"/>
+                            <constraint firstItem="p31-qI-dta" firstAttribute="top" secondItem="IbO-qx-MaG" secondAttribute="bottom" constant="9" id="DzL-rR-7h3"/>
+                            <constraint firstItem="IbO-qx-MaG" firstAttribute="top" secondItem="crL-Yp-vVr" secondAttribute="bottom" constant="8" id="Gfx-Ze-jXC"/>
                             <constraint firstItem="p31-qI-dta" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="H6I-rP-Bni"/>
+                            <constraint firstItem="crL-Yp-vVr" firstAttribute="top" secondItem="oxF-D2-h2p" secondAttribute="bottom" constant="8" id="MQb-7y-70r"/>
                             <constraint firstItem="oxF-D2-h2p" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="MuG-yo-E0D"/>
                             <constraint firstItem="F60-Fh-Pg6" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="Oox-Pv-1UP"/>
                             <constraint firstItem="DB9-Un-lyw" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="Tzp-Tb-xU2"/>
@@ -295,11 +414,13 @@
                             <constraint firstItem="TZg-dW-19C" firstAttribute="trailing" secondItem="p31-qI-dta" secondAttribute="trailing" constant="245" id="YgA-60-2gi"/>
                             <constraint firstItem="TZg-dW-19C" firstAttribute="trailing" secondItem="SDp-mR-of8" secondAttribute="trailing" constant="20" id="bb9-tF-TnR"/>
                             <constraint firstItem="F60-Fh-Pg6" firstAttribute="top" secondItem="SDp-mR-of8" secondAttribute="bottom" constant="16" id="eXh-5d-Gxd"/>
-                            <constraint firstItem="p31-qI-dta" firstAttribute="top" secondItem="oxF-D2-h2p" secondAttribute="bottom" constant="8" id="gap-o9-Ige"/>
+                            <constraint firstItem="TZg-dW-19C" firstAttribute="trailing" secondItem="IbO-qx-MaG" secondAttribute="trailing" constant="20" id="gp8-te-ygE"/>
                             <constraint firstItem="SDp-mR-of8" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="jPE-zh-GKh"/>
                             <constraint firstItem="TZg-dW-19C" firstAttribute="trailing" secondItem="hD9-EJ-4oq" secondAttribute="trailing" constant="20" id="ljF-Jo-iMe"/>
                             <constraint firstItem="ZWk-lx-5mD" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="qXM-4t-lu9"/>
+                            <constraint firstItem="IbO-qx-MaG" firstAttribute="leading" secondItem="TZg-dW-19C" secondAttribute="leading" constant="20" id="rlW-ep-gAC"/>
                             <constraint firstItem="TZg-dW-19C" firstAttribute="trailing" secondItem="DB9-Un-lyw" secondAttribute="trailing" constant="20" id="sCk-Pe-KXk"/>
+                            <constraint firstItem="TZg-dW-19C" firstAttribute="trailing" secondItem="crL-Yp-vVr" secondAttribute="trailing" constant="245" id="zB0-fK-HA9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TZg-dW-19C"/>
                     </view>
@@ -309,6 +430,7 @@
                         <outlet property="addBtn" destination="xdd-dG-eeK" id="siU-OP-5A2"/>
                         <outlet property="queueKey" destination="DB9-Un-lyw" id="O4m-M1-Ogp"/>
                         <outlet property="queueTitle" destination="hD9-EJ-4oq" id="8mW-XX-oON"/>
+                        <outlet property="reconnectKey" destination="IbO-qx-MaG" id="I04-Cz-JJS"/>
                         <segue destination="zcX-TF-5a5" kind="show" identifier="addQueue" id="Sml-sX-IaU"/>
                     </connections>
                 </viewController>
@@ -425,6 +547,18 @@
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6P-gg-OSz">
+                                <rect key="frame" x="322" y="103" width="65" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.021306753158569336" green="0.58542454242706299" blue="0.24684086441993713" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                <state key="normal" title="End">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="endQueue:" destination="ebs-Lo-mlV" eventType="touchUpInside" id="8oa-mA-JWT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.14252855329949243" green="0.14252855329949243" blue="0.14252855329949243" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
@@ -446,17 +580,16 @@
                         <viewLayoutGuide key="safeArea" id="IGR-4h-3P8"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Host Queue" image="host" id="zmx-xs-oXH"/>
-                    <navigationItem key="navigationItem" id="GK0-kS-Y3V">
-                        <barButtonItem key="rightBarButtonItem" title="End Queue" id="FCt-VS-m6R"/>
-                    </navigationItem>
                     <connections>
                         <outlet property="durationBar" destination="BZF-ti-E4k" id="Obx-dX-m2W"/>
+                        <outlet property="endBtn" destination="T6P-gg-OSz" id="ymR-dN-IEq"/>
                         <outlet property="playPauseButton" destination="aN7-0M-gVm" id="KEh-T4-7u7"/>
                         <outlet property="playSongView" destination="Za0-UC-YCN" id="nI5-br-6F9"/>
                         <outlet property="songArtistLbl" destination="7iX-ix-HDt" id="Y9X-oJ-ydw"/>
                         <outlet property="songImage" destination="Cbj-xv-fGm" id="oOn-Wa-bbR"/>
                         <outlet property="songTitleLbl" destination="Osa-pY-i7L" id="TEO-cB-jn6"/>
                         <outlet property="tableView" destination="iA8-sL-76M" id="zQE-dt-1J4"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="backToHome" id="FjF-Dp-QJ3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jQs-KN-Qwj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -576,7 +709,7 @@
                                 </subviews>
                                 <variation key="heightClass=compact" axis="horizontal"/>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2yy-rQ-eFJ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2yy-rQ-eFJ">
                                 <rect key="frame" x="20" y="248" width="374" height="450"/>
                                 <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -596,37 +729,20 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4pZ-bl-FwH">
-                                <rect key="frame" x="57" y="741" width="300" height="35"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                <state key="normal" title="Add/Suggest">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="promptKey:" destination="ssh-bh-Ol3" eventType="touchUpInside" id="LD9-yG-DsB"/>
-                                    <segue destination="VTr-Rf-fKz" kind="show" identifier="searchFromGuest" id="KI3-lc-QE7"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="2yy-rQ-eFJ" firstAttribute="top" secondItem="bzm-Le-drV" secondAttribute="bottom" constant="24" id="4HE-y5-u7G"/>
-                            <constraint firstItem="ykL-ry-Xd8" firstAttribute="trailing" secondItem="4pZ-bl-FwH" secondAttribute="trailing" constant="57" id="N8t-vY-A9g"/>
-                            <constraint firstItem="4pZ-bl-FwH" firstAttribute="leading" secondItem="ykL-ry-Xd8" secondAttribute="leading" constant="57" id="W7p-tB-W6S"/>
                             <constraint firstItem="bzm-Le-drV" firstAttribute="top" secondItem="ykL-ry-Xd8" secondAttribute="top" constant="25" id="YA9-zQ-ljp"/>
                             <constraint firstItem="2yy-rQ-eFJ" firstAttribute="leading" secondItem="ykL-ry-Xd8" secondAttribute="leading" constant="20" id="eEu-AJ-agH"/>
-                            <constraint firstItem="4pZ-bl-FwH" firstAttribute="top" secondItem="2yy-rQ-eFJ" secondAttribute="bottom" constant="43" id="jfh-YC-dao"/>
                             <constraint firstItem="ykL-ry-Xd8" firstAttribute="trailing" secondItem="2yy-rQ-eFJ" secondAttribute="trailing" constant="20" id="pB2-0l-es3"/>
                             <constraint firstItem="bzm-Le-drV" firstAttribute="leading" secondItem="ykL-ry-Xd8" secondAttribute="leading" constant="20" id="rPn-3m-E1i"/>
-                            <constraint firstItem="ykL-ry-Xd8" firstAttribute="bottom" secondItem="4pZ-bl-FwH" secondAttribute="bottom" constant="37" id="wcj-t1-1an"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ykL-ry-Xd8"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="View Queue" image="music" id="DQ2-jt-CfO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="addBtn" destination="4pZ-bl-FwH" id="x3Y-fo-T9U"/>
                         <outlet property="queueTitle" destination="RtZ-lR-PYi" id="2dH-Kl-gka"/>
                         <outlet property="tableView" destination="2yy-rQ-eFJ" id="5jf-Ux-zz6"/>
                     </connections>
@@ -721,6 +837,7 @@
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="HTe-rU-DF6" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="3Gl-V8-QOs"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="c3a-La-Ddh">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -775,6 +892,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="selectedImageTintColor" red="0.78700560330000002" green="0.60581791399999996" blue="0.97431415320000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
@@ -853,7 +971,9 @@
         <image name="search" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KI3-lc-QE7"/>
+        <segue reference="sDI-Hq-tda"/>
+        <segue reference="iIt-Ki-HV9"/>
+        <segue reference="poj-Qv-pmB"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

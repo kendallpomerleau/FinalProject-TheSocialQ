@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import SwiftyJSON
+import FirebaseDatabase
 
 class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabBarDelegate {
     
     
     @IBOutlet weak var tableView: UITableView!
-    var suggestions:[Song] = []
+    //var suggestions:[Song] = []
     var imageCache:[UIImage] = []
     var currentQueue:Queue?
     
@@ -27,27 +29,22 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
 
         tableView.dataSource = self
         tableView.rowHeight = 90
+        print(currentQueue!.suggestions)
+        print(imageCache.count)
+
         // Do any additional setup after loading the view.
-        loadSuggestions()
-        
-        
-        
     }
     
-    func loadSuggestions(){
-        //if the suggestions queue is empty add a label taht says you have no suggested songs yet
+    override func viewWillAppear(_ animated: Bool) {
+        currentQueue?.loadSuggestions()
+        cacheImages()
+        tableView.reloadData()
     }
     
     func cacheImages() {
-           imageCache = []
-           for song in suggestions {
+        imageCache = []
+         for song in currentQueue!.suggestions {
                
-               /*let url = URL(string: song.album.images[0].url)
-               let data = try? Data(contentsOf: url!)
-               if (data != nil){
-                   let image = UIImage(data:data!)
-                   imageCache.append(image!)
-               }*/
             let url = URL(string: song.coverPath!)
             let data = try? Data(contentsOf: url!)
             if (data != nil){
@@ -59,16 +56,17 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        suggestions.count
+        currentQueue!.suggestions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+        print("loading cell")
         cell.layer.cornerRadius = 10
         cell.clipsToBounds = true
         cell.backgroundColor = UIColor(displayP3Red: 25/255, green: 20/255, blue: 20/255, alpha: 0.9)
         
-        if (indexPath.row < imageCache.count && indexPath.row < suggestions.count) {
+        if (indexPath.row < imageCache.count && indexPath.row < currentQueue!.suggestions.count) {
             
             
             let cellImg = UIImageView(frame: CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: 90, height: 90))
@@ -86,14 +84,9 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
             cellDescription.font = UIFont(name: "Avenir Next", size: 13)
             cellDescription.textColor = .white
             
-            cellTitle.text = suggestions[indexPath.row].name
-            /*var artists = suggestions[indexPath.row].artists[0].name
-            if suggestions[indexPath.row].artists.count != 1{
-                for i in 1...suggestions[indexPath.row].artists.count-1 {
-                    artists.append(", \(suggestions[indexPath.row].artists[i].name)")
-                }
-            }*/
-            let artists = suggestions[indexPath.row].artist
+            cellTitle.text = currentQueue!.suggestions[indexPath.row].name
+
+            let artists = currentQueue!.suggestions[indexPath.row].artist
             
             cellDescription.text = artists
             
@@ -125,21 +118,16 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
          let alert = UIAlertController(title: "Clicked", message: "You have clicked on the add", preferredStyle: .alert)
          let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
          
+        self.present(alert, animated: true, completion: nil)
+
          alert.addAction(cancelAction)
-         
-         if (currentQueue?.songs.contains(suggestions[sender.tag]))!{
-             return
-         }
-         else {
-             currentQueue?.addToQueue(song: suggestions[sender.tag], isHost: true, canDirectAdd: true)
-             // somehow need to get the song that the button was attached to
-             let firstTab = self.tabBarController?.viewControllers![0] as! HostQueueViewController
-             firstTab.currentQueue = currentQueue!
-             firstTab.cacheImages()
-             firstTab.tableView.reloadData()
+         currentQueue?.addToQueue(song: currentQueue!.suggestions[sender.tag], isHost: true, canDirectAdd: true)
+         // somehow need to get the song that the button was attached to
+         let firstTab = self.tabBarController?.viewControllers![0] as! HostQueueViewController
+         firstTab.currentQueue = currentQueue!
+         firstTab.cacheImages()
+         firstTab.tableView.reloadData()
              
-             self.present(alert, animated: true, completion: nil)
-         }
      }
     
         

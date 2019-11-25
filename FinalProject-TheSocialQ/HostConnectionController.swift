@@ -20,12 +20,14 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     @IBOutlet weak var continueBtn: UIButton!
     
     @IBOutlet weak var loginBtn: UIButton!
-    @IBOutlet weak var continueButton: UIButton!
+    @IBOutlet weak var existingBtn: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         appDelegate.rootViewController = self
         continueBtn.isHidden = true
+        existingBtn.isHidden = true
     }
     
     
@@ -35,6 +37,8 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
         loginBtn.clipsToBounds = true
         continueBtn.layer.cornerRadius = 10
         continueBtn.clipsToBounds = true
+        existingBtn.layer.cornerRadius = 10
+        existingBtn.clipsToBounds = true
     }
     
     func connect() {

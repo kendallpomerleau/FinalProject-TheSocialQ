@@ -20,6 +20,7 @@
 		9CD9542923728E2A0005C3F9 /* SearchSongController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9542823728E2A0005C3F9 /* SearchSongController.swift */; };
 		9CD9542B23728F620005C3F9 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9542A23728F620005C3F9 /* Queue.swift */; };
 		9CD9542D237297B30005C3F9 /* GuestQueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9542C237297B30005C3F9 /* GuestQueueController.swift */; };
+		9CD9BEE9238B39C9008895F7 /* HostSearchQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9BEE8238B39C9008895F7 /* HostSearchQueueViewController.swift */; };
 		B2340C3F238262B2001E84BA /* SuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2340C3E238262B2001E84BA /* SuggestionsViewController.swift */; };
 		B2465DF02371F81800ED88DD /* AddHostQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2465DEF2371F81800ED88DD /* AddHostQueueViewController.swift */; };
 		B255861723776F2B00FD6D06 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B255861623776F2B00FD6D06 /* SpotifyiOS.framework */; };
@@ -46,6 +47,7 @@
 		9CD9542823728E2A0005C3F9 /* SearchSongController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSongController.swift; sourceTree = "<group>"; };
 		9CD9542A23728F620005C3F9 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		9CD9542C237297B30005C3F9 /* GuestQueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestQueueController.swift; sourceTree = "<group>"; };
+		9CD9BEE8238B39C9008895F7 /* HostSearchQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSearchQueueViewController.swift; sourceTree = "<group>"; };
 		B2340C3E238262B2001E84BA /* SuggestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsViewController.swift; sourceTree = "<group>"; };
 		B2465DEF2371F81800ED88DD /* AddHostQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHostQueueViewController.swift; sourceTree = "<group>"; };
 		B255861623776F2B00FD6D06 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				9C7296802370E6DB003B5B93 /* Info.plist */,
 				B2884D4F237F321D00650F93 /* GoogleService-Info.plist */,
 				9C7296A423711B7C003B5B93 /* SearchQueueController.swift */,
+				9CD9BEE8238B39C9008895F7 /* HostSearchQueueViewController.swift */,
 				9C7296A623711DFB003B5B93 /* Song.swift */,
 				9C4B657B2371355000B8C123 /* HostConnectionController.swift */,
 				B2465DEF2371F81800ED88DD /* AddHostQueueViewController.swift */,
@@ -270,6 +273,7 @@
 				9CD9542923728E2A0005C3F9 /* SearchSongController.swift in Sources */,
 				9C42D96A2378EA6A008A563F /* APIResults.swift in Sources */,
 				9CD9542B23728F620005C3F9 /* Queue.swift in Sources */,
+				9CD9BEE9238B39C9008895F7 /* HostSearchQueueViewController.swift in Sources */,
 				9CD9542D237297B30005C3F9 /* GuestQueueController.swift in Sources */,
 				B2EC5CC223722E6B0022A868 /* HostQueueViewController.swift in Sources */,
 			);

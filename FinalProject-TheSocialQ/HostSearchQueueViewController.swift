@@ -11,18 +11,18 @@ import UIKit
 import FirebaseDatabase
 import SwiftyJSON
 
-class SearchQueueController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-    
-    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var joinBtn: UIButton!
-    @IBOutlet weak var searchBar: UISearchBar!
+class HostSearchQueueViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     var queueResults:[Queue] = []
     var shownQueues:[Queue] = []
     var currentSelection:Queue = Queue(title:"", key: "", reconnectKey: "", add: false, playlistID: "")
     var searchActive : Bool = false
 
+    
+    @IBOutlet weak var joinBtn: UIButton!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,34 +62,6 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         // load full list of all queues into table view
         ref.observe(.value, with: {
             snapshot in
-//            do {
-//                let dictionary = snapshot.value as! NSDictionary
-//                //let queues = try JSONDecoder().decode([Queue].self, from: dictionary?["Queues"] as! Data) //wants as! NSDictionary
-//            let dict2 = dictionary["Queues"] as? NSDictionary
-//            var queues : [Queue] = []
-//            for (_,value) in dict2! {
-//                let furtherDict = value as! NSDictionary
-//                let name = furtherDict["name"] as? String
-//                let key = furtherDict["passKey"] as? String
-//                let directAdd = furtherDict["directAdd"] as? String
-//                var add = false
-//                if directAdd! == "True" {
-//                    add = true
-//                }
-//                let playlistID = furtherDict["basePlaylistID"] as? String
-//                let newQueue = Queue(title: name!, key: key!, add: add, playlistID: playlistID!)
-//                queues.append(newQueue)
-//            }
-//                
-//                for queue in queues {
-//                    if !self.queueResults.contains(queue){
-//                        self.queueResults.append(queue)
-//                    }
-//                }
-//        }
-//            catch {
-//              return
-//            }
             
             for child in snapshot.children.allObjects as! [DataSnapshot]{
                 if (child.key == "Queues"){
@@ -107,6 +79,15 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
                         for song in swiftyQueue["queuedSongs"] {
                             let swiftySong = JSON(song.1)
                             queueFromJson.songs.append(Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])"))
+                        }
+                        for song in swiftyQueue["allPlaylistSongs"] {
+                            let swiftySong = JSON(song.1)
+                            queueFromJson.playlistSongs.append(Song(id:"\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])"))
+                        }
+                        queueFromJson.playlistLength = queueFromJson.playlistSongs.count
+                        for suggestion in swiftyQueue["suggestions"] {
+                            let swiftySong = JSON(suggestion.1)
+                            queueFromJson.suggestions.append(Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])"))
                         }
 
                         if !self.queueResults.contains(queueFromJson){
@@ -174,7 +155,6 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selecting")
         currentSelection = shownQueues[indexPath.row]
     }
     
@@ -186,10 +166,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         optionMenu.view.backgroundColor = .white
         
         optionMenu.addTextField(configurationHandler: { (textField) in
-            textField.placeholder = "Type Key from Host"
-        })
-        optionMenu.addTextField(configurationHandler: { (textField) in
-            textField.placeholder = "Create Username"
+            textField.placeholder = "Type Key to Login"
         })
         
         optionMenu.view.layer.cornerRadius = 25
@@ -203,19 +180,14 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         // ADD HANDLER TO THIS TO DEAL WITH GOING TO NEXT VIEW CONTROLLER
         if currentSelection.title != "" {
             
-            let accessAction = UIAlertAction(title: "Join", style: .default, handler: {action in
+            let accessAction = UIAlertAction(title: "Host", style: .default, handler: {action in
                 
                 let textField = optionMenu.textFields![0] // Force unwrapping because we know it exists.
-                
-                let userText = optionMenu.textFields![1]
-                
+                                
                 // add to database
 
-                if textField.text == self.currentSelection.key {
-                    if(userText.text != ""){
-                        self.currentSelection.userJoin(username: userText.text!)
-                    }
-                    self.performSegue(withIdentifier: "viewCurrentQueue", sender: self)
+                if textField.text == self.currentSelection.reconnectKey {
+                    self.performSegue(withIdentifier: "hostLogin", sender: self)
                 }
                 else {
                     let failMenu = UIAlertController(title: "Incorrect Key", message: "Enter the correct key to join the queue", preferredStyle: .alert)
@@ -254,18 +226,15 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "viewCurrentQueue" {
+        if segue.identifier == "hostLogin" {
             let destination = segue.destination as? UITabBarController
-            let secondTab = destination?.viewControllers![1] as! SearchSongController
-            secondTab.spotifyToken = currentSelection.token!
-            print("set spotify token to be \(currentSelection.token!)")
             for controller in (destination?.viewControllers)! {
-                if (controller.isKind(of: GuestQueueController.self) == true) {
-                    (controller as! GuestQueueController).currentQueue = currentSelection
-                    (controller as! GuestQueueController).cacheImages()
-                    break
+                if (controller.isKind(of: HostQueueViewController.self) == true) {
+                    (controller as! HostQueueViewController).currentQueue = currentSelection
+                    (controller as! HostQueueViewController).currentQueue.playNextSong()
+                    let secondTab = destination?.viewControllers![1] as! SuggestionsViewController
+                    secondTab.currentQueue = currentSelection
                 }
-
             }
         }
      }
