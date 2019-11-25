@@ -80,6 +80,9 @@ class HostSearchQueueViewController: UIViewController, UITableViewDataSource, UI
                             let swiftySong = JSON(song.1)
                             queueFromJson.songs.append(Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])"))
                         }
+                        if (swiftyQueue["queuedSongs"].count > 0){
+                            queueFromJson.isQueued = true
+                        }
                         for song in swiftyQueue["allPlaylistSongs"] {
                             let swiftySong = JSON(song.1)
                             queueFromJson.playlistSongs.append(Song(id:"\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])"))
