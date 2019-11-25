@@ -13,17 +13,17 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dancingdude" translatesAutoresizingMaskIntoConstraints="NO" id="3qp-hV-ohF">
-                                <rect key="frame" x="0.0" y="44" width="414" height="511"/>
+                                <rect key="frame" x="0.0" y="-44" width="414" height="511"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="511" id="VxC-fN-suW"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SocialQ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="45g-5o-NU4">
-                                <rect key="frame" x="20" y="134" width="196.5" height="63.5"/>
+                                <rect key="frame" x="20" y="46" width="196.5" height="63.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="63.5" id="qiN-XI-JkO"/>
                                 </constraints>
@@ -34,7 +34,7 @@
                                 <size key="shadowOffset" width="-1" height="1"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting You to the Queue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="9R6-kH-Tih">
-                                <rect key="frame" x="20" y="194.5" width="187.5" height="18.5"/>
+                                <rect key="frame" x="20" y="106.5" width="187.5" height="18.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18.5" id="B8G-Sv-hpC"/>
                                 </constraints>
@@ -43,7 +43,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lZV-rV-VxM">
-                                <rect key="frame" x="37" y="617" width="340" height="245"/>
+                                <rect key="frame" x="37" y="563" width="340" height="245"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sYs-HG-oyZ">
                                         <rect key="frame" x="20" y="50" width="300" height="35"/>
@@ -116,18 +116,18 @@
             <objects>
                 <viewController id="gCD-aa-gau" customClass="HostSearchQueueViewController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ha0-2A-o0o">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Search for Your Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="xnm-zV-fAQ">
-                                <rect key="frame" x="25" y="88" width="362" height="48"/>
+                                <rect key="frame" x="25" y="111" width="362" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="35"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vAS-jj-qrp">
-                                <rect key="frame" x="19" y="218" width="374" height="566"/>
+                                <rect key="frame" x="25" y="241" width="374" height="566"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -147,9 +147,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3E-dP-8yB">
-                                <rect key="frame" x="57" y="826" width="300" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3E-dP-8yB">
+                                <rect key="frame" x="56" y="773" width="300" height="35"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <state key="normal" title="Host">
@@ -159,8 +158,8 @@
                                     <action selector="promptKey:" destination="gCD-aa-gau" eventType="touchUpInside" id="hyN-ai-HIc"/>
                                 </connections>
                             </button>
-                            <searchBar contentMode="redraw" ambiguous="YES" text="" placeholder="Search" backgroundImage="black" translatesAutoresizingMaskIntoConstraints="NO" id="iDY-pT-AYd">
-                                <rect key="frame" x="20" y="152" width="362" height="44"/>
+                            <searchBar contentMode="redraw" ambiguous="YES" misplaced="YES" text="" placeholder="Search" backgroundImage="black" translatesAutoresizingMaskIntoConstraints="NO" id="iDY-pT-AYd">
+                                <rect key="frame" x="25" y="174" width="362" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="HyP-pM-MuW"/>
@@ -171,8 +170,11 @@
                         </subviews>
                         <color key="backgroundColor" red="0.13004767894744873" green="0.10184582322835922" blue="0.10157845169305801" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="m3E-dP-8yB" firstAttribute="leading" secondItem="jP0-4w-zoE" secondAttribute="leading" constant="56" id="6gy-MP-av5"/>
                             <constraint firstItem="iDY-pT-AYd" firstAttribute="leading" secondItem="jP0-4w-zoE" secondAttribute="leading" constant="20" id="7DB-Fq-czs"/>
                             <constraint firstItem="jP0-4w-zoE" firstAttribute="trailing" secondItem="iDY-pT-AYd" secondAttribute="trailing" constant="32" id="7xf-Gr-8HT"/>
+                            <constraint firstItem="jP0-4w-zoE" firstAttribute="bottom" secondItem="m3E-dP-8yB" secondAttribute="bottom" id="L2b-7E-wQ3"/>
+                            <constraint firstItem="jP0-4w-zoE" firstAttribute="trailing" secondItem="m3E-dP-8yB" secondAttribute="trailing" constant="58" id="oqE-io-CV5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jP0-4w-zoE"/>
                     </view>
@@ -186,18 +188,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dza-0b-oV2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3732" y="759"/>
+            <point key="canvasLocation" x="3731.884057971015" y="758.70535714285711"/>
         </scene>
         <!--Host Connection Controller-->
         <scene sceneID="h3w-QF-iKY">
             <objects>
                 <viewController storyboardIdentifier="MyHostConnectionController" id="2mw-YB-Pg0" customClass="HostConnectionController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AG4-E5-q26">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="maQ-2t-Q0F">
-                                <rect key="frame" x="20" y="578" width="374" height="37"/>
+                                <rect key="frame" x="20" y="524" width="374" height="37"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jeL-Nt-Vd5">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="37"/>
@@ -218,13 +220,13 @@
                                 <variation key="heightClass=compact" axis="horizontal"/>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="party" translatesAutoresizingMaskIntoConstraints="NO" id="ML9-7i-yVq">
-                                <rect key="frame" x="0.0" y="88" width="414" height="255"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414.00000000000011" height="255"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="255" id="XVR-YH-CDP"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect to Host" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBY-Kh-rGv">
-                                <rect key="frame" x="20.5" y="117" width="287.5" height="51"/>
+                                <rect key="frame" x="20.5" y="29" width="287.5" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="rMi-kS-12N"/>
                                 </constraints>
@@ -233,7 +235,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlh-W4-6oa">
-                                <rect key="frame" x="20" y="653" width="374" height="37"/>
+                                <rect key="frame" x="20" y="599" width="374" height="37"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="continueBtn"/>
                                 <constraints>
@@ -249,7 +251,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vaM-0u-Jdv">
-                                <rect key="frame" x="20" y="727" width="374" height="37"/>
+                                <rect key="frame" x="20" y="673" width="374" height="37"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="continueBtn"/>
                                 <constraints>
@@ -302,17 +304,17 @@
             <objects>
                 <viewController storyboardIdentifier="MyAddHostQueueViewController" id="Y6C-0A-PeT" customClass="AddHostQueueViewController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="A21-5G-PK2">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host a Queue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="SDp-mR-of8">
-                                <rect key="frame" x="20" y="121" width="374" height="51"/>
+                                <rect key="frame" x="20" y="33" width="374" height="51"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="37"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Type here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hD9-EJ-4oq">
-                                <rect key="frame" x="20" y="220" width="374" height="54"/>
+                                <rect key="frame" x="20" y="132" width="374" height="54"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -323,13 +325,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GUEST KEY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="p31-qI-dta">
-                                <rect key="frame" x="20" y="679" width="149" height="24"/>
+                                <rect key="frame" x="20" y="625" width="149" height="24"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdd-dG-eeK">
-                                <rect key="frame" x="20" y="793" width="374" height="35"/>
+                                <rect key="frame" x="20" y="739" width="374" height="35"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="LgF-65-sEx"/>
@@ -343,12 +345,12 @@
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="oxF-D2-h2p">
-                                <rect key="frame" x="20" y="314" width="374" height="262"/>
+                                <rect key="frame" x="20" y="226" width="374" height="296"/>
                                 <color key="backgroundColor" red="0.34159916639999999" green="0.71448141340000004" blue="0.37640660999999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </pickerView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Type here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DB9-Un-lyw">
-                                <rect key="frame" x="20" y="711" width="374" height="54"/>
+                                <rect key="frame" x="20" y="657" width="374" height="54"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -359,25 +361,25 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QUEUE NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="F60-Fh-Pg6">
-                                <rect key="frame" x="20" y="188" width="374" height="24"/>
+                                <rect key="frame" x="20" y="100" width="374" height="24"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STARTING PLAYLIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="ZWk-lx-5mD">
-                                <rect key="frame" x="20" y="282" width="374" height="24"/>
+                                <rect key="frame" x="20" y="194" width="374" height="24"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECONNECT KEY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="crL-Yp-vVr">
-                                <rect key="frame" x="20" y="584" width="149" height="24"/>
+                                <rect key="frame" x="20" y="530" width="149" height="24"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Type here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IbO-qx-MaG">
-                                <rect key="frame" x="20" y="616" width="374" height="54"/>
+                                <rect key="frame" x="20" y="562" width="374" height="54"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -443,17 +445,17 @@
             <objects>
                 <viewController id="ebs-Lo-mlV" customClass="HostQueueViewController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="As6-L6-Uv6">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host Queue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="Qdc-SO-ANk">
-                                <rect key="frame" x="20" y="94" width="374" height="51"/>
+                                <rect key="frame" x="20" y="6" width="374" height="51"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="37"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Za0-UC-YCN">
-                                <rect key="frame" x="20" y="165" width="374" height="206"/>
+                                <rect key="frame" x="20" y="77" width="374" height="206"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Cbj-xv-fGm">
                                         <rect key="frame" x="40" y="8" width="79" height="79"/>
@@ -519,7 +521,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iA8-sL-76M">
-                                <rect key="frame" x="20" y="423" width="374" height="359"/>
+                                <rect key="frame" x="20" y="335" width="374" height="393"/>
                                 <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -539,7 +541,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UP NEXT..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="YLN-Mq-uYV">
-                                <rect key="frame" x="20" y="389" width="132" height="26"/>
+                                <rect key="frame" x="20" y="301" width="132" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="5ih-x2-9ZI"/>
                                 </constraints>
@@ -548,7 +550,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6P-gg-OSz">
-                                <rect key="frame" x="322" y="103" width="65" height="36"/>
+                                <rect key="frame" x="329" y="14" width="65" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.021306753158569336" green="0.58542454242706299" blue="0.24684086441993713" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
@@ -601,17 +603,17 @@
             <objects>
                 <viewController id="ssh-bh-Ol3" customClass="SearchQueueController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ErG-gO-1bt">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for Your Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="eZg-9N-mwU">
-                                <rect key="frame" x="26" y="121" width="362" height="48"/>
+                                <rect key="frame" x="26" y="33" width="362" height="48"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="35"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zOR-zZ-k6M">
-                                <rect key="frame" x="20" y="269" width="374" height="522"/>
+                                <rect key="frame" x="20" y="181" width="374" height="556"/>
                                 <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.098039215686274508" green="0.078431372549019607" blue="0.078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -631,7 +633,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehh-iA-8Rn">
-                                <rect key="frame" x="57" y="814" width="300" height="35"/>
+                                <rect key="frame" x="57" y="760" width="300" height="35"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <state key="normal" title="Join">
@@ -642,7 +644,7 @@
                                 </connections>
                             </button>
                             <searchBar contentMode="redraw" text="" placeholder="Search" backgroundImage="black" translatesAutoresizingMaskIntoConstraints="NO" id="Ik6-pS-rCc">
-                                <rect key="frame" x="26" y="193" width="362" height="44"/>
+                                <rect key="frame" x="26" y="105" width="362" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="hO7-uk-L4a"/>
@@ -688,11 +690,11 @@
             <objects>
                 <viewController id="Qdu-6b-h2n" customClass="GuestQueueController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SGE-6L-haV">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="bzm-Le-drV">
-                                <rect key="frame" x="20" y="113" width="263.5" height="111"/>
+                                <rect key="frame" x="20" y="25" width="263.5" height="111"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Queue:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="by8-tS-e94">
                                         <rect key="frame" x="0.0" y="0.0" width="263.5" height="48"/>
@@ -709,8 +711,8 @@
                                 </subviews>
                                 <variation key="heightClass=compact" axis="horizontal"/>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2yy-rQ-eFJ">
-                                <rect key="frame" x="20" y="248" width="374" height="450"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2yy-rQ-eFJ">
+                                <rect key="frame" x="20" y="160" width="374" height="484"/>
                                 <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -733,6 +735,7 @@
                         <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="2yy-rQ-eFJ" firstAttribute="top" secondItem="bzm-Le-drV" secondAttribute="bottom" constant="24" id="4HE-y5-u7G"/>
+                            <constraint firstItem="ykL-ry-Xd8" firstAttribute="bottom" secondItem="2yy-rQ-eFJ" secondAttribute="bottom" constant="115" id="Obh-rs-Jeb"/>
                             <constraint firstItem="bzm-Le-drV" firstAttribute="top" secondItem="ykL-ry-Xd8" secondAttribute="top" constant="25" id="YA9-zQ-ljp"/>
                             <constraint firstItem="2yy-rQ-eFJ" firstAttribute="leading" secondItem="ykL-ry-Xd8" secondAttribute="leading" constant="20" id="eEu-AJ-agH"/>
                             <constraint firstItem="ykL-ry-Xd8" firstAttribute="trailing" secondItem="2yy-rQ-eFJ" secondAttribute="trailing" constant="20" id="pB2-0l-es3"/>
@@ -756,17 +759,17 @@
             <objects>
                 <viewController id="VTr-Rf-fKz" customClass="SearchSongController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ea6-6B-btf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for Songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="6sP-uc-yRR">
-                                <rect key="frame" x="20" y="111" width="374" height="48"/>
+                                <rect key="frame" x="20" y="23" width="374" height="48"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="35"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <searchBar contentMode="redraw" text="" placeholder="Search" backgroundImage="black" translatesAutoresizingMaskIntoConstraints="NO" id="GJw-f7-mxW">
-                                <rect key="frame" x="20" y="172" width="374" height="44"/>
+                                <rect key="frame" x="20" y="84" width="374" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="FOU-yV-U0a"/>
@@ -775,7 +778,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cKG-pl-7la">
-                                <rect key="frame" x="20" y="245" width="374" height="511"/>
+                                <rect key="frame" x="20" y="157" width="374" height="545"/>
                                 <color key="backgroundColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.098039215690000001" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -910,11 +913,11 @@
             <objects>
                 <viewController id="PgF-JO-4er" customClass="SuggestionsViewController" customModule="FinalProject_TheSocialQ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MkI-3p-peK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Suggested Songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="8eb-1J-tIL">
-                                <rect key="frame" x="20" y="109" width="374" height="51"/>
+                                <rect key="frame" x="20" y="21" width="374" height="51"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="37"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -971,9 +974,9 @@
         <image name="search" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sDI-Hq-tda"/>
+        <segue reference="Sml-sX-IaU"/>
         <segue reference="iIt-Ki-HV9"/>
-        <segue reference="poj-Qv-pmB"/>
+        <segue reference="FjF-Dp-QJ3"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

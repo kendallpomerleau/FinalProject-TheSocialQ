@@ -69,12 +69,36 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         tableView.dataSource = self
         tableView.rowHeight = 90
     
+        disclaimer()
         cacheImages()
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {_ in
             self.updateSongInfo()
         })
     }
     
+    func disclaimer() {
+        let alert = UIAlertController(title: "Discliamer", message: "", preferredStyle: .alert)
+        
+        alert.view.tintColor = .black
+        alert.view.backgroundColor = .white
+        
+        alert.view.layer.cornerRadius = 25
+        
+        // set font of title in alert
+        var myMutableString = NSMutableAttributedString()
+        myMutableString = NSMutableAttributedString(string: "Disclaimer", attributes: [NSAttributedString.Key.font:UIFont(name: "Avenir Next", size: 19.0)!])
+        myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location:0,length:10))
+        alert.setValue(myMutableString, forKey: "attributedTitle")
+        
+        var myMutableMsg = NSMutableAttributedString()
+        myMutableMsg = NSMutableAttributedString(string: "SocialQ will set up a Spotify environment for you. Do not interact with Spotify while using this app.", attributes: [NSAttributedString.Key.font:UIFont(name: "Avenir Next", size: 12.0)!])
+        myMutableMsg.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location:0,length:100))
+        alert.setValue(myMutableMsg, forKey: "attributedMessage")
+        
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         let thirdTab = self.tabBarController?.viewControllers![2] as! SearchSongController
@@ -232,10 +256,10 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
         cellDescription.text = currentQueue.playlistSongs[indexPath.row - currentQueue.songs.count+1].artist
     }
     else {
+        cell.backgroundColor = UIColor(displayP3Red: 189/255, green: 159/255, blue: 235/255, alpha: 1)
         cellTitle.text = currentQueue.songs[indexPath.row+1].name
-        
         cellDescription.text = currentQueue.songs[indexPath.row+1].artist
-        
+        cellTitle.textColor = .black
     }
     
     
