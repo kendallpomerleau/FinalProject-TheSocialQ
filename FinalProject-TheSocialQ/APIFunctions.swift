@@ -267,7 +267,7 @@ func getUserPlaylists(authToken: String) -> [UserPlaylist]{ //playlist-read-priv
             print(searchJson)
             returnItemArray = searchJson.items
         } catch let DecodingError.dataCorrupted(context) {
-             print(context)
+            print(context)
         } catch let DecodingError.keyNotFound(key, context) {
             print("Key '\(key)' not found:", context.debugDescription)
             print("codingPath:", context.codingPath)
@@ -275,7 +275,7 @@ func getUserPlaylists(authToken: String) -> [UserPlaylist]{ //playlist-read-priv
             print("Value '\(value)' not found:", context.debugDescription)
             print("codingPath:", context.codingPath)
             
-        } catch let DecodingError.typeMismatch(type, context)  {
+        } catch let DecodingError.typeMismatch(type, context){
             print("Type '\(type)' mismatch:", context.debugDescription)
             print("codingPath:", context.codingPath)
         }
