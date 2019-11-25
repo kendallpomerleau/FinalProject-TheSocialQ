@@ -84,6 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         rootViewController.loginBtn.isHidden = true
         rootViewController.continueBtn.isHidden = false
+        rootViewController.existingBtn.isHidden = false
         
 //        rootViewController.loginBtn.setTitle("Continue to Create Queue", for: .normal)
         

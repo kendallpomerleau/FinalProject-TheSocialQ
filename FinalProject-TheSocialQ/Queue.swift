@@ -14,14 +14,17 @@ class Queue: Decodable, Encodable{
     
     let title:String
     let key:String
+    let reconnectKey:String
     let basePlaylistID:String
-    var playlistSongs:[Track]=[]
+    //var playlistSongs:[Track]=[]
+    var playlistSongs:[Song] = []
     
     // when we enable spotify login, comment this out
     var token:String?
     
     /*var songs:[Track] = []*/
     var songs:[Song] = []
+    var suggestions:[Song] = []
     var add:String //needs to be a String for firebase reasons
     var users: [String] = []
     var playlistLength : Int = 0
@@ -30,7 +33,7 @@ class Queue: Decodable, Encodable{
     var isQueued:Bool?
     var topOfQueueKey = "0"
     
-    init(title: String, key: String, add: Bool, playlistID: String){
+    init(title: String, key: String, reconnectKey: String, add: Bool, playlistID: String){
         self.title = title
         self.key = key
         if add {
@@ -42,6 +45,7 @@ class Queue: Decodable, Encodable{
         self.token = nil
         self.basePlaylistID = playlistID
         self.isQueued = false
+        self.reconnectKey = reconnectKey
         
     }
     
@@ -51,10 +55,17 @@ class Queue: Decodable, Encodable{
     
     func setupPlayer() {
         if( token != nil || token != ""){
+            // if queue already exists
             let ref = Database.database().reference()
+ 
             let playlistTracks : [Track] = getTracks(authToken: token!, playlistID: basePlaylistID)
-            playlistSongs = playlistTracks
-            playlistLength = playlistTracks.count
+            
+            playlistSongs = []
+            for track in playlistTracks {
+                let newSong = Song(id: track.id, name: track.name, artist: (track.artists[0].name), coverPath: track.album.images[1].url, duration: "\( track.duration_ms)")
+                playlistSongs.append(newSong)
+            }
+            playlistLength = playlistSongs.count
             //let shuffledPlaylistTracks = playlistTracks.shuffled()
             
             var songName = "", songId = "", songArtist = "", songCoverPath = ""
@@ -88,21 +99,14 @@ class Queue: Decodable, Encodable{
             ref.child("Queues/\(title)/directAdd").setValue(self.add)
             ref.child("Queues/\(title)/name").setValue(self.title)
             ref.child("Queues/\(title)/token").setValue(self.token)
+            ref.child("Queues/\(title)/reconnectKey").setValue(self.reconnectKey)
+            ref.child("Queues/\(title)/suggestions").setValue(emptyQueue)
             
             ref.child("Queues/\(title)/queuedSongs").observe(.value , with: { (snapshot) in
 
                 let queuedFirebase = snapshot.value as? [Any] ?? []
                 
                 self.isQueued = true
-/*                self.songs = []
-//                var counter = false
-                for song in queuedFirebase {
-                    
-                    let swiftyJsonVar = JSON(song)
-                    if (swiftyJsonVar["id"] != ""){
-                         self.songs.append(Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))"))
-                    }
-                }*/
                 
                 var numSongsInFirebase = 0
                 var newSong:Song?
@@ -111,7 +115,7 @@ class Queue: Decodable, Encodable{
                     let swiftyJsonVar = JSON(song)
                     newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
                 }
-                if self.songs.count < numSongsInFirebase {
+                if self.songs.count < numSongsInFirebase-1 {
                     self.songs.append(newSong!)
                 }
                 
@@ -128,14 +132,7 @@ class Queue: Decodable, Encodable{
             })
             
             playNextSong()
-            
-            /*let encodedPlaylistTracks = try JSONEncoder().encode(shuffledPlaylistTracks)
-             print(encodedPlaylistTracks.count)
-             // we are shuffling no matter what -- maybe set as an option
-             ref.child("Queues/\(title)/allPlaylistSongs").setValue(encodedPlaylistTracks)
-             let emptyQueue : [Track] = []
-             ref.child("Queues/\(title)/queuedSongs").setValue(emptyQueue)
-             ref.child("Queues/\(title)/currentSongPointer").setValue(0)*/
+
             //ADD SUGGESTEDSONGS ARRAY TO FIREBASE SETUP HERE
         }
     }
@@ -161,6 +158,20 @@ class Queue: Decodable, Encodable{
         }
         else {
             // SUGGEST SONGS FUNCTIONALITY HERE
+            suggestions.append(song)
+            let ref = Database.database().reference()
+            var songName = "", songId = "", songArtist = "", songCoverPath = ""
+            var songDuration = ""
+            var songToAdd:Song?
+            songName = song.name
+            songId = song.id
+            songArtist = song.artist
+            songCoverPath = song.coverPath!
+            songDuration = song.duration ?? "0"
+            songToAdd = Song(id: songId, name: songName, artist: songArtist, coverPath: songCoverPath, duration: "\(songDuration)")
+            ref.child("Queues/\(title)/suggestions/").child("\(suggestions.count-1)").setValue(songToAdd?.nsDictionary)
+            print("printing suggestions")
+            print(suggestions)
         }
     }
     
@@ -222,25 +233,6 @@ class Queue: Decodable, Encodable{
         let ref = Database.database().reference()
         var nextQueued : Song?
         
-//        ref.child("Queues/\(self.title)/queuedSongs").observeSingleEvent(of: .value, with: {snapshot in
-            //let queuedSongs = snapshot.value as? [Track]
-//            let queuedSongs = JSON(snapshot.value!)
-/*            var counter = 0
-            for song in queuedSongs {
-                let swiftySong = JSON(song.1)
-                let tempSong = Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])")
-                if(counter == 1){
-                    nextQueued = tempSong
-                    areQueued = true
-                }else if(counter != 0){
-                    newQueuedList.append(tempSong)
-                }
-                
-                counter += 1
-            }
- */
- //       })
-        
         if (!self.isQueued!) {
             
             //if queued songs == empty -> play from playlist, ++currentSongPointer
@@ -249,15 +241,15 @@ class Queue: Decodable, Encodable{
             ref.child("Queues/\(title)/currentSongPointer").observeSingleEvent(of: .value, with: {snapshot in
                 currentPointer = snapshot.value as! Int
                 currentPointer+=1
-                var nextSong : Track?
+                var nextSong : Song?
                 if currentPointer > self.playlistLength-1{
                     currentPointer = 0
                 }
-                nextSong=self.playlistSongs[currentPointer]
+                nextSong = self.playlistSongs[currentPointer]
                 ref.child("Queues/\(self.title)/currentSongPointer").setValue(currentPointer)
                 if nextSong != nil {
                     playSong(authToken: self.token!, trackId: nextSong!.id)
-                    self.currentSong = Song(id: nextSong?.id, name: nextSong!.name, artist: (nextSong?.artists[0].name)!, coverPath: nextSong?.album.images[1].url, duration: "\( nextSong!.duration_ms)")
+                    self.currentSong = Song(id: nextSong?.id, name: nextSong!.name, artist: (nextSong?.artist)!, coverPath: nextSong?.coverPath!, duration: "\( nextSong!.duration!)")
                 }
             })
             
@@ -294,10 +286,10 @@ class Queue: Decodable, Encodable{
                     currentPointer = self.playlistLength-1
                 }
                 print("currentPointer after if \(currentPointer)")
-                var previousSong : Track?
-
-                previousSong=self.playlistSongs[currentPointer]
-                self.currentSong = Song(id: previousSong?.id, name: previousSong!.name, artist: (previousSong?.artists[0].name)!, coverPath: previousSong?.album.images[1].url, duration: "\( previousSong!.duration_ms)")
+                //var previousSong : Track?
+                var previousSong: Song?
+                previousSong = self.playlistSongs[currentPointer]
+                self.currentSong = Song(id: previousSong!.id!, name: previousSong!.name, artist: (previousSong!.artist), coverPath: previousSong?.coverPath!, duration: "\( previousSong!.duration!)")
                 ref.child("Queues/\(self.title)/currentSongPointer").setValue(currentPointer)
                 if previousSong != nil {
                     playSong(authToken: self.token!, trackId: previousSong!.id)
@@ -331,6 +323,27 @@ class Queue: Decodable, Encodable{
             let ref = Database.database().reference()
             ref.child("Queues/\(title)/users").setValue(users)
         }
+    }
+    
+    func loadSuggestions(){
+        let ref = Database.database().reference()
+        ref.child("Queues/\(title)/suggestions").observe(.value , with: { (snapshot) in
+
+            let suggestedFirebase = snapshot.value as? [Any] ?? []
+            
+            var numSuggestedInFirebase = 0
+            var newSong:Song?
+            for song in suggestedFirebase {
+                numSuggestedInFirebase+=1
+                let swiftyJsonVar = JSON(song)
+                newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+            }
+                if self.suggestions.count < numSuggestedInFirebase-1 {
+                    self.suggestions.append(newSong!)
+            }
+                
+        })
+        //if the suggestions queue is empty add a label taht says you have no suggested songs yet
     }
     
 }

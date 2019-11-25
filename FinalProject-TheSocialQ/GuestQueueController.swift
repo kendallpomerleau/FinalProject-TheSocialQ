@@ -11,13 +11,12 @@ import FirebaseDatabase
 
 class GuestQueueController: UIViewController, UITableViewDataSource {
     
-    var currentQueue:Queue = Queue(title: "", key: "", add: false, playlistID: "")
+    var currentQueue:Queue = Queue(title: "", key: "", reconnectKey: "", add: false, playlistID: "")
     var imageCache:[UIImage] = []
     
     
     @IBOutlet weak var queueTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var addBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +24,6 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         let secondTab = self.tabBarController?.viewControllers![1] as! SearchSongController
         secondTab.currentQueue = self.currentQueue
         
-        addBtn.layer.cornerRadius = 10
-        addBtn.clipsToBounds = true
         queueTitle.text = currentQueue.title
         
         tableView.dataSource = self
@@ -56,13 +53,14 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
                 let dict2 = dictionary["\(self.currentQueue.title)"] as! NSDictionary
                 let name = dict2["name"] as? String
                 let key = dict2["passKey"] as? String
+                let reconnectKey = dict2["reconnectKey"] as? String
                 let directAdd = dict2["directAdd"] as? String
                 var add = false
                 if directAdd! == "True" {
                     add = true
                 }
                 let playlistID = dict2["basePlaylistID"] as? String
-                let queue = Queue(title: name!, key: key!, add: add, playlistID: playlistID!)
+                let queue = Queue(title: name!, key: key!, reconnectKey: reconnectKey!, add: add, playlistID: playlistID!)
                 self.currentQueue = queue
                 self.cacheImages()
                 self.tableView.reloadData()
