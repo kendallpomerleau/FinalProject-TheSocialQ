@@ -104,9 +104,9 @@ struct PlaylistGetResult: Codable {
 struct UserPlaylist: Codable {
     let collaborative: Bool
     let id: String
-    let images: [Image]
+    //let images: [Image]
     let name: String
-    let owner: PlaylistOwner
+    let owner: PlaylistOwner?
     let type: String
     let uri: String
 }
