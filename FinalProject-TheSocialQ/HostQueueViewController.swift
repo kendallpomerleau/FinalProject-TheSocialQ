@@ -41,9 +41,9 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
     
     
     @IBAction func prevSong(_ sender: Any) {
-        if currentQueue.previousSong() {
-            isPlaying = true
-        }
+        _ = currentQueue.previousSong()
+        isPlaying = true
+        playPauseButton.setBackgroundImage(UIImage(named: "pause"), for: .normal)
         
     }
     
@@ -51,6 +51,7 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         currentQueue.skipSong()
         isPlaying = true
         updateSongInfo()
+        playPauseButton.setBackgroundImage(UIImage(named: "pause"), for: .normal)
         
     }
     
@@ -206,7 +207,7 @@ func numberOfSections(in tableView: UITableView) -> Int {
 }
 
 func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return currentQueue.songs.count + currentQueue.playlistLength - 1
+    return currentQueue.songs.count /*+ currentQueue.playlistLength - 1*/
 }
 
 //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -237,7 +238,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     cell.clipsToBounds = true
     
     let cellImg = UIImageView(frame: CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: 90, height: 90))
-    cellImg.image = imageCache[indexPath.row]
+    //cellImg.image = imageCache[indexPath.row]
     cellImg.layer.cornerRadius=10
     cellImg.clipsToBounds = true
     
@@ -252,13 +253,15 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     cellDescription.textColor = .white
     
     if (indexPath.row >= currentQueue.songs.count-1){
-        cellTitle.text = currentQueue.playlistSongs[indexPath.row - currentQueue.songs.count+1].name
-        cellDescription.text = currentQueue.playlistSongs[indexPath.row - currentQueue.songs.count+1].artist
+        cellTitle.text = currentQueue.playlistSongs[currentQueue.currentSongPoint+1].name
+        cellDescription.text = currentQueue.playlistSongs[currentQueue.currentSongPoint+1].artist
+        cellImg.image = imageCache[currentQueue.songs.count + currentQueue.currentSongPoint]
     }
     else {
         cell.backgroundColor = UIColor(displayP3Red: 189/255, green: 159/255, blue: 235/255, alpha: 1)
         cellTitle.text = currentQueue.songs[indexPath.row+1].name
         cellDescription.text = currentQueue.songs[indexPath.row+1].artist
+        cellImg.image = imageCache[indexPath.row]
         cellTitle.textColor = .black
     }
     

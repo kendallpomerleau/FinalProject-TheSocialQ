@@ -29,6 +29,7 @@ class Queue: Decodable, Encodable{
     var users: [String] = []
     var playlistLength : Int = 0
     var currentSong:Song?
+    var currentSongPoint:Int = 0
     var isQueued:Bool?
     var topOfQueueKey = "0"
     
@@ -45,6 +46,7 @@ class Queue: Decodable, Encodable{
         self.basePlaylistID = playlistID
         self.isQueued = false
         self.reconnectKey = reconnectKey
+        self.currentSongPoint = 0
         
     }
     
@@ -134,8 +136,6 @@ class Queue: Decodable, Encodable{
             })
             
             playNextSong()
-
-            //ADD SUGGESTEDSONGS ARRAY TO FIREBASE SETUP HERE
         }
     }
     
@@ -155,6 +155,7 @@ class Queue: Decodable, Encodable{
             songCoverPath = song.coverPath!
             songDuration = song.duration ?? "0"
             songToAdd = Song(id: songId, name: songName, artist: songArtist, coverPath: songCoverPath, duration: "\(songDuration)")
+            isQueued =  true
             ref.child("Queues/\(title)/queuedSongs/").child("\(songs.count-1)").setValue(songToAdd?.nsDictionary)
             
         }
@@ -253,6 +254,7 @@ class Queue: Decodable, Encodable{
                     playSong(authToken: self.token!, trackId: nextSong!.id)
                     self.currentSong = Song(id: nextSong?.id, name: nextSong!.name, artist: (nextSong?.artist)!, coverPath: nextSong?.coverPath!, duration: "\( nextSong!.duration!)")
                 }
+                self.currentSongPoint = currentPointer
             })
             
         }
@@ -294,8 +296,10 @@ class Queue: Decodable, Encodable{
                 self.currentSong = Song(id: previousSong!.id!, name: previousSong!.name, artist: (previousSong!.artist), coverPath: previousSong?.coverPath!, duration: "\( previousSong!.duration!)")
                 ref.child("Queues/\(self.title)/currentSongPointer").setValue(currentPointer)
                 if previousSong != nil {
+                    
                     playSong(authToken: self.token!, trackId: previousSong!.id)
                 }
+                self.currentSongPoint = currentPointer
                 return
             })
             return true
