@@ -71,6 +71,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
             for i in 0..<self.currentQueue.songs.count {
                 if (self.currentQueue.songs[i] == songToRemove) {
                     self.currentQueue.songs.remove(at: i)
+                    break
                 }
             }
             
