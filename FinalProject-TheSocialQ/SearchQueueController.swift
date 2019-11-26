@@ -106,8 +106,11 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
                         queueFromJson.title = "\(swiftyQueue["name"])"
                         for song in swiftyQueue["queuedSongs"] {
                             let swiftySong = JSON(song.1)
-                            if (swiftySong != nil && swiftySong["id"] != nil && swiftySong["id"] != "null" && swiftySong["id"] != ""){
-                                queueFromJson.songs.append(Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])"))
+                            if (swiftySong.array != nil && swiftySong["id"] != nil && swiftySong["id"] != "null" && swiftySong["id"] != ""){
+                                let newSong = Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])")
+                                if (newSong.id != nil && newSong.id != "null" && newSong.id != ""){
+                                    queueFromJson.songs.append(Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])"))
+                                }
                             }
                             
                         }
