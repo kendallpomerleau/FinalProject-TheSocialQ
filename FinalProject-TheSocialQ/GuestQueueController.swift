@@ -42,7 +42,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
             self.currentQueue.songs = []
             for song in queuedFirebase {
                 let swiftyJsonVar = JSON(song)
-                if (swiftyJsonVar["id"] != nil) {
+                if (swiftyJsonVar["id"] != "" && swiftyJsonVar["id"] != "null") {
                     newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
                     self.currentQueue.songs.append(newSong!)
                 }
