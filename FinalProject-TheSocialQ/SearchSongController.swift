@@ -41,6 +41,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         spinner!.center = view.center
         spinner!.startAnimating()
         view.addSubview(spinner!)
+        spinner?.hidesWhenStopped = true
         grabFirebaseData()
 
         DispatchQueue.main.async{
@@ -121,7 +122,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
                 self.cacheImages()
                 // remove the spinner view controller
                 self.tableView.reloadData()
-                self.spinner?.removeFromSuperview()
+                self.spinner?.stopAnimating()
             }
         }
         task.resume()
@@ -145,10 +146,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         if text != "" {
             self.songResults = []
             // add the spinner view controller
-            spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
-            spinner!.center = view.center
             spinner!.startAnimating()
-            view.addSubview(spinner!)
             
             let url = URL(string: baseURL + "search?q=\(text)&type=track&market=US")
             
@@ -186,7 +184,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
                     DispatchQueue.main.async{
                         self.cacheImages()
                         self.tableView.reloadData()
-                        self.spinner?.removeFromSuperview()
+                        self.spinner?.stopAnimating()
                     }
                 }
                 task.resume()
