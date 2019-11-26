@@ -106,8 +106,10 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
                         queueFromJson.title = "\(swiftyQueue["name"])"
                         for song in swiftyQueue["queuedSongs"] {
                             let swiftySong = JSON(song.1)
-
-                            queueFromJson.songs.append(Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])"))
+                            if (swiftySong != nil && swiftySong["id"] != nil && swiftySong["id"] != "null" && swiftySong["id"] != ""){
+                                queueFromJson.songs.append(Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])"))
+                            }
+                            
                         }
 
                         if !self.queueResults.contains(queueFromJson){
