@@ -50,8 +50,10 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
     @IBAction func nextSong(_ sender: Any) {
         currentQueue.skipSong()
         isPlaying = true
-        updateSongInfo()
-        playPauseButton.setBackgroundImage(UIImage(named: "pause"), for: .normal)
+        DispatchQueue.main.async{
+            self.updateSongInfo()
+            self.playPauseButton.setBackgroundImage(UIImage(named: "pause"), for: .normal)
+        }
         
     }
     
@@ -140,13 +142,11 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
             songArtistLbl.text = currentQueue.currentSong?.artist
             updateAlbumImage()
             self.cacheImages()
+            print(currentQueue.songs)
+            print(currentQueue.keys)
             self.tableView.reloadData()
-//            DispatchQueue.main.async{
-//                //print(self.currentQueue.songs)
-//
-//            }
+            print("reloading")
         }
-        
         // get progress of song
         DispatchQueue.global(qos: .background).async {
             let (songProgress, songFraction) = self.currentQueue.checkSongProgress()
@@ -154,7 +154,7 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
                 self.durationBar.setProgress(songFraction, animated: true)
                 if songProgress < 400 {
                     self.currentQueue.playNextSong()
-                    self.updateSongInfo()
+                    //self.updateSongInfo()
                     self.cacheImages()
                     self.tableView.reloadData()
                 }
@@ -176,7 +176,6 @@ func updateAlbumImage() {
 func cacheImages() {
     imageCache = []
     for song in currentQueue.songs {
-        
         /*let url = URL(string: song.album.images[0].url)
          let data = try? Data(contentsOf: url!)
          if (data != nil){
@@ -190,16 +189,13 @@ func cacheImages() {
             imageCache.append(image!)
         }
     }
-    print("printing playlist songs")
-    print(currentQueue.playlistSongs)
-    for song in currentQueue.playlistSongs {
-        let url = URL(string: song.coverPath!)
-        let data = try? Data(contentsOf: url!)
-        if (data != nil){
-            let image = UIImage(data:data!)
-            imageCache.append(image!)
-        }
+    let url = URL(string: currentQueue.playlistSongs[currentQueue.currentSongPoint+1].coverPath!)
+    let data = try? Data(contentsOf: url!)
+    if (data != nil){
+        let image = UIImage(data:data!)
+        imageCache.append(image!)
     }
+
 }
 
 func numberOfSections(in tableView: UITableView) -> Int {
@@ -210,26 +206,16 @@ func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> 
     return currentQueue.songs.count /*+ currentQueue.playlistLength - 1*/
 }
 
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//
-//        //remove from base playlist
-//        print("index path row is \(indexPath.row)")
-//        print("current queue is \(currentQueue.songs)")
-//        if (indexPath.row >= currentQueue.songs.count-1){
-//            print("removing from base playlist")
-//            currentQueue.playlistSongs.remove(at: indexPath.row - currentQueue.songs.count+1)
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//            cacheImages()
-//        }
-//        else { //remove from queue
-//            print("removing from queue")
-//            self.currentQueue.removeFromQueue(song: self.currentQueue.songs[indexPath.row+1])
-//            print("number of songs after removal \(self.currentQueue.songs.count)")
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//            justDeleted = true
-//            self.cacheImages()
-//        }
-//    }
+func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+
+    //remove from base playlist
+
+    if (indexPath.row < currentQueue.songs.count-1) { //remove from queue
+        self.currentQueue.removeAtLoc(song: self.currentQueue.songs[indexPath.row+1])
+        self.cacheImages()
+        tableView.deleteRows(at: [indexPath], with: .fade)
+    }
+}
 
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
@@ -255,7 +241,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     if (indexPath.row >= currentQueue.songs.count-1){
         cellTitle.text = currentQueue.playlistSongs[currentQueue.currentSongPoint+1].name
         cellDescription.text = currentQueue.playlistSongs[currentQueue.currentSongPoint+1].artist
-        cellImg.image = imageCache[currentQueue.songs.count + currentQueue.currentSongPoint]
+        cellImg.image = imageCache[indexPath.row]
     }
     else {
         cell.backgroundColor = UIColor(displayP3Red: 189/255, green: 159/255, blue: 235/255, alpha: 1)
