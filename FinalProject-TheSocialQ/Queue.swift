@@ -386,11 +386,13 @@ class Queue: Decodable, Encodable{
         ref.child("Queues/\(title)/suggestions").observe(.childAdded , with: { (snapshot) in
 
             let queuedFirebase = snapshot.value as! NSDictionary
+            let key = snapshot.key
             let swiftyJsonVar = JSON(queuedFirebase)
             let songToAdd = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
             if (songToAdd.name != "" && songToAdd.name != "null"){
                 if !self.suggestions.contains(songToAdd) {
                     self.suggestions.append(songToAdd)
+                    self.suggestedKeys.append(Int(key)!)
                 }
             }
             
