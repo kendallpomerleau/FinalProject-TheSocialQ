@@ -29,14 +29,15 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
 
         tableView.dataSource = self
         tableView.rowHeight = 90
-        print(currentQueue!.suggestions)
-        print(imageCache.count)
+
+        currentQueue?.loadSuggestions()
+        cacheImages()
+        tableView.reloadData()
 
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        currentQueue?.loadSuggestions()
         cacheImages()
         tableView.reloadData()
     }

@@ -392,7 +392,7 @@ class Queue: Decodable, Encodable{
             if (songToAdd.name != "" && songToAdd.name != "null"){
                 if !self.suggestions.contains(songToAdd) {
                     self.suggestions.append(songToAdd)
-                    self.suggestedKeys.append(Int(key)!)
+                    self.suggestedKeys.append(Int(key)!+1)
                 }
             }
             
