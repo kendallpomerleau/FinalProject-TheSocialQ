@@ -150,10 +150,10 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         optionMenu.addTextField(configurationHandler: { (textField) in
             textField.placeholder = "Type Key from Host"
         })
-        optionMenu.addTextField(configurationHandler: { (textField) in
-            textField.placeholder = "Create Username"
-        })
-        
+//        optionMenu.addTextField(configurationHandler: { (textField) in
+//            textField.placeholder = "Create Username"
+//        })
+
         optionMenu.view.layer.cornerRadius = 25
         
         // set font of title in alert
@@ -169,14 +169,14 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
                 
                 let textField = optionMenu.textFields![0] // Force unwrapping because we know it exists.
                 
-                let userText = optionMenu.textFields![1]
+//                let userText = optionMenu.textFields![1]
                 
                 // add to database
 
                 if textField.text == self.currentSelection.key {
-                    if(userText.text != ""){
-                        self.currentSelection.userJoin(username: userText.text!)
-                    }
+//                    if(userText.text != ""){
+//                        self.currentSelection.userJoin(username: userText.text!)
+//                    }
                     self.performSegue(withIdentifier: "viewCurrentQueue", sender: self)
                 }
                 else {
