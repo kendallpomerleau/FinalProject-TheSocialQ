@@ -122,7 +122,7 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
         self.present(alert, animated: true, completion: nil)
 
          alert.addAction(cancelAction)
-         currentQueue?.addToQueue(song: currentQueue!.suggestions[sender.tag], isHost: true, canDirectAdd: true)
+         currentQueue?.addToQueue(song: currentQueue!.suggestions[sender.tag+1], isHost: true, canDirectAdd: true)
         
          // somehow need to get the song that the button was attached to
          let firstTab = self.tabBarController?.viewControllers![0] as! HostQueueViewController
