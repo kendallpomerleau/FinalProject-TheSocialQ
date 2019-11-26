@@ -96,7 +96,6 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
                     
                     let swiftyJsonVar = JSON(child.value!)
                     for queue in swiftyJsonVar {
-                        print("queue is \(queue)")
                         let swiftyQueue = JSON(queue.1)
                         var directAdd = false
                         if swiftyQueue["directAdd"] == "True" {
@@ -174,7 +173,6 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selecting")
         currentSelection = shownQueues[indexPath.row]
     }
     

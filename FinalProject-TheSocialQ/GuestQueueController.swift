@@ -38,7 +38,6 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
             let queuedFirebase = snapshot.value as? [Any] ?? []
             
             
-            var numSongsInFirebase = 0
             var newSong:Song?
             self.currentQueue.songs = []
             for song in queuedFirebase {
@@ -48,7 +47,9 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
             }
 
             self.cacheImages()
-            self.tableView.reloadData()
+            DispatchQueue.main.async{
+                self.tableView.reloadData()
+            }
         })
         // Do any additional setup after loading the view.
         
@@ -128,7 +129,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         
         let cellImg = UIImageView(frame: CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: 90, height: 90))
 
-        cellImg.image = imageCache[indexPath.row]
+        cellImg.image = imageCache[indexPath.row-1]
         cellImg.layer.cornerRadius=10
         cellImg.clipsToBounds = true
         
