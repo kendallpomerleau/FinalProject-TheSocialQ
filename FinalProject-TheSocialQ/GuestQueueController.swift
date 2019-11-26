@@ -30,11 +30,19 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         tableView.dataSource = self
         tableView.rowHeight = 90
         
+//        _ = Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: {_ in
+//            self.updateQueue()
+//        })
         cacheImages()
         // Do any additional setup after loading the view.
         
         
     }
+     
+//    func updateQueue(){
+//
+//    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -95,7 +103,8 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
                     }
                 }
             }
-            
+            self.cacheImages()
+            self.tableView.reloadData()
         })
     }
     
