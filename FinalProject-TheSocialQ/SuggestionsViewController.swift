@@ -131,7 +131,7 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
          firstTab.tableView.reloadData()
         
         // remove suggestion from firebase and from queue
-        currentQueue!.removeSuggestion(song: currentQueue!.suggestions[sender.tag])
+        currentQueue!.removeSuggestion(song: currentQueue!.suggestions[sender.tag+1])
         cacheImages()
         tableView.reloadData()
      }
