@@ -230,7 +230,7 @@ class Queue: Decodable, Encodable{
     
     func removeSuggestion(song:Song){
         if suggestions.contains(song) {
-            if let songToRemove = songs.firstIndex(of: song) {
+            if let songToRemove = suggestions.firstIndex(of: song) {
                 suggestions.remove(at: songToRemove)
                 
                 let key = suggestedKeys[songToRemove]
@@ -392,10 +392,23 @@ class Queue: Decodable, Encodable{
             if (songToAdd.name != "" && songToAdd.name != "null"){
                 if !self.suggestions.contains(songToAdd) {
                     self.suggestions.append(songToAdd)
-                    self.suggestedKeys.append(Int(key)!+1)
+                    self.suggestedKeys.append(Int(key)!)
                 }
             }
             
+//            let suggestedFirebase = snapshot.value as? [Any] ?? []
+//
+//            var numSuggestedInFirebase = 0
+//            var newSong:Song?
+//            for song in suggestedFirebase {
+//                numSuggestedInFirebase+=1
+//                let swiftyJsonVar = JSON(song)
+//                newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+//            }
+//                if self.suggestions.count < numSuggestedInFirebase-1 {
+//                    self.suggestions.append(newSong!)
+//            }
+//
         })
         //if the suggestions queue is empty add a label taht says you have no suggested songs yet
     }
