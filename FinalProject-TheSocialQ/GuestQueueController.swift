@@ -44,8 +44,8 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
                 
                 let swiftyJsonVar = JSON(song)
                 newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
-                if (newSong != nil){
-                    self.currentQueue.songs.append(newSong!)
+                if let addSong = newSong {
+                    self.currentQueue.songs.append(addSong)
                 }
                 
             }
