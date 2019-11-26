@@ -31,21 +31,7 @@ class HostSearchQueueViewController: UIViewController, UITableViewDataSource, UI
         joinBtn.clipsToBounds = true
         
         // initial queues JUST FOR TESTING
-        /*
-        let q1 = Queue(title: "Kendall's Party", key: "12345", add: true, playlistID: "")
-        let q2 = Queue(title: "Sarah's House", key: "12345", add: true, playlistID: "")
-        
-        let circles = Song(id: "1", name: "Circles", artist:"Post Malone", coverPath: "https://i.scdn.co/image/94105e271865c28853bfb7b44b38353a2fea45d6")
-        let cyanide = Song(id: "2", name: "Cyanide", artist:"Daniel Caesar", coverPath: "https://i.scdn.co/image/ab67616d0000b2737607aa9ae7904e1b12907c93")
-        q1.songs.append(circles)
-        q1.songs.append(cyanide)
-        
-        q2.songs.append(circles)
-        q2.songs.append(cyanide)
-        
-        queueResults.append(q1)
-        queueResults.append(q2)
-        */
+
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -76,8 +62,10 @@ class HostSearchQueueViewController: UIViewController, UITableViewDataSource, UI
                         }
                         let queueFromJson = Queue(title: "\(swiftyQueue["name"])", key: "\(swiftyQueue["passKey"])", reconnectKey: "\(swiftyQueue["reconnectKey"])", add: directAdd, playlistID: "\(swiftyQueue["basePlaylistID"])")
                         queueFromJson.token = "\(swiftyQueue["token"])"
+                        
                         for song in swiftyQueue["queuedSongs"] {
                             let swiftySong = JSON(song.1)
+                            queueFromJson.keys.append(Int(song.0) ?? 0)
                             queueFromJson.songs.append(Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])"))
                         }
                         if (swiftyQueue["queuedSongs"].count > 0){
@@ -234,7 +222,8 @@ class HostSearchQueueViewController: UIViewController, UITableViewDataSource, UI
             for controller in (destination?.viewControllers)! {
                 if (controller.isKind(of: HostQueueViewController.self) == true) {
                     (controller as! HostQueueViewController).currentQueue = currentSelection
-                    (controller as! HostQueueViewController).currentQueue.playNextSong()
+                    (controller as! HostQueueViewController).cacheImages()
+//                    (controller as! HostQueueViewController).currentQueue.playNextSong()
                     let secondTab = destination?.viewControllers![1] as! SuggestionsViewController
                     secondTab.currentQueue = currentSelection
                 }

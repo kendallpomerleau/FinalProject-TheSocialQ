@@ -116,19 +116,27 @@ class Queue: Decodable, Encodable{
                 
                 var numSongsInFirebase = 0
                 var newSong:Song?
-//                self.songs = []
-                for song in queuedFirebase {
-                    numSongsInFirebase+=1
-                    let swiftyJsonVar = JSON(song)
-                    newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
-//                    self.songs.append(newSong!)
-                }
-                if (newSong != nil){
-                    if !self.songs.contains(newSong!) {
+                if self.songs.isEmpty{
+                    for song in queuedFirebase {
+                        let swiftyJsonVar = JSON(song)
+                        newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
                         self.songs.append(newSong!)
-
                     }
                 }
+                else {
+                    for song in queuedFirebase {
+                        numSongsInFirebase+=1
+                        let swiftyJsonVar = JSON(song)
+                        newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+                    }
+                    if (newSong != nil){
+                        if !self.songs.contains(newSong!) {
+                            self.songs.append(newSong!)
+
+                        }
+                    }
+                }
+                
                 
 //                if self.songs.count < numSongsInFirebase-1 {
 //                }

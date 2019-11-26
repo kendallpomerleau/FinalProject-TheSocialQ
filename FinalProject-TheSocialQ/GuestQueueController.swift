@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import SwiftyJSON
 
 class GuestQueueController: UIViewController, UITableViewDataSource {
     
@@ -41,34 +42,61 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         
         //begin connection to firebase queue
         let ref = Database.database().reference()
-        ref.child("Queues").observe(.value, with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            let passKey = value?["passKey"] as? String ?? ""
-            if(passKey == "" || passKey != self.currentQueue.key) {
-                return
+//        ref.child("Queues").observe(.value, with: { snapshot in
+//            let value = snapshot.value as? NSDictionary
+//            let passKey = value?["passKey"] as? String ?? ""
+//            if(passKey == "" || passKey != self.currentQueue.key) {
+//                return
+//            }
+//            else {
+//                let dictionary = snapshot.value as! NSDictionary
+//
+//                let dict2 = dictionary["\(self.currentQueue.title)"] as! NSDictionary
+//                let name = dict2["name"] as? String
+//                let key = dict2["passKey"] as? String
+//                let reconnectKey = dict2["reconnectKey"] as? String
+//                let directAdd = dict2["directAdd"] as? String
+//                var add = false
+//                if directAdd! == "True" {
+//                    add = true
+//                }
+//                let playlistID = dict2["basePlaylistID"] as? String
+//                let queue = Queue(title: name!, key: key!, reconnectKey: reconnectKey!, add: add, playlistID: playlistID!)
+//                self.currentQueue = queue
+//                self.cacheImages()
+//                self.tableView.reloadData()
+//
+//            }
+//        }){ (error) in
+//            print(error.localizedDescription)
+//        }
+        ref.child("Queues/\(currentQueue.title)/queuedSongs").observe(.value, with: { snapshot in
+            let queuedFirebase = snapshot.value as? [Any] ?? []
+            
+            
+            var numSongsInFirebase = 0
+            var newSong:Song?
+            if self.currentQueue.songs.isEmpty{
+                for song in queuedFirebase {
+                    let swiftyJsonVar = JSON(song)
+                    newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+                    self.currentQueue.songs.append(newSong!)
+                }
             }
             else {
-                let dictionary = snapshot.value as! NSDictionary
-
-                let dict2 = dictionary["\(self.currentQueue.title)"] as! NSDictionary
-                let name = dict2["name"] as? String
-                let key = dict2["passKey"] as? String
-                let reconnectKey = dict2["reconnectKey"] as? String
-                let directAdd = dict2["directAdd"] as? String
-                var add = false
-                if directAdd! == "True" {
-                    add = true
+                for song in queuedFirebase {
+                    numSongsInFirebase+=1
+                    let swiftyJsonVar = JSON(song)
+                    newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
                 }
-                let playlistID = dict2["basePlaylistID"] as? String
-                let queue = Queue(title: name!, key: key!, reconnectKey: reconnectKey!, add: add, playlistID: playlistID!)
-                self.currentQueue = queue
-                self.cacheImages()
-                self.tableView.reloadData()
-                
+                if (newSong != nil){
+                    if !self.currentQueue.songs.contains(newSong!) {
+                        self.currentQueue.songs.append(newSong!)
+                    }
+                }
             }
-        }){ (error) in
-            print(error.localizedDescription)
-        }
+            
+        })
     }
     
     func cacheImages() {
