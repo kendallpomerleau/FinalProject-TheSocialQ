@@ -35,21 +35,25 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
 //        })
         let ref = Database.database().reference()
         ref.child("Queues/\(currentQueue.title)/queuedSongs").observe(.value, with: { snapshot in
+            sleep(2)
             let queuedFirebase = snapshot.value as? [Any] ?? []
             
-            sleep(2)
             var newSong:Song?
             self.currentQueue.songs.removeAll()
             for song in queuedFirebase {
+                
                 let swiftyJsonVar = JSON(song)
                 newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
-                if (newSong != nil){
-                    self.currentQueue.songs.append(newSong!)
+                if let addSong = newSong {
+                    self.currentQueue.songs.append(addSong)
                 }
                 
             }
-            self.cacheImages()
-            self.tableView.reloadData()
+            DispatchQueue.main.async{
+                self.cacheImages()
+                self.tableView.reloadData()
+            }
+            
         })
         // Do any additional setup after loading the view.
 
