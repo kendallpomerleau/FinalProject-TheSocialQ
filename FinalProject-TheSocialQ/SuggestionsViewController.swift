@@ -122,12 +122,17 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
 
          alert.addAction(cancelAction)
          currentQueue?.addToQueue(song: currentQueue!.suggestions[sender.tag], isHost: true, canDirectAdd: true)
+        
          // somehow need to get the song that the button was attached to
          let firstTab = self.tabBarController?.viewControllers![0] as! HostQueueViewController
          firstTab.currentQueue = currentQueue!
          firstTab.cacheImages()
          firstTab.tableView.reloadData()
-             
+        
+        // remove suggestion from firebase and from queue
+        currentQueue!.removeSuggestion(song: currentQueue!.suggestions[sender.tag])
+        cacheImages()
+        tableView.reloadData()
      }
     
         
