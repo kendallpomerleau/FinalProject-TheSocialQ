@@ -33,7 +33,6 @@ class Queue: Decodable, Encodable{
     var isQueued:Bool?
     var topOfQueueKey = "0"
     var keys:[Int] = []
-    var suggestedKeys:[Int] = []
     
     init(title: String, key: String, reconnectKey: String, add: Bool, playlistID: String){
         self.title = title
@@ -50,7 +49,6 @@ class Queue: Decodable, Encodable{
         self.reconnectKey = reconnectKey
         self.currentSongPoint = 0
         self.keys = [0]
-        self.suggestedKeys = [0]
         
     }
     
@@ -194,9 +192,8 @@ class Queue: Decodable, Encodable{
             songCoverPath = song.coverPath!
             songDuration = song.duration ?? "0"
             songToAdd = Song(id: songId, name: songName, artist: songArtist, coverPath: songCoverPath, duration: "\(songDuration)")
-            let key = suggestedKeys[suggestedKeys.count-1]+1
-            suggestedKeys.append(key)
-            ref.child("Queues/\(title)/suggestions/").child("\(key)").setValue(songToAdd?.nsDictionary)
+
+            ref.child("Queues/\(title)/suggestions/").child("\(songId)").setValue(songToAdd?.nsDictionary)
         }
     }
     
@@ -230,13 +227,11 @@ class Queue: Decodable, Encodable{
     
     func removeSuggestion(song:Song){
         if suggestions.contains(song) {
-            if let songToRemove = songs.firstIndex(of: song) {
+            if let songToRemove = suggestions.firstIndex(of: song) {
                 suggestions.remove(at: songToRemove)
                 
-                let key = suggestedKeys[songToRemove]
-                suggestedKeys.remove(at: songToRemove)
                 let ref = Database.database().reference()
-                ref.child("Queues/\(title)/suggestions/\(key)").removeValue()
+                ref.child("Queues/\(title)/suggestions/\(song.id!)").removeValue()
             }
         }
     }
@@ -392,10 +387,22 @@ class Queue: Decodable, Encodable{
             if (songToAdd.name != "" && songToAdd.name != "null"){
                 if !self.suggestions.contains(songToAdd) {
                     self.suggestions.append(songToAdd)
-                    self.suggestedKeys.append(Int(key)!+1)
                 }
             }
             
+//            let suggestedFirebase = snapshot.value as? [Any] ?? []
+//
+//            var numSuggestedInFirebase = 0
+//            var newSong:Song?
+//            for song in suggestedFirebase {
+//                numSuggestedInFirebase+=1
+//                let swiftyJsonVar = JSON(song)
+//                newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+//            }
+//                if self.suggestions.count < numSuggestedInFirebase-1 {
+//                    self.suggestions.append(newSong!)
+//            }
+//
         })
         //if the suggestions queue is empty add a label taht says you have no suggested songs yet
     }
