@@ -35,19 +35,28 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
 //        })
         let ref = Database.database().reference()
         ref.child("Queues/\(currentQueue.title)/queuedSongs").observe(.value, with: { snapshot in
-            sleep(2)
             let queuedFirebase = snapshot.value as? [Any] ?? []
             
             var newSong:Song?
             self.currentQueue.songs.removeAll()
-            for song in queuedFirebase {
-                
-                let swiftyJsonVar = JSON(song)
-                newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
-                if let addSong = newSong {
-                    self.currentQueue.songs.append(addSong)
+            if self.currentQueue.songs.isEmpty{
+                for song in queuedFirebase {
+                    let swiftyJsonVar = JSON(song)
+                    newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+                    self.currentQueue.songs.append(newSong!)
                 }
-                
+            }
+            else {
+                for song in queuedFirebase {
+                    let swiftyJsonVar = JSON(song)
+                    newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+                }
+                if (newSong != nil){
+                    if !self.currentQueue.songs.contains(newSong!) {
+                        self.currentQueue.songs.append(newSong!)
+
+                    }
+                }
             }
             DispatchQueue.main.async{
                 self.cacheImages()
@@ -55,6 +64,19 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
             }
             
         })
+        ref.child("Queues/\(currentQueue.title)/queuedSongs").observe(.childRemoved, with: { snapshot in
+            let queuedFirebase = snapshot.value as! NSDictionary
+            let swiftyJsonVar = JSON(queuedFirebase)
+            let songToRemove = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+            for i in 0..<self.currentQueue.songs.count {
+                if (self.currentQueue.songs[i] == songToRemove) {
+                    self.currentQueue.songs.remove(at: i)
+                }
+            }
+            
+
+        })
+
         // Do any additional setup after loading the view.
 
         
