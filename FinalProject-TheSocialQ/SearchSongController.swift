@@ -142,7 +142,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         var text = searchBar.text!
-        text = text.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+        text = text.replacingOccurrences(of: " ", with: "+", options: .literal, range: nil)
         if text != "" {
             self.songResults = []
             // add the spinner view controller
