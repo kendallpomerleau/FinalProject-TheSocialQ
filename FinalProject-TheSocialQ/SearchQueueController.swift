@@ -103,7 +103,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
                         }
                         let queueFromJson = Queue(title: "\(swiftyQueue["name"])", key: "\(swiftyQueue["passKey"])", reconnectKey: "\(swiftyQueue["reconnectKey"])", add: directAdd, playlistID: "\(swiftyQueue["basePlaylistID"])")
                         queueFromJson.token = "\(swiftyQueue["token"])"
-                        queueFromJson.title = "\(swiftyQueue["title"])"
+                        queueFromJson.title = "\(swiftyQueue["name"])"
                         for song in swiftyQueue["queuedSongs"] {
                             let swiftySong = JSON(song.1)
                             queueFromJson.songs.append(Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])"))
