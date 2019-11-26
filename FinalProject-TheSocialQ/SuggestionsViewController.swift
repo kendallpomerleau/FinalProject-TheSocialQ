@@ -29,14 +29,15 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
 
         tableView.dataSource = self
         tableView.rowHeight = 90
-        print(currentQueue!.suggestions)
-        print(imageCache.count)
+
+        currentQueue?.loadSuggestions()
+        cacheImages()
+        tableView.reloadData()
 
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        currentQueue?.loadSuggestions()
         cacheImages()
         tableView.reloadData()
     }
@@ -84,9 +85,9 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
             cellDescription.font = UIFont(name: "Avenir Next", size: 13)
             cellDescription.textColor = .white
             
-            cellTitle.text = currentQueue!.suggestions[indexPath.row].name
+            cellTitle.text = currentQueue!.suggestions[indexPath.row+1].name
 
-            let artists = currentQueue!.suggestions[indexPath.row].artist
+            let artists = currentQueue!.suggestions[indexPath.row+1].artist
             
             cellDescription.text = artists
             
@@ -115,19 +116,24 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
     }
     
     @objc func buttonClicked(sender : UIButton){
-         let alert = UIAlertController(title: "Clicked", message: "You have clicked on the add", preferredStyle: .alert)
-         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+         let alert = UIAlertController(title: "Added to Queue", message: "You have added the song to the queue.", preferredStyle: .alert)
+         let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
          
         self.present(alert, animated: true, completion: nil)
 
          alert.addAction(cancelAction)
-         currentQueue?.addToQueue(song: currentQueue!.suggestions[sender.tag], isHost: true, canDirectAdd: true)
+         currentQueue?.addToQueue(song: currentQueue!.suggestions[sender.tag+1], isHost: true, canDirectAdd: true)
+        
          // somehow need to get the song that the button was attached to
          let firstTab = self.tabBarController?.viewControllers![0] as! HostQueueViewController
          firstTab.currentQueue = currentQueue!
          firstTab.cacheImages()
          firstTab.tableView.reloadData()
-             
+        
+        // remove suggestion from firebase and from queue
+        currentQueue!.removeSuggestion(song: currentQueue!.suggestions[sender.tag+1])
+        cacheImages()
+        tableView.reloadData()
      }
     
         

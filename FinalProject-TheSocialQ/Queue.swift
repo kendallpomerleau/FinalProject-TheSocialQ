@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class Queue: Decodable, Encodable{
     
-    let title:String
+    var title:String
     let key:String
     let reconnectKey:String
     let basePlaylistID:String
@@ -192,7 +192,8 @@ class Queue: Decodable, Encodable{
             songCoverPath = song.coverPath!
             songDuration = song.duration ?? "0"
             songToAdd = Song(id: songId, name: songName, artist: songArtist, coverPath: songCoverPath, duration: "\(songDuration)")
-            ref.child("Queues/\(title)/suggestions/").child("\(suggestions.count-1)").setValue(songToAdd?.nsDictionary)
+
+            ref.child("Queues/\(title)/suggestions/").child("\(songId)").setValue(songToAdd?.nsDictionary)
         }
     }
     
@@ -220,6 +221,17 @@ class Queue: Decodable, Encodable{
                 let ref = Database.database().reference()
                 ref.child("Queues/\(title)/queuedSongs/\(key)").removeValue()
 
+            }
+        }
+    }
+    
+    func removeSuggestion(song:Song){
+        if suggestions.contains(song) {
+            if let songToRemove = suggestions.firstIndex(of: song) {
+                suggestions.remove(at: songToRemove)
+                
+                let ref = Database.database().reference()
+                ref.child("Queues/\(title)/suggestions/\(song.id!)").removeValue()
             }
         }
     }
@@ -366,21 +378,31 @@ class Queue: Decodable, Encodable{
     
     func loadSuggestions(){
         let ref = Database.database().reference()
-        ref.child("Queues/\(title)/suggestions").observe(.value , with: { (snapshot) in
+        ref.child("Queues/\(title)/suggestions").observe(.childAdded , with: { (snapshot) in
 
-            let suggestedFirebase = snapshot.value as? [Any] ?? []
+            let queuedFirebase = snapshot.value as! NSDictionary
+            let key = snapshot.key
+            let swiftyJsonVar = JSON(queuedFirebase)
+            let songToAdd = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+            if (songToAdd.name != "" && songToAdd.name != "null"){
+                if !self.suggestions.contains(songToAdd) {
+                    self.suggestions.append(songToAdd)
+                }
+            }
             
-            var numSuggestedInFirebase = 0
-            var newSong:Song?
-            for song in suggestedFirebase {
-                numSuggestedInFirebase+=1
-                let swiftyJsonVar = JSON(song)
-                newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
-            }
-                if self.suggestions.count < numSuggestedInFirebase-1 {
-                    self.suggestions.append(newSong!)
-            }
-                
+//            let suggestedFirebase = snapshot.value as? [Any] ?? []
+//
+//            var numSuggestedInFirebase = 0
+//            var newSong:Song?
+//            for song in suggestedFirebase {
+//                numSuggestedInFirebase+=1
+//                let swiftyJsonVar = JSON(song)
+//                newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+//            }
+//                if self.suggestions.count < numSuggestedInFirebase-1 {
+//                    self.suggestions.append(newSong!)
+//            }
+//
         })
         //if the suggestions queue is empty add a label taht says you have no suggested songs yet
     }

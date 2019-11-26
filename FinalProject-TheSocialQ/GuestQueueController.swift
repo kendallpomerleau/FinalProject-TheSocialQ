@@ -30,18 +30,55 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         tableView.dataSource = self
         tableView.rowHeight = 90
         
-        cacheImages()
-        // Do any additional setup after loading the view.
+//        _ = Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: {_ in
+//            self.updateQueue()
+//        })
+        let ref = Database.database().reference()
+        ref.child("Queues/\(currentQueue.title)/queuedSongs").observe(.childRemoved, with: { snapshot in
+            let queuedFirebase = snapshot.value as! NSDictionary
+            let swiftyJsonVar = JSON(queuedFirebase)
+            let songToRemove = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+            for i in 0..<self.currentQueue.songs.count {
+                if (self.currentQueue.songs[i] == songToRemove) {
+                    self.currentQueue.songs.remove(at: i)
+                    break
+                }
+            }
+            self.cacheImages()
+            self.tableView.reloadData()
+        })
+        ref.child("Queues/\(currentQueue.title)/queuedSongs").observe(.childAdded, with: { snapshot in
+            let queuedFirebase = snapshot.value as! NSDictionary
+            let swiftyJsonVar = JSON(queuedFirebase)
+            let songToAdd = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+            if (songToAdd.name != "" && songToAdd.name != "null"){
+                if !self.currentQueue.songs.contains(songToAdd) {
+                    self.currentQueue.songs.append(songToAdd)
+                }
+            }
+            self.cacheImages()
+            self.tableView.reloadData()
+
+            
+        })
         
+
+        // Do any additional setup after loading the view.
+
         
     }
+     
+//    func updateQueue(){
+//
+//    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         //begin connection to firebase queue
-        let ref = Database.database().reference()
+//        let ref = Database.database().reference()
 //        ref.child("Queues").observe(.value, with: { snapshot in
 //            let value = snapshot.value as? NSDictionary
 //            let passKey = value?["passKey"] as? String ?? ""
@@ -70,33 +107,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
 //        }){ (error) in
 //            print(error.localizedDescription)
 //        }
-        ref.child("Queues/\(currentQueue.title)/queuedSongs").observe(.value, with: { snapshot in
-            let queuedFirebase = snapshot.value as? [Any] ?? []
-            
-            
-            var numSongsInFirebase = 0
-            var newSong:Song?
-            if self.currentQueue.songs.isEmpty{
-                for song in queuedFirebase {
-                    let swiftyJsonVar = JSON(song)
-                    newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
-                    self.currentQueue.songs.append(newSong!)
-                }
-            }
-            else {
-                for song in queuedFirebase {
-                    numSongsInFirebase+=1
-                    let swiftyJsonVar = JSON(song)
-                    newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
-                }
-                if (newSong != nil){
-                    if !self.currentQueue.songs.contains(newSong!) {
-                        self.currentQueue.songs.append(newSong!)
-                    }
-                }
-            }
-            
-        })
+        
     }
     
     func cacheImages() {
