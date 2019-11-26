@@ -51,7 +51,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
                     let swiftyJsonVar = JSON(song)
                     newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
                 }
-                if (newSong != nil){
+                if (newSong != nil || newSong?.coverPath != nil || newSong?.coverPath != "" || newSong?.coverPath != "null"){
                     if !self.currentQueue.songs.contains(newSong!) {
                         self.currentQueue.songs.append(newSong!)
 
@@ -74,7 +74,8 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
                     break
                 }
             }
-            
+            self.cacheImages()
+            self.tableView.reloadData()
 
         })
 
