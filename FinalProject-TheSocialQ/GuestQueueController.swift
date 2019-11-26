@@ -34,36 +34,6 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
 //            self.updateQueue()
 //        })
         let ref = Database.database().reference()
-        ref.child("Queues/\(currentQueue.title)/queuedSongs").observe(.value, with: { snapshot in
-            let queuedFirebase = snapshot.value as? [Any] ?? []
-            
-            var newSong:Song?
-            self.currentQueue.songs.removeAll()
-            if self.currentQueue.songs.isEmpty{
-                for song in queuedFirebase {
-                    let swiftyJsonVar = JSON(song)
-                    newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
-                    self.currentQueue.songs.append(newSong!)
-                }
-            }
-            else {
-                for song in queuedFirebase {
-                    let swiftyJsonVar = JSON(song)
-                    newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
-                }
-                if (newSong != nil || newSong?.coverPath != nil || newSong?.coverPath != "" || newSong?.coverPath != "null"){
-                    if !self.currentQueue.songs.contains(newSong!) {
-                        self.currentQueue.songs.append(newSong!)
-
-                    }
-                }
-            }
-            DispatchQueue.main.async{
-                self.cacheImages()
-                self.tableView.reloadData()
-            }
-            
-        })
         ref.child("Queues/\(currentQueue.title)/queuedSongs").observe(.childRemoved, with: { snapshot in
             let queuedFirebase = snapshot.value as! NSDictionary
             let swiftyJsonVar = JSON(queuedFirebase)
@@ -76,8 +46,22 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
             }
             self.cacheImages()
             self.tableView.reloadData()
-
         })
+        ref.child("Queues/\(currentQueue.title)/queuedSongs").observe(.childAdded, with: { snapshot in
+            let queuedFirebase = snapshot.value as! NSDictionary
+            let swiftyJsonVar = JSON(queuedFirebase)
+            let songToAdd = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+            if (songToAdd.name != "" && songToAdd.name != "null"){
+                if !self.currentQueue.songs.contains(songToAdd) {
+                    self.currentQueue.songs.append(songToAdd)
+                }
+            }
+            self.cacheImages()
+            self.tableView.reloadData()
+
+            
+        })
+        
 
         // Do any additional setup after loading the view.
 
