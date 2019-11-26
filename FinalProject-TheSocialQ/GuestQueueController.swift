@@ -42,17 +42,16 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
             self.currentQueue.songs = []
             for song in queuedFirebase {
                 let swiftyJsonVar = JSON(song)
-                newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
-                self.currentQueue.songs.append(newSong!)
+                if (swiftyJsonVar["id"] != nil) {
+                    newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+                    self.currentQueue.songs.append(newSong!)
+                }
             }
-
             self.cacheImages()
-            DispatchQueue.main.async{
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         })
         // Do any additional setup after loading the view.
-        
+
         
     }
      
@@ -129,7 +128,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         
         let cellImg = UIImageView(frame: CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: 90, height: 90))
 
-        cellImg.image = imageCache[indexPath.row-1]
+        cellImg.image = imageCache[indexPath.row]
         cellImg.layer.cornerRadius=10
         cellImg.clipsToBounds = true
         
