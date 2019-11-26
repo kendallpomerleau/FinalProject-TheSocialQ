@@ -32,6 +32,7 @@ class Queue: Decodable, Encodable{
     var currentSongPoint:Int = 0
     var isQueued:Bool?
     var topOfQueueKey = "0"
+    var keys:[Int] = []
     
     init(title: String, key: String, reconnectKey: String, add: Bool, playlistID: String){
         self.title = title
@@ -47,6 +48,7 @@ class Queue: Decodable, Encodable{
         self.isQueued = false
         self.reconnectKey = reconnectKey
         self.currentSongPoint = 0
+        self.keys = [0]
         
     }
     
@@ -114,14 +116,22 @@ class Queue: Decodable, Encodable{
                 
                 var numSongsInFirebase = 0
                 var newSong:Song?
+//                self.songs = []
                 for song in queuedFirebase {
                     numSongsInFirebase+=1
                     let swiftyJsonVar = JSON(song)
                     newSong = Song(id: "\(swiftyJsonVar["id"])", name: "\(swiftyJsonVar["name"])", artist: "\(swiftyJsonVar["artist"])", coverPath: "\(swiftyJsonVar["coverPath"])", duration: "\(swiftyJsonVar["duration"]))")
+//                    self.songs.append(newSong!)
                 }
-                if self.songs.count < numSongsInFirebase-1 {
-                    self.songs.append(newSong!)
+                if (newSong != nil){
+                    if !self.songs.contains(newSong!) {
+                        self.songs.append(newSong!)
+
+                    }
                 }
+                
+//                if self.songs.count < numSongsInFirebase-1 {
+//                }
                 
                 var setKey = false
                 
@@ -156,7 +166,9 @@ class Queue: Decodable, Encodable{
             songDuration = song.duration ?? "0"
             songToAdd = Song(id: songId, name: songName, artist: songArtist, coverPath: songCoverPath, duration: "\(songDuration)")
             isQueued =  true
-            ref.child("Queues/\(title)/queuedSongs/").child("\(songs.count-1)").setValue(songToAdd?.nsDictionary)
+            let key = keys[keys.count-1]+1
+            keys.append(key)
+            ref.child("Queues/\(title)/queuedSongs/").child("\(key)").setValue(songToAdd?.nsDictionary)
             
         }
         else {
@@ -173,8 +185,6 @@ class Queue: Decodable, Encodable{
             songDuration = song.duration ?? "0"
             songToAdd = Song(id: songId, name: songName, artist: songArtist, coverPath: songCoverPath, duration: "\(songDuration)")
             ref.child("Queues/\(title)/suggestions/").child("\(suggestions.count-1)").setValue(songToAdd?.nsDictionary)
-            print("printing suggestions")
-            print(suggestions)
         }
     }
     
@@ -183,12 +193,27 @@ class Queue: Decodable, Encodable{
             if let songToRemove = songs.firstIndex(of: song) {
                 songs.remove(at: songToRemove)
                 
+                let key = keys[songToRemove]
+                keys.remove(at: songToRemove)
                 let ref = Database.database().reference()
-                ref.child("Queues/\(title)/queuedSongs/\(topOfQueueKey)").removeValue()
+                ref.child("Queues/\(title)/queuedSongs/\(key)").removeValue()
             }
         }
         
-        // also remove from database
+    }
+    
+    func removeAtLoc(song:Song){
+        if songs.contains(song){
+            if let songToRemove = songs.firstIndex(of: song){
+                songs.remove(at: songToRemove)
+                
+                let key = keys[songToRemove]
+                keys.remove(at: songToRemove)
+                let ref = Database.database().reference()
+                ref.child("Queues/\(title)/queuedSongs/\(key)").removeValue()
+
+            }
+        }
     }
     
     func checkSongProgress() -> (Int, Float) {
