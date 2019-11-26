@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class Queue: Decodable, Encodable{
     
-    let title:String
+    var title:String
     let key:String
     let reconnectKey:String
     let basePlaylistID:String
