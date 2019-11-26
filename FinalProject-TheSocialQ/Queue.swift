@@ -192,7 +192,7 @@ class Queue: Decodable, Encodable{
             songCoverPath = song.coverPath!
             songDuration = song.duration ?? "0"
             songToAdd = Song(id: songId, name: songName, artist: songArtist, coverPath: songCoverPath, duration: "\(songDuration)")
-            ref.child("Queues/\(title)/suggestions/").child("\(suggestions.count-1)").setValue(songToAdd?.nsDictionary)
+            ref.child("Queues/\(title)/suggestions/").child("\(suggestions.count)").setValue(songToAdd?.nsDictionary)
         }
     }
     
