@@ -84,9 +84,9 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
             cellDescription.font = UIFont(name: "Avenir Next", size: 13)
             cellDescription.textColor = .white
             
-            cellTitle.text = currentQueue!.suggestions[indexPath.row].name
+            cellTitle.text = currentQueue!.suggestions[indexPath.row+1].name
 
-            let artists = currentQueue!.suggestions[indexPath.row].artist
+            let artists = currentQueue!.suggestions[indexPath.row+1].artist
             
             cellDescription.text = artists
             
@@ -115,8 +115,8 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
     }
     
     @objc func buttonClicked(sender : UIButton){
-         let alert = UIAlertController(title: "Clicked", message: "You have clicked on the add", preferredStyle: .alert)
-         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+         let alert = UIAlertController(title: "Added to Queue", message: "You have added the song to the queue.", preferredStyle: .alert)
+         let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
          
         self.present(alert, animated: true, completion: nil)
 
