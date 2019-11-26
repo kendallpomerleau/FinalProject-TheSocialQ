@@ -65,7 +65,7 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         //begin connection to firebase queue
-        let ref = Database.database().reference()
+//        let ref = Database.database().reference()
 //        ref.child("Queues").observe(.value, with: { snapshot in
 //            let value = snapshot.value as? NSDictionary
 //            let passKey = value?["passKey"] as? String ?? ""
