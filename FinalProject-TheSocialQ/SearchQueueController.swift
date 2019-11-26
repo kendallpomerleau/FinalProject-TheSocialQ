@@ -258,7 +258,6 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
             let destination = segue.destination as? UITabBarController
             let secondTab = destination?.viewControllers![1] as! SearchSongController
             secondTab.spotifyToken = currentSelection.token!
-            print("set spotify token to be \(currentSelection.token!)")
             for controller in (destination?.viewControllers)! {
                 if (controller.isKind(of: GuestQueueController.self) == true) {
                     (controller as! GuestQueueController).currentQueue = currentSelection
