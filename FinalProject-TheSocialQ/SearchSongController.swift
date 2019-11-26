@@ -106,7 +106,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
                 var artist = ""
                 if (tracks[i]["track"]["artists"].count > 1){
                     artist = "\(tracks[i]["track"]["artists"][0]["name"])"
-                    for j in 0..<tracks[i]["track"]["artists"].count {
+                    for j in 1..<tracks[i]["track"]["artists"].count {
                         artist += ", " + "\(tracks[i]["track"]["artists"][j]["name"])"
                     }
                 }
@@ -130,7 +130,6 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
         
-        // query the spotify api to
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -184,8 +183,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
                         self.songResults.append(Song(id: "\(tracks[i]["id"])", name: "\(tracks[i]["name"])", artist: artist, coverPath:
                             "\(tracks[i]["album"]["images"][1]["url"])", duration: "\(tracks[i]["duration_ms"])"))
                     }
-                    
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async{
                         self.cacheImages()
                         self.tableView.reloadData()
                         self.spinner?.removeFromSuperview()
