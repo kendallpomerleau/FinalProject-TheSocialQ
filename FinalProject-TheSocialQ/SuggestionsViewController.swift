@@ -38,10 +38,12 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         cacheImages()
         tableView.reloadData()
     }
-    
+        
     func cacheImages() {
         imageCache = []
          for song in currentQueue!.suggestions {

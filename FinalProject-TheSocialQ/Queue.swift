@@ -14,7 +14,7 @@ class Queue: Decodable, Encodable{
     
     var title:String
     let key:String
-    let reconnectKey:String
+//    let reconnectKey:String
     let basePlaylistID:String
     //var playlistSongs:[Track]=[]
     var playlistSongs:[Song] = []
@@ -34,7 +34,7 @@ class Queue: Decodable, Encodable{
     var topOfQueueKey = "0"
     var keys:[Int] = []
     
-    init(title: String, key: String, reconnectKey: String, add: Bool, playlistID: String){
+    init(title: String, key: String, add: Bool, playlistID: String){
         self.title = title
         self.key = key
         if add {
@@ -46,7 +46,7 @@ class Queue: Decodable, Encodable{
         self.token = nil
         self.basePlaylistID = playlistID
         self.isQueued = false
-        self.reconnectKey = reconnectKey
+//        self.reconnectKey = reconnectKey
         self.currentSongPoint = 0
         self.keys = [0]
         
@@ -105,7 +105,7 @@ class Queue: Decodable, Encodable{
             ref.child("Queues/\(title)/directAdd").setValue(self.add)
             ref.child("Queues/\(title)/name").setValue(self.title)
             ref.child("Queues/\(title)/token").setValue(self.token)
-            ref.child("Queues/\(title)/reconnectKey").setValue(self.reconnectKey)
+//            ref.child("Queues/\(title)/reconnectKey").setValue(self.reconnectKey)
             ref.child("Queues/\(title)/suggestions").setValue(emptyQueue)
             
             ref.child("Queues/\(title)/queuedSongs").observe(.value , with: { (snapshot) in

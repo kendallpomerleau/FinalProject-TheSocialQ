@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class GuestQueueController: UIViewController, UITableViewDataSource {
     
-    var currentQueue:Queue = Queue(title: "", key: "", reconnectKey: "", add: false, playlistID: "")
+    var currentQueue:Queue = Queue(title: "", key: "", add: false, playlistID: "")
     var imageCache:[UIImage] = []
     
     

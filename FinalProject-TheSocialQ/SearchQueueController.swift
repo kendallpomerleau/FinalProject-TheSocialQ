@@ -20,7 +20,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
     
     var queueResults:[Queue] = []
     var shownQueues:[Queue] = []
-    var currentSelection:Queue = Queue(title:"", key: "", reconnectKey: "", add: false, playlistID: "")
+    var currentSelection:Queue = Queue(title:"", key: "", add: false, playlistID: "")
     var searchActive : Bool = false
 
     
@@ -58,7 +58,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
                         if swiftyQueue["directAdd"] == "True" {
                             directAdd = true
                         }
-                        let queueFromJson = Queue(title: "\(swiftyQueue["name"])", key: "\(swiftyQueue["passKey"])", reconnectKey: "\(swiftyQueue["reconnectKey"])", add: directAdd, playlistID: "\(swiftyQueue["basePlaylistID"])")
+                        let queueFromJson = Queue(title: "\(swiftyQueue["name"])", key: "\(swiftyQueue["passKey"])", add: directAdd, playlistID: "\(swiftyQueue["basePlaylistID"])")
                         queueFromJson.token = "\(swiftyQueue["token"])"
                         queueFromJson.title = "\(swiftyQueue["name"])"
                         for song in swiftyQueue["queuedSongs"] {

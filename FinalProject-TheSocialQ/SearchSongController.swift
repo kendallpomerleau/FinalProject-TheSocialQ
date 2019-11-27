@@ -51,10 +51,10 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         }
         
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//
-//
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+
+    }
     
     func grabFirebaseData() {
         
