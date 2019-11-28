@@ -53,7 +53,7 @@ func searchSpotify(authToken: String, query: String, queryLimit: Int = 10) -> [T
             print("data = \(searchJson)")
             returnItemArray = searchJson.tracks.items
         } catch {
-            print("Search JSON decode error")
+            print("Spotify Search error")
             return
         }
     }
@@ -93,7 +93,7 @@ func playSong(authToken: String, trackId: String = trackIdExample) { //authToken
         }
         task.resume()
     } catch {
-        print("error")
+        print("Play song error in Spotify")
     }
     
 }
@@ -335,7 +335,7 @@ func getTracks(authToken: String, playlistID: String) -> [Track]{ // no scope ne
                 }
                 
             } catch {
-                print("Search JSON decode error")
+                print("Spotify error getting playlists from selected playlist")
                 return
             }
         }
@@ -373,7 +373,7 @@ func getCurrentPlayback(authToken: String) -> CurrentPlayback?{ //user-read-play
             let searchJson = try JSONDecoder().decode(CurrentPlayback.self, from: data)
             returnItem = searchJson
         } catch {
-            print("Search JSON decode error")
+            print("Spotify error getting current playback state -- have you paused your device for too long?")
             return
         }
     }
@@ -412,7 +412,7 @@ func getFeaturedPlaylists(authToken: String) -> [UserPlaylist] {
             
             returnItemArray = searchJson.playlists.items
         } catch {
-            print("Search JSON decode error")
+            print("Spotify error getting featured playlists")
             return
         }
     }
@@ -449,7 +449,7 @@ func getTopTracks(authToken: String) -> [Track] {
             
             returnItemArray = searchJson.items
         } catch {
-            print("Search JSON decode error")
+            print("Spotify error getting user's top tracks")
             return
         }
     }
@@ -487,7 +487,7 @@ func getNewReleases(authToken: String) -> [Album]{
             
             returnItemArray = searchJson.albums.items
         } catch {
-            print("Search JSON decode error")
+            print("Spotify error getting new album releases")
             return
         }
     }
