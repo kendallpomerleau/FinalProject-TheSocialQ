@@ -12,14 +12,14 @@ import FirebaseDatabase
 class HostQueueViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var endBtn: UIButton!
-    var currentQueue:Queue = Queue(title: "", key: "", reconnectKey: "", add: false, playlistID: "")
+    var currentQueue:Queue = Queue(title: "", key: "", add: false, playlistID: "")
     var imageCache:[UIImage] = []
     @IBOutlet weak var songTitleLbl: UILabel!
     @IBOutlet weak var songArtistLbl: UILabel!
     @IBOutlet weak var durationBar: UIProgressView!
     
     @IBOutlet weak var songImage: UIImageView!
-    
+        
     var isPlaying:Bool = true
     //    var justDeleted = false
     
@@ -108,11 +108,12 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
         thirdTab.canDirectAdd = true
         thirdTab.spotifyToken = currentQueue.token!
         thirdTab.currentQueue = currentQueue
+        super.viewWillDisappear(animated)
     }
-    
+
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         DispatchQueue.main.async{
             self.cacheImages()
             self.tableView.reloadData()

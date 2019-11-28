@@ -51,10 +51,10 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         }
         
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//
-//
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+
+    }
     
     func grabFirebaseData() {
         
@@ -255,24 +255,39 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     }
     
     @objc func buttonClicked(sender : UIButton){
-        let alert = UIAlertController(title: "Added", message: "Successfully added to Queue", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
-        
-        alert.addAction(cancelAction)
-
         let index = sender.tag
         DispatchQueue.global(qos: .background).async {
             self.currentQueue?.addToQueue(song: self.songResults[index], isHost: self.isHost, canDirectAdd: self.canDirectAdd)
 
             DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
+               
                 if (self.canDirectAdd){
                     let firstTab = self.tabBarController?.viewControllers![0] as! HostQueueViewController
                     firstTab.currentQueue = self.currentQueue!
+                    
+                    let addAlert = UIAlertController(title: "Added", message: "", preferredStyle: .alert)
+//                    let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
+//                    addAlert.addAction(cancelAction)
+                    
+                    self.present(addAlert, animated: true, completion: nil)
+                    
+                    let when = DispatchTime.now() + 1
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                      addAlert.dismiss(animated: true, completion: nil)
+                    }
                 }
                 else {
                     let firstTab = self.tabBarController?.viewControllers![0] as! GuestQueueController
                     firstTab.currentQueue = self.currentQueue!
+                    
+                    let suggestAlert = UIAlertController(title: "Suggested", message: "", preferredStyle: .alert)
+//                    let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
+//                    suggestAlert.addAction(cancelAction)
+                    self.present(suggestAlert, animated: true, completion: nil)
+                    let when = DispatchTime.now() + 1
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                      suggestAlert.dismiss(animated: true, completion: nil)
+                    }
                 }
             }
         }

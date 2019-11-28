@@ -38,10 +38,12 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         cacheImages()
         tableView.reloadData()
     }
-    
+        
     func cacheImages() {
         imageCache = []
          for song in currentQueue!.suggestions {
@@ -116,12 +118,16 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
     }
     
     @objc func buttonClicked(sender : UIButton){
-         let alert = UIAlertController(title: "Added to Queue", message: "You have added the song to the queue.", preferredStyle: .alert)
-         let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
-         
-        self.present(alert, animated: true, completion: nil)
-
-         alert.addAction(cancelAction)
+        let addAlert = UIAlertController(title: "Added", message: "", preferredStyle: .alert)
+        //                    let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
+        //                    addAlert.addAction(cancelAction)
+        
+        self.present(addAlert, animated: true, completion: nil)
+        
+        let when = DispatchTime.now() + 1
+        DispatchQueue.main.asyncAfter(deadline: when){
+            addAlert.dismiss(animated: true, completion: nil)
+        }
          currentQueue?.addToQueue(song: currentQueue!.suggestions[sender.tag+1], isHost: true, canDirectAdd: true)
         
          // somehow need to get the song that the button was attached to

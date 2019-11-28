@@ -11,7 +11,6 @@ import UIKit
 class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
 
-    @IBOutlet weak var reconnectKey: UITextField!
     @IBOutlet weak var queueKey: UITextField!
     @IBOutlet weak var queueTitle: UITextField!
     @IBOutlet weak var addBtn: UIButton!
@@ -24,7 +23,6 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         queueTitle.resignFirstResponder()
         queueKey.resignFirstResponder()
-        reconnectKey.resignFirstResponder()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +91,7 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
                 if (controller.isKind(of: HostQueueViewController.self) == true) {
                     let playlistID = pickerPlaylists[Picker.selectedRow(inComponent: 0)].id
                     let add = false
-                    let newQueue = Queue(title: queueTitle.text!, key: queueKey.text!, reconnectKey: reconnectKey.text!, add: add, playlistID: playlistID)
+                    let newQueue = Queue(title: queueTitle.text!, key: queueKey.text!, add: add, playlistID: playlistID)
                     newQueue.token = accessToken
                     newQueue.setupPlayer()
                     (controller as! HostQueueViewController).currentQueue = newQueue
