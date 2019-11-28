@@ -15,7 +15,7 @@ class HostSearchQueueViewController: UIViewController, UITableViewDataSource, UI
     
     var queueResults:[Queue] = []
     var shownQueues:[Queue] = []
-    var currentSelection:Queue = Queue(title:"", key: "", reconnectKey: "", add: false, playlistID: "")
+    var currentSelection:Queue = Queue(title:"", key: "", add: false, playlistID: "")
     var searchActive : Bool = false
 
     
@@ -60,7 +60,7 @@ class HostSearchQueueViewController: UIViewController, UITableViewDataSource, UI
                         if swiftyQueue["directAdd"] == "True" {
                             directAdd = true
                         }
-                        let queueFromJson = Queue(title: "\(swiftyQueue["name"])", key: "\(swiftyQueue["passKey"])", reconnectKey: "\(swiftyQueue["reconnectKey"])", add: directAdd, playlistID: "\(swiftyQueue["basePlaylistID"])")
+                        let queueFromJson = Queue(title: "\(swiftyQueue["name"])", key: "\(swiftyQueue["passKey"])", add: directAdd, playlistID: "\(swiftyQueue["basePlaylistID"])")
                         queueFromJson.token = "\(swiftyQueue["token"])"
                         
                         for song in swiftyQueue["queuedSongs"] {
@@ -173,33 +173,33 @@ class HostSearchQueueViewController: UIViewController, UITableViewDataSource, UI
             
             let accessAction = UIAlertAction(title: "Host", style: .default, handler: {action in
                 
-                let textField = optionMenu.textFields![0] // Force unwrapping because we know it exists.
+//                let textField = optionMenu.textFields![0] // Force unwrapping because we know it exists.
                                 
                 // add to database
 
-                if textField.text == self.currentSelection.reconnectKey {
+//                if textField.text == self.currentSelection.reconnectKey {
                     self.performSegue(withIdentifier: "hostLogin", sender: self)
-                }
-                else {
-                    let failMenu = UIAlertController(title: "Incorrect Key", message: "Enter the correct key to join the queue", preferredStyle: .alert)
-                    failMenu.view.backgroundColor = .white
-                    failMenu.view.layer.cornerRadius = 25
-
-                    var failMutable = NSMutableAttributedString()
-                    failMutable = NSMutableAttributedString(string: "Incorrect Key", attributes: [NSAttributedString.Key.font:UIFont(name: "Avenir Next", size: 19.0)!])
-                    failMutable.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location:0,length:13))
-                    failMenu.setValue(failMutable, forKey: "attributedTitle")
-                    
-                    var failMutableMsg = NSMutableAttributedString()
-                    failMutableMsg = NSMutableAttributedString(string: "\nEnter the correct key to join the queue.", attributes: [NSAttributedString.Key.font:UIFont(name: "Avenir Next", size: 14.0)!])
-                    failMutableMsg.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location:0,length:40))
-                    failMenu.setValue(failMutableMsg, forKey: "attributedMessage")
-                    
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-                    
-                    failMenu.addAction(cancelAction)
-                    self.present(failMenu, animated: true, completion: nil)
-                }
+//                }
+//                else {
+//                    let failMenu = UIAlertController(title: "Incorrect Key", message: "Enter the correct key to join the queue", preferredStyle: .alert)
+//                    failMenu.view.backgroundColor = .white
+//                    failMenu.view.layer.cornerRadius = 25
+//
+//                    var failMutable = NSMutableAttributedString()
+//                    failMutable = NSMutableAttributedString(string: "Incorrect Key", attributes: [NSAttributedString.Key.font:UIFont(name: "Avenir Next", size: 19.0)!])
+//                    failMutable.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location:0,length:13))
+//                    failMenu.setValue(failMutable, forKey: "attributedTitle")
+//                    
+//                    var failMutableMsg = NSMutableAttributedString()
+//                    failMutableMsg = NSMutableAttributedString(string: "\nEnter the correct key to join the queue.", attributes: [NSAttributedString.Key.font:UIFont(name: "Avenir Next", size: 14.0)!])
+//                    failMutableMsg.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location:0,length:40))
+//                    failMenu.setValue(failMutableMsg, forKey: "attributedMessage")
+//                    
+//                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+//                    
+//                    failMenu.addAction(cancelAction)
+//                    self.present(failMenu, animated: true, completion: nil)
+//                }
             })
         
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
