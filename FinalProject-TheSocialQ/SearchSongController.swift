@@ -41,6 +41,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         spinner!.center = view.center
         spinner!.startAnimating()
         view.addSubview(spinner!)
+        spinner?.hidesWhenStopped = true
         grabFirebaseData()
 
         DispatchQueue.main.async{
@@ -50,10 +51,10 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         }
         
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//
-//
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+
+    }
     
     func grabFirebaseData() {
         
@@ -121,7 +122,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
                 self.cacheImages()
                 // remove the spinner view controller
                 self.tableView.reloadData()
-                self.spinner?.removeFromSuperview()
+                self.spinner?.stopAnimating()
             }
         }
         task.resume()
@@ -145,10 +146,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         if text != "" {
             self.songResults = []
             // add the spinner view controller
-            spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
-            spinner!.center = view.center
             spinner!.startAnimating()
-            view.addSubview(spinner!)
             
             let url = URL(string: baseURL + "search?q=\(text)&type=track&market=US")
             
@@ -186,7 +184,7 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
                     DispatchQueue.main.async{
                         self.cacheImages()
                         self.tableView.reloadData()
-                        self.spinner?.removeFromSuperview()
+                        self.spinner?.stopAnimating()
                     }
                 }
                 task.resume()
@@ -257,24 +255,39 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
     }
     
     @objc func buttonClicked(sender : UIButton){
-        let alert = UIAlertController(title: "Added", message: "Successfully added to Queue", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
-        
-        alert.addAction(cancelAction)
-
         let index = sender.tag
         DispatchQueue.global(qos: .background).async {
             self.currentQueue?.addToQueue(song: self.songResults[index], isHost: self.isHost, canDirectAdd: self.canDirectAdd)
 
             DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
+               
                 if (self.canDirectAdd){
                     let firstTab = self.tabBarController?.viewControllers![0] as! HostQueueViewController
                     firstTab.currentQueue = self.currentQueue!
+                    
+                    let addAlert = UIAlertController(title: "Added", message: "", preferredStyle: .alert)
+//                    let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
+//                    addAlert.addAction(cancelAction)
+                    
+                    self.present(addAlert, animated: true, completion: nil)
+                    
+                    let when = DispatchTime.now() + 1
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                      addAlert.dismiss(animated: true, completion: nil)
+                    }
                 }
                 else {
                     let firstTab = self.tabBarController?.viewControllers![0] as! GuestQueueController
                     firstTab.currentQueue = self.currentQueue!
+                    
+                    let suggestAlert = UIAlertController(title: "Suggested", message: "", preferredStyle: .alert)
+//                    let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
+//                    suggestAlert.addAction(cancelAction)
+                    self.present(suggestAlert, animated: true, completion: nil)
+                    let when = DispatchTime.now() + 1
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                      suggestAlert.dismiss(animated: true, completion: nil)
+                    }
                 }
             }
         }

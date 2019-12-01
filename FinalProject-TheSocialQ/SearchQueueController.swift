@@ -20,7 +20,7 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
     
     var queueResults:[Queue] = []
     var shownQueues:[Queue] = []
-    var currentSelection:Queue = Queue(title:"", key: "", reconnectKey: "", add: false, playlistID: "")
+    var currentSelection:Queue = Queue(title:"", key: "", add: false, playlistID: "")
     var searchActive : Bool = false
 
     
@@ -58,12 +58,12 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
                         if swiftyQueue["directAdd"] == "True" {
                             directAdd = true
                         }
-                        let queueFromJson = Queue(title: "\(swiftyQueue["name"])", key: "\(swiftyQueue["passKey"])", reconnectKey: "\(swiftyQueue["reconnectKey"])", add: directAdd, playlistID: "\(swiftyQueue["basePlaylistID"])")
+                        let queueFromJson = Queue(title: "\(swiftyQueue["name"])", key: "\(swiftyQueue["passKey"])", add: directAdd, playlistID: "\(swiftyQueue["basePlaylistID"])")
                         queueFromJson.token = "\(swiftyQueue["token"])"
                         queueFromJson.title = "\(swiftyQueue["name"])"
                         for song in swiftyQueue["queuedSongs"] {
                             let swiftySong = JSON(song.1)
-                            if (swiftySong.array != nil && swiftySong["id"] != nil && swiftySong["id"] != "null" && swiftySong["id"] != ""){
+                            if (swiftySong.array != nil /*&& swiftySong["id"] != nil */&& swiftySong["id"] != "null" && swiftySong["id"] != ""){
                                 let newSong = Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])")
                                 if (newSong.id != nil && newSong.id != "null" && newSong.id != ""){
                                     queueFromJson.songs.append(Song(id: "\(swiftySong["id"])", name: "\(swiftySong["name"])", artist: "\(swiftySong["artist"])", coverPath: "\(swiftySong["coverPath"])", duration: "\(swiftySong["duration"])"))
@@ -150,10 +150,10 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
         optionMenu.addTextField(configurationHandler: { (textField) in
             textField.placeholder = "Type Key from Host"
         })
-        optionMenu.addTextField(configurationHandler: { (textField) in
-            textField.placeholder = "Create Username"
-        })
-        
+//        optionMenu.addTextField(configurationHandler: { (textField) in
+//            textField.placeholder = "Create Username"
+//        })
+
         optionMenu.view.layer.cornerRadius = 25
         
         // set font of title in alert
@@ -169,14 +169,14 @@ class SearchQueueController: UIViewController, UITableViewDataSource, UITableVie
                 
                 let textField = optionMenu.textFields![0] // Force unwrapping because we know it exists.
                 
-                let userText = optionMenu.textFields![1]
+//                let userText = optionMenu.textFields![1]
                 
                 // add to database
 
                 if textField.text == self.currentSelection.key {
-                    if(userText.text != ""){
-                        self.currentSelection.userJoin(username: userText.text!)
-                    }
+//                    if(userText.text != ""){
+//                        self.currentSelection.userJoin(username: userText.text!)
+//                    }
                     self.performSegue(withIdentifier: "viewCurrentQueue", sender: self)
                 }
                 else {
