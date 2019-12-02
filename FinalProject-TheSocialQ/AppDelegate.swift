@@ -102,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             DispatchQueue.main.async {
                 self.rootViewController.accessToken = "\(swiftyJsonVar["access_token"])"
-                print(swiftyJsonVar["access_token"])
+
             }
 
         }

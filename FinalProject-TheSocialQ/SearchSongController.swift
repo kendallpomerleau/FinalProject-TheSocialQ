@@ -45,7 +45,6 @@ class SearchSongController: UIViewController, UITableViewDataSource, UITabBarDel
         grabFirebaseData()
 
         DispatchQueue.main.async{
-            print(self.spotifyToken)
             self.loadDefaultSongs()
             self.tableView.reloadData()
         }

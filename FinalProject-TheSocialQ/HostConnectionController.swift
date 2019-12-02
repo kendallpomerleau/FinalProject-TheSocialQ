@@ -193,7 +193,6 @@ class HostConnectionController: UIViewController, SPTSessionManagerDelegate, SPT
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "loginSuccess" {
             let destination = segue.destination as! AddHostQueueViewController
-            print("token: \(accessToken)")
             destination.accessToken = accessToken
         }
     }

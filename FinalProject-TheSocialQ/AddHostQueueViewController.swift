@@ -48,7 +48,6 @@ class AddHostQueueViewController: UIViewController, UIPickerViewDelegate, UIPick
     override func viewWillAppear(_ animated: Bool) {
         //update userPlaylists
         if(accessToken != nil || accessToken != ""){
-            //print("token is \(self.accessToken)")
             let playlists = getUserPlaylists(authToken: self.accessToken!)
             self.pickerPlaylists = playlists
             self.pickerData = []

@@ -64,7 +64,6 @@ func searchSpotify(authToken: String, query: String, queryLimit: Int = 10) -> [T
 
 
 func playSong(authToken: String, trackId: String = trackIdExample) { //authToken requires user-modify-playback-state scope
-    print("playing song")
     let url = URL(string: playURL)
     var request = URLRequest(url: url!)
     request.httpMethod = "PUT"

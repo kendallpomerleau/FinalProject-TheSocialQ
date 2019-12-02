@@ -143,10 +143,7 @@ class HostQueueViewController: UIViewController, UITableViewDataSource {
             songArtistLbl.text = currentQueue.currentSong?.artist
             updateAlbumImage()
             self.cacheImages()
-            print(currentQueue.songs)
-            print(currentQueue.keys)
             self.tableView.reloadData()
-            print("reloading")
         }
         // get progress of song
         DispatchQueue.global(qos: .background).async {

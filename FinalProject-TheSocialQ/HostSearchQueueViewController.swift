@@ -54,7 +54,6 @@ class HostSearchQueueViewController: UIViewController, UITableViewDataSource, UI
                     
                     let swiftyJsonVar = JSON(child.value!)
                     for queue in swiftyJsonVar {
-                        print("queue is \(queue)")
                         let swiftyQueue = JSON(queue.1)
                         var directAdd = false
                         if swiftyQueue["directAdd"] == "True" {

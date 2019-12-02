@@ -64,7 +64,6 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        print("loading cell")
         cell.layer.cornerRadius = 10
         cell.clipsToBounds = true
         cell.backgroundColor = UIColor(displayP3Red: 25/255, green: 20/255, blue: 20/255, alpha: 0.9)

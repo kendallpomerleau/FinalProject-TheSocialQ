@@ -330,11 +330,9 @@ class Queue: Decodable, Encodable{
             ref.child("Queues/\(title)/currentSongPointer").observeSingleEvent(of: .value, with: {snapshot in
                 currentPointer = snapshot.value as! Int
                 currentPointer -= 1
-                print("currentPointer \(currentPointer)")
                 if currentPointer == -1 {
                     currentPointer = self.playlistLength-1
                 }
-                print("currentPointer after if \(currentPointer)")
                 //var previousSong : Track?
                 var previousSong: Song?
                 previousSong = self.playlistSongs[currentPointer]

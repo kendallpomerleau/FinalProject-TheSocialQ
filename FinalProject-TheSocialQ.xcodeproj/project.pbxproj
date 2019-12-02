@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7DABA2B61CE1811155DA166A /* Pods_FinalProject_TheSocialQ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2A6D52813991E91E7AC93A9 /* Pods_FinalProject_TheSocialQ.framework */; };
-		9C42D96A2378EA6A008A563F /* APIResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C42D9692378EA6A008A563F /* APIResults.swift */; };
 		9C4B657C2371355000B8C123 /* HostConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4B657B2371355000B8C123 /* HostConnectionController.swift */; };
 		9C7296752370E6DA003B5B93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7296742370E6DA003B5B93 /* AppDelegate.swift */; };
 		9C7296772370E6DA003B5B93 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7296762370E6DA003B5B93 /* ViewController.swift */; };
@@ -33,7 +32,6 @@
 /* Begin PBXFileReference section */
 		1327BDB387F0F2C1850C043A /* Pods-FinalProject-TheSocialQ.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinalProject-TheSocialQ.release.xcconfig"; path = "Target Support Files/Pods-FinalProject-TheSocialQ/Pods-FinalProject-TheSocialQ.release.xcconfig"; sourceTree = "<group>"; };
 		7EAA7ACED05E0DD707074EAB /* Pods-FinalProject-TheSocialQ.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinalProject-TheSocialQ.debug.xcconfig"; path = "Target Support Files/Pods-FinalProject-TheSocialQ/Pods-FinalProject-TheSocialQ.debug.xcconfig"; sourceTree = "<group>"; };
-		9C42D9692378EA6A008A563F /* APIResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResults.swift; sourceTree = "<group>"; };
 		9C4B657B2371355000B8C123 /* HostConnectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostConnectionController.swift; sourceTree = "<group>"; };
 		9C7296712370E6DA003B5B93 /* FinalProject-TheSocialQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FinalProject-TheSocialQ.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C7296742370E6DA003B5B93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,7 +98,6 @@
 				9CD9542C237297B30005C3F9 /* GuestQueueController.swift */,
 				9CD9542A23728F620005C3F9 /* Queue.swift */,
 				9CD9542823728E2A0005C3F9 /* SearchSongController.swift */,
-				9C42D9692378EA6A008A563F /* APIResults.swift */,
 				9C72967B2370E6DB003B5B93 /* Assets.xcassets */,
 				9C72967D2370E6DB003B5B93 /* LaunchScreen.storyboard */,
 				9C7296802370E6DB003B5B93 /* Info.plist */,
@@ -271,7 +268,6 @@
 				B2465DF02371F81800ED88DD /* AddHostQueueViewController.swift in Sources */,
 				9C7296752370E6DA003B5B93 /* AppDelegate.swift in Sources */,
 				9CD9542923728E2A0005C3F9 /* SearchSongController.swift in Sources */,
-				9C42D96A2378EA6A008A563F /* APIResults.swift in Sources */,
 				9CD9542B23728F620005C3F9 /* Queue.swift in Sources */,
 				9CD9BEE9238B39C9008895F7 /* HostSearchQueueViewController.swift in Sources */,
 				9CD9542D237297B30005C3F9 /* GuestQueueController.swift in Sources */,

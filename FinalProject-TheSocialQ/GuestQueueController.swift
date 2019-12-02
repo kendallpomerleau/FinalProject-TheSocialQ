@@ -159,16 +159,16 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         cellDescription.text = currentQueue.songs[indexPath.row+1].artist
         
         
-        let dotdotBtn = UIButton(frame: CGRect(x: cell.frame.maxX-20, y: cell.frame.origin.y+tableView.rowHeight/2.0, width: 20, height: 10))
-
-        dotdotBtn.setBackgroundImage(UIImage(named: "ellipses"), for: .normal)
-
-        dotdotBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+//        let dotdotBtn = UIButton(frame: CGRect(x: cell.frame.maxX-20, y: cell.frame.origin.y+tableView.rowHeight/2.0, width: 20, height: 10))
+//
+//        dotdotBtn.setBackgroundImage(UIImage(named: "ellipses"), for: .normal)
+//
+//        dotdotBtn.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
         
         cell.addSubview(cellImg)
         cell.addSubview(cellTitle)
         cell.addSubview(cellDescription)
-        cell.addSubview(dotdotBtn)
+        //cell.addSubview(dotdotBtn)
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.darkGray
@@ -187,20 +187,19 @@ class GuestQueueController: UIViewController, UITableViewDataSource {
         
     }
     
-    @objc func buttonClicked(sender : UIButton){
-        let alert = UIAlertController(title: "Clicked", message: "You have clicked on the button", preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        alert.addAction(cancelAction)
-        
-        self.present(alert, animated: true, completion: nil)
-    }
+//    @objc func buttonClicked(sender : UIButton){
+//        let alert = UIAlertController(title: "Clicked", message: "You have clicked on the button", preferredStyle: .alert)
+//
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+//
+//        alert.addAction(cancelAction)
+//
+//        self.present(alert, animated: true, completion: nil)
+//    }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "searchFromGuest" {
-            print("segue")
             let destination = segue.destination as? SearchSongController
             destination?.isHost = false
             destination?.canDirectAdd = false
