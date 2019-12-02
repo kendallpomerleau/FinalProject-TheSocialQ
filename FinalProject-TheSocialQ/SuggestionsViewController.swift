@@ -59,7 +59,7 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        currentQueue!.suggestions.count
+        currentQueue!.suggestions.count-1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
