@@ -433,26 +433,26 @@
                                 <rect key="frame" x="15" y="71" width="384" height="228"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Cbj-xv-fGm">
-                                        <rect key="frame" x="40" y="8" width="79" height="79"/>
+                                        <rect key="frame" x="25" y="15" width="79" height="79"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="79" id="dg3-dy-MNO"/>
                                             <constraint firstAttribute="width" constant="79" id="vFg-ZA-MOq"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="7iX-ix-HDt">
-                                        <rect key="frame" x="138" y="14" width="223" height="0.0"/>
+                                        <rect key="frame" x="123" y="14" width="238" height="0.0"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="Osa-pY-i7L">
-                                        <rect key="frame" x="138" y="19" width="223" height="0.0"/>
+                                        <rect key="frame" x="123" y="19" width="238" height="0.0"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="37"/>
                                         <color key="textColor" red="0.34159916639999999" green="0.71448141340000004" blue="0.37640660999999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BZF-ti-E4k">
-                                        <rect key="frame" x="40" y="119" width="321" height="2"/>
+                                        <rect key="frame" x="25" y="126" width="336" height="2"/>
                                         <color key="progressTintColor" red="0.34159916639999999" green="0.71448141340000004" blue="0.37640660999999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </progressView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbO-Tl-uai">
@@ -488,9 +488,9 @@
                                     <constraint firstItem="BZF-ti-E4k" firstAttribute="top" secondItem="Cbj-xv-fGm" secondAttribute="bottom" constant="32" id="NkF-W2-fl1"/>
                                     <constraint firstAttribute="trailing" secondItem="7iX-ix-HDt" secondAttribute="trailing" constant="23" id="Wmi-Tc-R74"/>
                                     <constraint firstItem="Osa-pY-i7L" firstAttribute="leading" secondItem="Cbj-xv-fGm" secondAttribute="trailing" constant="19" id="Xyc-ix-YJr"/>
-                                    <constraint firstItem="BZF-ti-E4k" firstAttribute="leading" secondItem="Za0-UC-YCN" secondAttribute="leading" constant="40" id="g8S-dy-pfA"/>
-                                    <constraint firstItem="Cbj-xv-fGm" firstAttribute="top" secondItem="Za0-UC-YCN" secondAttribute="top" constant="8" id="p1z-zz-jnl"/>
-                                    <constraint firstItem="Cbj-xv-fGm" firstAttribute="leading" secondItem="Za0-UC-YCN" secondAttribute="leading" constant="40" id="qEF-zK-Qqc"/>
+                                    <constraint firstItem="BZF-ti-E4k" firstAttribute="leading" secondItem="Za0-UC-YCN" secondAttribute="leading" constant="25" id="g8S-dy-pfA"/>
+                                    <constraint firstItem="Cbj-xv-fGm" firstAttribute="top" secondItem="Za0-UC-YCN" secondAttribute="top" constant="15" id="p1z-zz-jnl"/>
+                                    <constraint firstItem="Cbj-xv-fGm" firstAttribute="leading" secondItem="Za0-UC-YCN" secondAttribute="leading" constant="25" id="qEF-zK-Qqc"/>
                                     <constraint firstItem="7iX-ix-HDt" firstAttribute="top" secondItem="Za0-UC-YCN" secondAttribute="top" constant="14" id="rbd-nz-9Ag"/>
                                     <constraint firstAttribute="trailing" secondItem="BZF-ti-E4k" secondAttribute="trailing" constant="23" id="ui7-ha-rjb"/>
                                 </constraints>

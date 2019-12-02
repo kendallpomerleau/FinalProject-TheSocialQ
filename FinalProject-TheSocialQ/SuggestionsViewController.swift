@@ -33,7 +33,7 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
         currentQueue?.loadSuggestions()
         cacheImages()
         tableView.reloadData()
-
+        observeSuggested()
         // Do any additional setup after loading the view.
     }
     
@@ -57,6 +57,12 @@ class SuggestionsViewController: UIViewController, UITableViewDataSource, UITabB
         }
     }
     
+    func observeSuggested(){
+        let ref = Database.database().reference()
+        ref.child("Queue/\(currentQueue!.title)/suggestions").observe(.childAdded, with: { (snapshot) in
+            self.tableView.reloadData()
+        })
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         currentQueue!.suggestions.count-1
